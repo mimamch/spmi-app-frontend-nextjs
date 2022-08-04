@@ -1,8 +1,22 @@
 import Script from 'next/script'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Wrapper from '../../layouts/wrapper'
+import { useRouter } from 'next/router';
 
 export default function Bagian1() {
+  const {pathName} = useRouter()
+  useEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = '/assets/js/demo/datatables-demo.js'
+    script.async = true;
+
+    document.body.appendChild(script);
+
+    return () => {
+        document.body.removeChild(script);
+    };
+}, [pathName]); // router prop or w/e
   return (
     
     <>
@@ -171,10 +185,10 @@ export default function Bagian1() {
         src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"
         strategy="lazyOnload"
       />
-      <Script   
+      {/* <Script   
         src="/assets/js/demo/datatables-demo.js"
         strategy="lazyOnload"
-      />
+      /> */}
       
     </>
   )
