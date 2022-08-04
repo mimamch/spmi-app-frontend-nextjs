@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
-export default function useScript(url) {
+export default function UseScript({url}) {
+  const {pathname} = useRouter()
   useEffect(() => {
     const script = document.createElement("script");
 
@@ -12,5 +14,5 @@ export default function useScript(url) {
     return () => {
       document.body.removeChild(script);
     };
-  }, [url]);
+  }, [pathname]);
 }

@@ -68,8 +68,17 @@ export default function Document() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+         <link href="/assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"></link>
         <script
           src="/assets/vendor/jquery/jquery.min.js"
+          strategy="beforeInteractive"
+        />
+        <script
+          src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"
+          strategy="beforeInteractive"
+        />
+        <script
+          src="/assets/vendor/datatables/jquery.dataTables.min.js"
           strategy="beforeInteractive"
         />
       </Head>

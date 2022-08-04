@@ -1,25 +1,19 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script'
 import React, { useEffect } from 'react'
+import UseScript from '../../layouts/UseScript';
 import Wrapper from '../../layouts/wrapper'
 
 export default function Bagian1() {
   const {pathName} = useRouter()
-  useEffect(() => {
-    const script = document.createElement('script');
-
-    script.src = '/assets/js/demo/datatables-demo.js'
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-        document.body.removeChild(script);
-    };
-}, [pathName]); // router prop or w/e
+ 
   return (
     
     <>
+     <Head>
+      <title>Substandar 2 - Bagian 1</title>
+    </Head>
     <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
@@ -177,18 +171,9 @@ export default function Bagian1() {
           {/* <!-- Content Row --> */}
         </div>
       </Wrapper>
-      <Script
-        src="/assets/vendor/datatables/jquery.dataTables.min.js"
-        strategy="beforeInteractive"
-      />
-      <Script   
-        src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"
-        strategy="lazyOnload"
-      />
-      <Script   
-        src="/assets/js/demo/datatables-demo.js"
-        strategy="lazyOnload"
-      />
+      {/* <UseScript url='/assets/vendor/datatables/jquery.dataTables.min.js' />
+      <UseScript url='/assets/vendor/datatables/dataTables.bootstrap4.min.js' />
+      <UseScript url='/assets/js/demo/datatables-demo.js' /> */}
       
     </>
   )
