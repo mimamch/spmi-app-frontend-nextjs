@@ -3,31 +3,17 @@ import Js from "./js";
 import Sidebar from "./sidebar";
 import Topbar from "./topbar";
 import Footer from "./footer";
-import { getSession } from "next-auth/react";
-import axios from "axios";
-import Head from "next/head";
 import UseScript from "./UseScript";
+import { useDispatch } from "react-redux";
+import { getMe } from "../store/getUserSlice";
+
 
 export default function Wrapper(props) {
   const [user, setUser] = useState(false);
   const isLogin = user ?? props.isLogin;
-
+  const dispatch = useDispatch()
   useEffect(() => {
-    (async () => {
-      const session = await getSession();
-      if (session) {
-        setUser(session.user);
-        const userData = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/profile`,
-          {
-            headers: {
-              Authorization: `Bearer ${session.user.token}`,
-            },
-          }
-        );
-        setUser({ ...user, ...userData.data.data });
-      }
-    })();
+    dispatch(getMe())
   }, []);
 
   return (

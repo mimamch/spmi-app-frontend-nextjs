@@ -1,15 +1,53 @@
+import axios from 'axios'
+import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
+import { useState } from 'react'
+
+export const getServerSideProps = (ctx) =>{
+  if(ctx.req?.cookies?.token) return {
+    redirect: {
+      destination: '/',
+      props: {}
+    }
+  }
+  return {
+    props: {}
+  }
+}
 
 export default function Login() {
-    const login = () => null
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const router = useRouter()
+    const login = async(e) => {
+      e.preventDefault()
+      try {
+        const log = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-in`, {
+          username, password
+        })
+        if(log){
+          router.push('/')
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
   return (
     <>
-      <div
+    <Head>
+      <title>Login - SPMI</title>
+    </Head>
+     
+    <div className="container">
+       
+        {/* <!-- Outer Row --> */}
+        <div
           style={{ minHeight: "100vh" }}
-          className="row justify-content-center"
+          className="row justify-content-center "
         >
-          <div className=" my-auto col-md-3">
+          <div className="col-sm-12 col-md-6 col-xl-6 my-auto">
             <div className="card o-hidden border-0 shadow-sm ">
               <div className="card-body p-0">
                 <Link href="/">
@@ -33,10 +71,9 @@ export default function Login() {
                         className="user"
                         onSubmit={login}
                         data-aos="slide-left"
-                        // method="post"
-                        // action="/api/auth/callback/credentials"
+                      
                       >
-                       
+                    
                         <div className="form-group">
                           <input
                             onChange={(e) => setUsername(e.target.value)}
@@ -88,6 +125,9 @@ export default function Login() {
             </div>
           </div>
         </div>
+      </div>
+
+       
       
     </>
   )

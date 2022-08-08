@@ -5,13 +5,11 @@ import "../styles/globals.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
-// function MyApp({ Component, pageProps }) {
-//   return <Component {...pageProps} />;
-// }
+import axios from "axios";
+import { store } from "../store/store";
+import { Provider } from "react-redux";
+axios.defaults.withCredentials = true;
 
-// export default MyApp;
-
-import { SessionProvider } from "next-auth/react";
 export default function App({
   Component,
   pageProps: { session, ...pageProps },
@@ -22,8 +20,8 @@ export default function App({
     });
   }, []);
   return (
-    <SessionProvider session={session}>
+    <Provider store={store}>
       <Component {...pageProps} />
-    </SessionProvider>
+    </Provider>
   );
 }

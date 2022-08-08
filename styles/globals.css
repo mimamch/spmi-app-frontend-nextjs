@@ -11,9 +11,7 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-} */
+
 
 @media screen and (min-width: 801px) {
   .headingTitle {
@@ -25,7 +23,18 @@ a {
   }
 }
 
-/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+*{
+  box-sizing: border-box;
+}
 @media screen and (max-width: 800px) {
   .headingTitle {
     font-size: 3em;

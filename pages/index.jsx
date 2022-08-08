@@ -5,42 +5,12 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 import IDRConverter from "../layouts/components/IDRConverter";
 import Swal from "sweetalert2";
-
-// export const getServerSideProps = async (ctx) => {
-//   try {
-//     const userData = await axios.get(
-//       "https://api.mimamch.online/api/v1/user/profile",
-//       {
-//         headers: {
-//           Authorization: `Bearer ${ctx.req.cookies.jwt}`,
-//         },
-//       }
-//     );
-
-//     return {
-//       props: {
-//         // category: category.data.data,
-//         token: ctx.req.cookies.jwt,
-//         userData: userData.data.data,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         // category: category.data.data,
-//         token: ctx.req.cookies.jwt,
-//         userData: { username: "guest" },
-//       },
-//     };
-//   }
-// };
-
+import {  useSelector } from "react-redux";
 
 export default function Home(props) {
-  // const userData = props.userData;
-  useEffect(() => {
-   
-  }, []);
+ 
+  const {getMe} = useSelector((state) => state)
+
   return (
     <>
       <Head>
@@ -50,7 +20,7 @@ export default function Home(props) {
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 className="h3 mb-0 text-gray-800">{getMe.user ? `Halo ${getMe.user.fullName}...` : 'Dashboard'}</h1>
           </div>
           <div className="row">
             <div className="col-sm-6">
