@@ -7,18 +7,16 @@ import UseScript from "./UseScript";
 import { useDispatch } from "react-redux";
 import { getMe } from "../store/getUserSlice";
 
-
 export default function Wrapper(props) {
   const [user, setUser] = useState(false);
   const isLogin = user ?? props.isLogin;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getMe())
+    dispatch(getMe());
   }, []);
 
   return (
     <>
-   
       <div id="wrapper">
         {/* <!-- Sidebar --> */}
         {!props.hideSidebar && (
@@ -47,11 +45,11 @@ export default function Wrapper(props) {
         {/* <!-- End of Content Wrapper --> */}
       </div>
       {/* <UseScript url='/assets/vendor/bootstrap/js/bootstrap.bundle.min.js'/> */}
-      <UseScript url='/assets/vendor/jquery-easing/jquery.easing.min.js'/>
-      <UseScript url='/assets/js/sb-admin-2.min.js'/>
+      <UseScript url="/assets/vendor/jquery-easing/jquery.easing.min.js" />
+      <UseScript url="/assets/js/sb-admin-2.min.js" />
       {/* <UseScript url='/assets/vendor/datatables/jquery.dataTables.min.js' /> */}
-      <UseScript url='/assets/vendor/datatables/dataTables.bootstrap4.min.js' />
-      <UseScript url='/assets/js/demo/datatables-demo.js' />
+      <UseScript url="/assets/vendor/datatables/dataTables.bootstrap4.min.js" />
+      {/* <UseScript url="/assets/js/demo/datatables-demo.js" /> */}
       <Js isHome={props.isHome} />
     </>
   );

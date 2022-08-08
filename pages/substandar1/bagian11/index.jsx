@@ -19,7 +19,11 @@ export default function Bagian1() {
       const data = await axios.get(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1`
       );
+
       setData(data.data.data);
+      $(document).ready(function () {
+        $("#dataTable").DataTable();
+      });
     } catch (error) {
       console.log(error);
     }
@@ -86,57 +90,41 @@ export default function Bagian1() {
                         <td>{e.waktuDanDurasi}</td>
                         <td>{e.buktiKerjasama}</td>
                         <td>{e.tahunBerakhir}</td>
-                        <td className="pl-1">
+                        <td>
                           {user.role == "admin" && (
-                            <ul className=" row list-inline m-0 ">
-                              <li className="list-inline-item">
-                                <button
-                                  className="btn btn-success btn-sm rounded-0"
-                                  type="button"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Edit"
-                                >
-                                  <i className="fas fa-check"></i>
-                                </button>
-                              </li>
-                              <br />
-                              <li className=" row list-inline-item pl-1">
-                                <button
-                                  className="btn btn-danger btn-sm rounded-0"
-                                  type="button"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Delete"
-                                >
-                                  <i className="fas fa-times"></i>
-                                </button>
-                              </li>
-                            </ul>
+                            <div>
+                              {" "}
+                              <button
+                                className="btn btn-success btn-sm "
+                                type="button"
+                              >
+                                <i className="fas fa-check"></i> Accept
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm "
+                                type="button"
+                              >
+                                <i className="fas fa-times"></i> Decline
+                              </button>
+                            </div>
                           )}
                           {user.role == "prodi" && (
                             <ul className=" row list-inline m-0 ">
                               <li className="list-inline-item">
                                 <button
-                                  className="btn btn-success btn-sm rounded-0"
+                                  className="btn btn-success btn-sm "
                                   type="button"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Edit"
                                 >
-                                  <i className="fa fa-edit"></i>
+                                  <i className="fa fa-edit"></i> Edit
                                 </button>
                               </li>
                               <br />
-                              <li className=" row list-inline-item pl-1">
+                              <li>
                                 <button
-                                  className="btn btn-danger btn-sm rounded-0"
+                                  className="btn btn-danger btn-sm "
                                   type="button"
-                                  data-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Delete"
                                 >
-                                  <i className="fa fa-trash"></i>
+                                  <i className="fa fa-trash"></i> Delete
                                 </button>
                               </li>
                             </ul>
