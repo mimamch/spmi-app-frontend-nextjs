@@ -45,7 +45,7 @@ export default function Topbar(props) {
               aria-expanded="false"
             >
               <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                {getMe.user.username} | {getMe.user.role}
+                {getMe.user.fullName} | {getMe.user.role}
               </span>
               <img
                 className="img-profile rounded-circle"
