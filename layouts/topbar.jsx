@@ -8,12 +8,12 @@ import { useSelector } from "react-redux";
 import IDRConverter from "./components/IDRConverter";
 
 export default function Topbar(props) {
-  const {getMe} = useSelector((state) => state)
-  const router = useRouter()
+  const { getMe } = useSelector((state) => state);
+  const router = useRouter();
   const logOut = async () => {
-    await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/log-out`)
-    router.push('/login')
-    }
+    await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/log-out`);
+    router.push("/login");
+  };
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-gray-100 topbar mb-4 static-top shadow-sm">
@@ -32,7 +32,6 @@ export default function Topbar(props) {
       <ul className="navbar-nav ml-auto">
         {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
 
-
         {/* <!-- Nav Item - User Information --> */}
         {getMe.user.username ? (
           <li className="nav-item dropdown no-arrow">
@@ -46,7 +45,7 @@ export default function Topbar(props) {
               aria-expanded="false"
             >
               <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                {getMe.user.username}
+                {getMe.user.username} | {getMe.user.role}
               </span>
               <img
                 className="img-profile rounded-circle"
@@ -68,9 +67,13 @@ export default function Topbar(props) {
               </a>
 
               <div className="dropdown-divider"></div>
-              <a 
-              // onClick={signOut}
-               className="dropdown-item" onClick={logOut} style={{cursor: 'pointer'}} href="#">
+              <a
+                // onClick={signOut}
+                className="dropdown-item"
+                onClick={logOut}
+                style={{ cursor: "pointer" }}
+                href="#"
+              >
                 <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 Logout
               </a>

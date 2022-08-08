@@ -1,47 +1,51 @@
-import axios from 'axios'
-import Head from 'next/head'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React from 'react'
-import { useState } from 'react'
+import axios from "axios";
+import Head from "next/head";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { useState } from "react";
 
-export const getServerSideProps = (ctx) =>{
-  if(ctx.req?.cookies?.token) return {
-    redirect: {
-      destination: '/',
-      props: {}
-    }
-  }
+export const getServerSideProps = (ctx) => {
+  if (ctx.req?.cookies?.token)
+    return {
+      redirect: {
+        destination: "/",
+        props: {},
+      },
+    };
   return {
-    props: {}
-  }
-}
+    props: {},
+  };
+};
 
 export default function Login() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const router = useRouter()
-    const login = async(e) => {
-      e.preventDefault()
-      try {
-        const log = await axios.post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-in`, {
-          username, password
-        })
-        if(log){
-          router.push('/')
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const login = async (e) => {
+    e.preventDefault();
+    try {
+      const log = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/sign-in`,
+        {
+          username,
+          password,
         }
-      } catch (error) {
-        console.log(error)
+      );
+      if (log) {
+        router.push("/");
       }
+    } catch (error) {
+      console.log(error);
     }
+  };
   return (
     <>
-    <Head>
-      <title>Login - SPMI</title>
-    </Head>
-     
-    <div className="container">
-       
+      <Head>
+        <title>Login - SPMI</title>
+      </Head>
+
+      <div className="container">
         {/* <!-- Outer Row --> */}
         <div
           style={{ minHeight: "100vh" }}
@@ -50,13 +54,13 @@ export default function Login() {
           <div className="col-sm-12 col-md-6 col-xl-6 my-auto">
             <div className="card o-hidden border-0 shadow-sm ">
               <div className="card-body p-0">
-                <Link href="/">
-                  <a className="btn btn-dark btn-icon-split">
+                {/* <Link href="/">
+                  <a className="btn btn-primary btn-icon-split">
                     <span className="icon text-gray-600 btn-sm ">
                       <i className="fas fa-home text-gray-200"></i>
                     </span>
                   </a>
-                </Link>
+                </Link> */}
                 {/* <!-- Nested Row within Card Body --> */}
                 <div className="row">
                   {/* <div className="col-lg-6 d-none d-lg-block bg-login-image"></div> */}
@@ -71,9 +75,7 @@ export default function Login() {
                         className="user"
                         onSubmit={login}
                         data-aos="slide-left"
-                      
                       >
-                    
                         <div className="form-group">
                           <input
                             onChange={(e) => setUsername(e.target.value)}
@@ -99,7 +101,7 @@ export default function Login() {
 
                         <button
                           type="submit"
-                          className="btn btn-dark btn-user btn-block"
+                          className="btn btn-primary btn-user btn-block"
                         >
                           MASUK
                         </button>
@@ -126,9 +128,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-
-       
-      
     </>
-  )
+  );
 }
