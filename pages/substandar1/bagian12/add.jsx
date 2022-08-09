@@ -7,14 +7,14 @@ import Head from "next/head";
 import { useFormik } from "formik";
 import axios from "axios";
 
-export default function Bagian1() {
+export default function Bagian2() {
   const router = useRouter();
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
   const add = async (val) => {
     try {
       const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag2`,
         {
           ...val,
         }
@@ -33,27 +33,26 @@ export default function Bagian1() {
       manfaat: "",
       waktuDanDurasi: "",
       buktiKerjasama: "",
-      tahunBerakhir: "",
     },
     onSubmit: (values) => add(values),
   });
   return (
     <>
       <Head>
-        <title>Add Substandar 1 - Bagian 1</title>
+        <title>Add Substandar 1 - Bagian 2</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 className="h3 mb-0 text-gray-800">
-              Add Substandar 1 - Bagian 1
+              Add Substandar 1 - Bagian 2
             </h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Tabel 1 Bagian-1 Kerjasama Pendidikan
+                Tabel 1 Bagian-1 Kerjasama Penelitian
               </h6>
             </div>
             <div className="card-body">
@@ -145,20 +144,7 @@ export default function Bagian1() {
                     onChange={formik.handleChange}
                   />
                 </div>
-                <div className="form-group">
-                  <label htmlFor="text6">Tahun Berakhirnya Kerjasama</label>
-                  <input
-                    required
-                    type="number"
-                    className="form-control"
-                    id="text6"
-                    name="tahunBerakhir"
-                    placeholder=""
-                    autoComplete="off"
-                    value={formik.values.tahunBerakhir}
-                    onChange={formik.handleChange}
-                  />
-                </div>
+
                 <button type="submit" className="btn btn-success">
                   <i className="fa fa-plus"></i> Tambah Data
                 </button>

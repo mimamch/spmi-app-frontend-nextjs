@@ -1,20 +1,18 @@
-import Script from "next/script";
 import React, { useEffect } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
-import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import { useFormik } from "formik";
 import axios from "axios";
 
-export default function Bagian1() {
+export default function Bagian3() {
   const router = useRouter();
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
   const add = async (val) => {
     try {
       const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag3`,
         {
           ...val,
         }
@@ -40,20 +38,20 @@ export default function Bagian1() {
   return (
     <>
       <Head>
-        <title>Add Substandar 1 - Bagian 1</title>
+        <title>Add Substandar 1 - Bagian 3</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 className="h3 mb-0 text-gray-800">
-              Add Substandar 1 - Bagian 1
+              Add Substandar 1 - Bagian-3 Kerjasama Pengabdian kepada Masyarakat
             </h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Tabel 1 Bagian-1 Kerjasama Pendidikan
+                Bagian-3 Kerjasama Pengabdian kepada Masyarakat
               </h6>
             </div>
             <div className="card-body">
@@ -61,7 +59,6 @@ export default function Bagian1() {
                 <div className="form-group">
                   <label htmlFor="text1">Lembaga Mitra</label>
                   <input
-                    required
                     type="text"
                     className="form-control"
                     id="text1"
@@ -70,17 +67,18 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.lembagaMitra}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="tingkat">Tingkat</label>
                   <select
-                    required
                     className="form-control"
                     id="tingkat"
                     value={formik.values.tingkat}
                     name="tingkat"
                     onChange={formik.handleChange}
+                    required
                   >
                     <option value={"Internasional"}>Internasional</option>
                     <option value={"Nasional"}>Nasional</option>
@@ -90,7 +88,6 @@ export default function Bagian1() {
                 <div className="form-group">
                   <label htmlFor="text2">Judul Kegiatan Kerjasama</label>
                   <input
-                    required
                     type="text"
                     className="form-control"
                     id="text2"
@@ -99,6 +96,7 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.judulKegiatan}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -106,7 +104,6 @@ export default function Bagian1() {
                     Manfaat bagi PS yang Diakreditasi
                   </label>
                   <input
-                    required
                     type="text"
                     className="form-control"
                     id="text3"
@@ -115,12 +112,12 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.manfaat}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="text4">Waktu dan Durasi</label>
                   <input
-                    required
                     type="text"
                     className="form-control"
                     id="text4"
@@ -129,12 +126,12 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.waktuDanDurasi}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="text5">Bukti Kerjasama</label>
                   <input
-                    required
                     type="text"
                     className="form-control"
                     id="text5"
@@ -143,12 +140,12 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.buktiKerjasama}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
                   <label htmlFor="text6">Tahun Berakhirnya Kerjasama</label>
                   <input
-                    required
                     type="number"
                     className="form-control"
                     id="text6"
@@ -157,6 +154,7 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.tahunBerakhir}
                     onChange={formik.handleChange}
+                    required
                   />
                 </div>
                 <button type="submit" className="btn btn-success">

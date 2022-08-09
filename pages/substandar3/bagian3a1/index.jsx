@@ -1,11 +1,55 @@
-import Script from "next/script";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
-import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import Link from "next/link";
 
 export default function Bagian1() {
+  const [data, setData] = useState([]);
+
+  const { getMe } = useSelector((state) => state);
+  const { user } = getMe;
+  const { pathname } = useRouter();
+
+  const getData = async () => {
+    try {
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1`
+      );
+      setData(data.data.data);
+      $(document).ready(function () {
+        $("#dataTable").DataTable();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const action = async (id, act) => {
+    try {
+      if (act == "delete") {
+        const data = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1/${id}`
+        );
+      } else {
+        const data = await axios.put(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1/${id}`,
+          {
+            isAccepted: act == "accept" ? "accepted" : "declined",
+          }
+        );
+      }
+      getData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <Head>
@@ -18,6 +62,13 @@ export default function Bagian1() {
             <h1 className="h3 mb-0 text-gray-800">
               Tabel 3.a.1 Dosen Tetap Perguruan Tinggi
             </h1>
+            {user.role == "prodi" && (
+              <Link href={`${pathname}/add`}>
+                <a className="btn btn-primary">
+                  <i className="fa fa-plus"></i> Tambah Data
+                </a>
+              </Link>
+            )}
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
@@ -32,142 +83,121 @@ export default function Bagian1() {
                 >
                   <thead>
                     <tr>
-                      <th rowSpan="2" className="text-center">
-                        Nomor
-                      </th>
-                      <th rowSpan="2" className="text-center">
-                        Nama Dosen
-                      </th>
-                      <th rowSpan="2" className="text-center">
-                        NIDN/NIDK
-                      </th>
+                      <th rowSpan="2">No.</th>
+                      <th rowSpan="2">Nama Dosen</th>
+                      <th rowSpan="2">NIDN/NIDK</th>
                       <th colSpan="2" className="text-center">
                         Pendidikan Pascasarjana
                       </th>
-                      <th rowSpan="2" className="text-center">
-                        Bidang Keahlian
-                      </th>
-                      <th rowSpan="2" className="text-center">
-                        Kesesuaian dengan Kompetensi Inti PS
-                      </th>
-                      <th rowSpan="2" className="text-center">
-                        Jabatan Akademik
-                      </th>
-                      <th rowSpan="2" className="text-center">
-                        Sertifikat Pendidik Profesional
-                      </th>
-                      <th rowSpan="2" className="text-center">
+                      <th rowSpan="2">Bidang Keahlian</th>
+                      <th rowSpan="2">Kesesuaian dengan Kompetensi Inti PS</th>
+                      <th rowSpan="2">Jabatan Akademik</th>
+                      <th rowSpan="2">Sertifikat Pendidik Profesional</th>
+                      <th rowSpan="2">
                         Sertifikat Kompetensi/ Profesi/ Industri
                       </th>
-                      <th rowSpan="2" className="text-center">
+                      <th rowSpan="2">
                         Mata Kuliah yang Diampu pada PS yang Diakreditasi
                       </th>
-                      <th rowSpan="2" className="text-center">
+                      <th rowSpan="2">
                         Kesesuaian Bidang Keahlian dengan Mata Kuliah yang
                         Diampu
                       </th>
-                      <th rowSpan="2" className="text-center">
-                        Mata Kuliah yang Diampu pada PS Lain
-                      </th>
-                      <th rowSpan="2" className="text-center">
-                        Aksi
-                      </th>
-
+                      <th rowSpan="2">Mata Kuliah yang Diampu pada PS Lain</th>
+                      {user.role == "admin" && <th rowSpan="2">User</th>}
+                      <th rowSpan="2">Aksi</th>
                     </tr>
                     <tr>
-                      <th className="text-center">
-                        Magister/ Magister Terapan/ Spesialis
-                      </th>
-                      <th className="text-center">
-                        Doktor/ Doktor Terapan/ Spesialis
-                      </th>
+                      <th>Magister/ Magister Terapan/ Spesialis</th>
+                      <th>Doktor/ Doktor Terapan/ Spesialis</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Regional Director</td>
-                      <td>$183,000</td>
-                      <td>Shad Decker</td>
-                      <td>Regional Director</td>
-                      <td>$183,000</td>
-                      <td>Edinburgh</td>
-                      <td>6373</td>
-                      <td>s.decker@datatables.net</td>
-                      <td>6373</td>
-                      <td>6373</td>
-                      <td>s.decker@datatables.net</td>
-                      <td>6373</td>
-                      <td className="pl-1">
-                        <ul className=" row list-inline m-0 ">
-                          <li className="list-inline-item">
-                            <button
-                              className="btn btn-success btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Edit"
-                            >
-                              <i className="fa fa-edit"></i>
-                            </button>
-                          </li>
-                          <br />
-                          <li className=" row list-inline-item pl-1">
-                            <button
-                              className="btn btn-danger btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Delete"
-                            >
-                              <i className="fa fa-trash"></i>
-                            </button>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>Regional Director</td>
-                      <td>$183,000</td>
-                      <td>Shad Decker</td>
-                      <td>Regional Director</td>
-                      <td>$183,000</td>
-                      <td>Edinburgh</td>
-                      <td>6373</td>
-                      <td>6373</td>
-                      <td>s.decker@datatables.net</td>
-                      <td>6373</td>
-                      <td>s.decker@datatables.net</td>
-                      <td>6373</td>
-                      <td className="pl-1">
-                        <ul className=" row list-inline m-0 ">
-                          <li className="list-inline-item">
-                            <button
-                              className="btn btn-success btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Edit"
-                            >
-                              <i className="fa fa-edit"></i>
-                            </button>
-                          </li>
-                          <br />
-                          <li className=" row list-inline-item pl-1">
-                            <button
-                              className="btn btn-danger btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Delete"
-                            >
-                              <i className="fa fa-trash"></i>
-                            </button>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
+                    {data.map((e, i) => (
+                      <tr key={i}>
+                        <td>{i + 1}.</td>
+                        <td>{e.namaDosen}</td>
+                        <td>{e.nidn}</td>
+                        <td>{e.pendidikanPascaSarjana?.magister}</td>
+                        <td>{e.pendidikanPascaSarjana?.doktor}</td>
+                        <td>{e.bidangKeahlian}</td>
+                        <td>{e.keseuaian}</td>
+                        <td>{e.jabatanAkademik}</td>
+                        <td>{e.sertifikatPendidikProfessional}</td>
+                        <td>{e.sertifikatKompetensi}</td>
+                        <td>{e.mataKuliahYangDiAmpuPadaPsAkreditasi}</td>
+                        <td>{e.kesesuaianBidangKeahlian}</td>
+                        <td>{e.mataKuliahYangDiAmpuPadaPsLain}</td>
+
+                        {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        <td key={i}>
+                          {user.role == "admin" && !e.isAccepted && (
+                            <div>
+                              {" "}
+                              <button
+                                className="btn btn-success btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "accept")}
+                              >
+                                <i className="fas fa-check"></i> Accept
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "decline")}
+                              >
+                                <i className="fas fa-times"></i> Decline
+                              </button>
+                            </div>
+                          )}
+                          {user.role == "admin" && e.isAccepted && (
+                            <div>
+                              {" "}
+                              <button
+                                className={`btn btn-${
+                                  e.isAccepted == "declined"
+                                    ? "danger"
+                                    : "success"
+                                } btn-sm disabled`}
+                                type="button"
+                                disabled
+                              >
+                                <i
+                                  className={`fas fa-${
+                                    e.isAccepted == "accepted"
+                                      ? "check"
+                                      : "times"
+                                  }`}
+                                ></i>{" "}
+                                {e.isAccepted == "declined"
+                                  ? "Declined"
+                                  : e.isAccepted == "accepted" && "Accepted"}
+                              </button>
+                            </div>
+                          )}
+                          {user.role == "prodi" && (
+                            <div>
+                              <Link href={`${pathname}/${e._id}`}>
+                                <a
+                                  className="btn btn-success btn-sm "
+                                  type="button"
+                                >
+                                  <i className="fa fa-edit"></i> Edit
+                                </a>
+                              </Link>
+
+                              <button
+                                className="btn btn-danger btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "delete")}
+                              >
+                                <i className="fa fa-trash"></i> Delete
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

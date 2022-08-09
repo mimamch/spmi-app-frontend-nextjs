@@ -1,11 +1,6 @@
 import axios from "axios";
-import Cookies from "cookies";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { destroyCookie, setCookie } from "nookies";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import IDRConverter from "./components/IDRConverter";
 
 export default function Topbar(props) {
   const { getMe } = useSelector((state) => state);
@@ -57,15 +52,6 @@ export default function Topbar(props) {
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
-              <a className="dropdown-item" href="/profile">
-                <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                Profile
-              </a>
-              <a className="dropdown-item" href="/dashboard">
-                <i className="fas fa-tachometer-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                Dashboard
-              </a>
-
               <div className="dropdown-divider"></div>
               <a
                 // onClick={signOut}

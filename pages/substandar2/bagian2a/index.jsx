@@ -4,8 +4,56 @@ import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import Link from "next/link";
 
-export default function Bagian1() {
+export default function Bagian2A() {
+  const [data, setData] = useState([]);
+
+  const { getMe } = useSelector((state) => state);
+  const { user } = getMe;
+  const { pathname } = useRouter();
+
+  const getData = async () => {
+    try {
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1`
+      );
+      setData(data.data.data);
+      $(document).ready(function () {
+        $("#dataTable").DataTable();
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const action = async (id, act) => {
+    try {
+      if (act == "delete") {
+        const data = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1/${id}`
+        );
+      } else {
+        const data = await axios.put(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1/${id}`,
+          {
+            isAccepted: act == "accept" ? "accepted" : "declined",
+          }
+        );
+      }
+      getData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -15,7 +63,16 @@ export default function Bagian1() {
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">Tabel 2.a Seleksi Mahasiswa Baru</h1>
+            <h1 className="h3 mb-0 text-gray-800">
+              Tabel 2.a Seleksi Mahasiswa Baru
+            </h1>
+            {user.role == "prodi" && (
+              <Link href={`${pathname}/add`}>
+                <a className="btn btn-primary">
+                  <i className="fa fa-plus"></i> Tambah Data
+                </a>
+              </Link>
+            )}
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
@@ -23,75 +80,131 @@ export default function Bagian1() {
             </div>
             <div className="card-body">
               <div className="table-responsive">
-              <table id="dataTable" className="display table table-bordered" style={{width: '100%'}}>
-        <thead>
-            <tr>
-                <th rowSpan="2" className="text-center">Tahun Akademik</th>
-                <th rowSpan="2" className="text-center">Daya Tampung</th>
-                <th colSpan="2" className="text-center">Jumlah Calon Mahasiswa</th>
-                <th colSpan="2" className="text-center">Jumlah Mahasiswa Baru</th>
-                <th colSpan="2" className="text-center">Jumlah Mahasiswa Aktif</th>
-                <th rowSpan="2" className="text-center">Aksi</th>
-            </tr>
-            <tr>
-                <th className="text-center">Pendaftar</th>
-                <th className="text-center">Lulus Seleksi</th>
-                <th className="text-center">Reguler</th>
-                <th className="text-center">Transfer</th>
-                <th className="text-center">Reguler</th>
-                <th className="text-center">Transfer</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Shad Decker</td>
-                <td>Regional Director</td>
-                <td>$183,000</td>
-                <td>Edinburgh</td>
-                <td>6373</td>
-                <td>s.decker@datatables.net</td>
-                <td>6373</td>
-                <td>s.decker@datatables.net</td>
-                <td rowSpan="2" className="pl-1">
-                        <ul className=" row list-inline m-0 ">
-                          <li className="list-inline-item">
-                            <button
-                              className="btn btn-success btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Edit"
-                            >
-                              <i className="fa fa-edit"></i>
-                            </button>
-                          </li>
-                          <br />
-                          <li className=" row list-inline-item pl-1" >
-                            <button
-                              className="btn btn-danger btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Delete"
-                            >
-                              <i className="fa fa-trash"></i>
-                            </button>
-                          </li>
-                        </ul>
-                      </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th colSpan="2">Name</th>
-                <th>Position</th>
-                <th>Salary</th>
-                <th>Office</th>
-                <th>werrrr</th>
-                <th colSpan="2">wrrrrrrr</th>
-            </tr>
-        </tfoot>
-    </table>
+                <table
+                  id="dataTable"
+                  className="display table table-bordered"
+                  style={{ width: "100%" }}
+                >
+                  <thead>
+                    <tr>
+                      <th rowSpan="2">No.</th>
+                      <th rowSpan="2" className="text-center">
+                        Tahun Akademik
+                      </th>
+                      <th rowSpan="2" className="text-center">
+                        Daya Tampung
+                      </th>
+                      <th colSpan="2" className="text-center">
+                        Jumlah Calon Mahasiswa
+                      </th>
+                      <th colSpan="2" className="text-center">
+                        Jumlah Mahasiswa Baru
+                      </th>
+                      <th colSpan="2" className="text-center">
+                        Jumlah Mahasiswa Aktif
+                      </th>
+                      {user.role == "admin" && (
+                        <th rowSpan="2" className="text-center">
+                          User
+                        </th>
+                      )}
+
+                      <th rowSpan="2" className="text-center">
+                        Aksi
+                      </th>
+                    </tr>
+                    <tr>
+                      <th className="text-center">Pendaftar</th>
+                      <th className="text-center">Lulus Seleksi</th>
+                      <th className="text-center">Reguler</th>
+                      <th className="text-center">Transfer</th>
+                      <th className="text-center">Reguler</th>
+                      <th className="text-center">Transfer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((e, i) => (
+                      <tr key={i}>
+                        <td>{i + 1}.</td>
+                        <td>{e.tahunAkademik}</td>
+                        <td>{e.dayaTampung}</td>
+                        <td>{e.jumlahCalonMahasiswa.pendaftar}</td>
+                        <td>{e.jumlahCalonMahasiswa.lulusSeleksi}</td>
+                        <td>{e.jumlahMahasiswaBaru.reguler}</td>
+                        <td>{e.jumlahMahasiswaBaru.transfer}</td>
+                        <td>{e.jumlahMahasiswaAktif.reguler}</td>
+                        <td>{e.jumlahMahasiswaAktif.transfer}</td>
+                        {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        <td>
+                          {user.role == "admin" && !e.isAccepted && (
+                            <div>
+                              {" "}
+                              <button
+                                className="btn btn-success btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "accept")}
+                              >
+                                <i className="fas fa-check"></i> Accept
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "decline")}
+                              >
+                                <i className="fas fa-times"></i> Decline
+                              </button>
+                            </div>
+                          )}
+                          {user.role == "admin" && e.isAccepted && (
+                            <div>
+                              {" "}
+                              <button
+                                className={`btn btn-${
+                                  e.isAccepted == "declined"
+                                    ? "danger"
+                                    : "success"
+                                } btn-sm disabled`}
+                                type="button"
+                                disabled
+                              >
+                                <i
+                                  className={`fas fa-${
+                                    e.isAccepted == "accepted"
+                                      ? "check"
+                                      : "times"
+                                  }`}
+                                ></i>{" "}
+                                {e.isAccepted == "declined"
+                                  ? "Declined"
+                                  : e.isAccepted == "accepted" && "Accepted"}
+                              </button>
+                            </div>
+                          )}
+                          {user.role == "prodi" && (
+                            <div>
+                              <Link href={`${pathname}/${e._id}`}>
+                                <a
+                                  className="btn btn-success btn-sm "
+                                  type="button"
+                                >
+                                  <i className="fa fa-edit"></i> Edit
+                                </a>
+                              </Link>
+
+                              <button
+                                className="btn btn-danger btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "delete")}
+                              >
+                                <i className="fa fa-trash"></i> Delete
+                              </button>
+                            </div>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

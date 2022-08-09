@@ -1,4 +1,4 @@
-import "../public/assets/vendor/datatables/dataTables.bootstrap4.min.css";
+// import "../public/assets/vendor/datatables/dataTables.bootstrap4.min.css";
 import "../public/assets/css/sb-admin-2.min.css";
 import "../public/assets/vendor/fontawesome-free/css/all.min.css";
 import "../styles/globals.css";

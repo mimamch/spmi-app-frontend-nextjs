@@ -11,6 +11,7 @@ import axios from "axios";
 export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
+  const { pathname } = useRouter();
 
   const [data, setData] = useState([]);
 
@@ -33,6 +34,26 @@ export default function Bagian1() {
     getData();
   }, []);
 
+  const action = async (id, act) => {
+    try {
+      if (act == "delete") {
+        const data = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${id}`
+        );
+      } else {
+        const data = await axios.put(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${id}`,
+          {
+            isAccepted: act == "accept" ? "accepted" : "declined",
+          }
+        );
+      }
+      getData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -46,7 +67,7 @@ export default function Bagian1() {
               Tabel 1 Bagian-1 Kerjasama Pendidikan
             </h1>
             {user.role == "prodi" && (
-              <Link href="/substandar1/bagian11/add">
+              <Link href={`${pathname}/add`}>
                 <a className="btn btn-primary">
                   <i className="fa fa-plus"></i> Tambah Data
                 </a>
@@ -75,6 +96,7 @@ export default function Bagian1() {
                       <th>Waktu dan Durasi</th>
                       <th>Bukti Kerjasama</th>
                       <th>Tahun Berakhirnya Kerjasama</th>
+                      {user.role == "admin" && <th>User</th>}
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -90,44 +112,71 @@ export default function Bagian1() {
                         <td>{e.waktuDanDurasi}</td>
                         <td>{e.buktiKerjasama}</td>
                         <td>{e.tahunBerakhir}</td>
+                        {user.role == "admin" && <td>{e.user.fullName}</td>}
                         <td>
-                          {user.role == "admin" && (
+                          {user.role == "admin" && !e.isAccepted && (
                             <div>
                               {" "}
                               <button
                                 className="btn btn-success btn-sm "
                                 type="button"
+                                onClick={() => action(e._id, "accept")}
                               >
                                 <i className="fas fa-check"></i> Accept
                               </button>
                               <button
                                 className="btn btn-danger btn-sm "
                                 type="button"
+                                onClick={() => action(e._id, "decline")}
                               >
                                 <i className="fas fa-times"></i> Decline
                               </button>
                             </div>
                           )}
+                          {user.role == "admin" && e.isAccepted && (
+                            <div>
+                              {" "}
+                              <button
+                                className={`btn btn-${
+                                  e.isAccepted == "declined"
+                                    ? "danger"
+                                    : "success"
+                                } btn-sm disabled`}
+                                type="button"
+                                disabled
+                              >
+                                <i
+                                  className={`fas fa-${
+                                    e.isAccepted == "accepted"
+                                      ? "check"
+                                      : "times"
+                                  }`}
+                                ></i>{" "}
+                                {e.isAccepted == "declined"
+                                  ? "Declined"
+                                  : e.isAccepted == "accepted" && "Accepted"}
+                              </button>
+                            </div>
+                          )}
                           {user.role == "prodi" && (
-                            <ul className=" row list-inline m-0 ">
-                              <li className="list-inline-item">
-                                <button
+                            <div>
+                              <Link href={`${pathname}/${e._id}`}>
+                                <a
                                   className="btn btn-success btn-sm "
                                   type="button"
                                 >
                                   <i className="fa fa-edit"></i> Edit
-                                </button>
-                              </li>
-                              <br />
-                              <li>
-                                <button
-                                  className="btn btn-danger btn-sm "
-                                  type="button"
-                                >
-                                  <i className="fa fa-trash"></i> Delete
-                                </button>
-                              </li>
-                            </ul>
+                                </a>
+                              </Link>
+
+                              <button
+                                className="btn btn-danger btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "delete")}
+                              >
+                                <i className="fa fa-trash"></i> Delete
+                              </button>
+                            </div>
                           )}
                         </td>
                       </tr>

@@ -1,15 +1,10 @@
 import Head from "next/head";
 import Wrapper from "../layouts/wrapper";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { getSession } from "next-auth/react";
-import IDRConverter from "../layouts/components/IDRConverter";
-import Swal from "sweetalert2";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Home(props) {
- 
-  const {getMe} = useSelector((state) => state)
+  const { getMe } = useSelector((state) => state);
 
   return (
     <>
@@ -20,12 +15,12 @@ export default function Home(props) {
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">{getMe.user ? `Halo ${getMe.user.fullName}...` : 'Dashboard'}</h1>
+            <h1 className="h3 mb-0 text-gray-800">
+              {getMe.user ? `Halo ${getMe.user.fullName}...` : "Dashboard"}
+            </h1>
           </div>
           <div className="row">
-            <div className="col-sm-6">
-            
-            </div>
+            <div className="col-sm-6"></div>
           </div>
           {/* <!-- Content Row --> */}
           <div className="row">

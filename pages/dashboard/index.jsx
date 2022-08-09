@@ -2,61 +2,8 @@ import Head from "next/head";
 import Wrapper from "../../layouts/wrapper";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { getSession } from "next-auth/react";
 import IDRConverter from "../../layouts/components/IDRConverter";
 import Swal from "sweetalert2";
-
-// export const getServerSideProps = async (ctx) => {
-//   try {
-//     const userData = await axios.get(
-//       "https://api.mimamch.online/api/v1/user/profile",
-//       {
-//         headers: {
-//           Authorization: `Bearer ${ctx.req.cookies.jwt}`,
-//         },
-//       }
-//     );
-
-//     return {
-//       props: {
-//         // category: category.data.data,
-//         token: ctx.req.cookies.jwt,
-//         userData: userData.data.data,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         // category: category.data.data,
-//         token: ctx.req.cookies.jwt,
-//         userData: { username: "guest" },
-//       },
-//     };
-//   }
-// };
-
-export const getServerSideProps = async (ctx) => {
-  try {
-    const { user } = await getSession(ctx);
-    const getUserProfile = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/user/profile`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-    const announcements = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT2}/announcements`
-    );
-    const userData = getUserProfile.data.data;
-    return {
-      props: { userData, user, announcements: announcements.data.data },
-    };
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export default function Home(props) {
   const userData = props.userData;

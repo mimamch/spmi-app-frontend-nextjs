@@ -6,15 +6,17 @@ import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import { useFormik } from "formik";
 import axios from "axios";
+import { useState } from "react";
 
 export default function Bagian1() {
   const router = useRouter();
   const { pathname } = router;
-  const backPath = pathname.split("add")[0];
+  const backPath = pathname.split("[")[0];
+  const { id } = router.query;
   const add = async (val) => {
     try {
-      const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1`,
+      const data = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${id}`,
         {
           ...val,
         }
@@ -25,29 +27,69 @@ export default function Bagian1() {
     }
   };
 
+  const [initial, setInitial] = useState({});
+
+  const getData = async (_id) => {
+    try {
+      if (!_id) return;
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${_id}`
+      );
+      setInitial(data.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData(id);
+  }, [id]);
+
+  const temp = {
+    lembagaMitra: "",
+    tingkat: "",
+    judulKegiatan: "",
+    manfaat: "",
+    waktuDanDurasi: "",
+    buktiKerjasama: "",
+    tahunBerakhir: 353,
+  };
+
   const formik = useFormik({
-    initialValues: {
-      lembagaMitra: "",
-      tingkat: "Internasional",
-      judulKegiatan: "",
-      manfaat: "",
-      waktuDanDurasi: "",
-      buktiKerjasama: "",
-      tahunBerakhir: "",
-    },
+    // initialValues: {
+    //   lembagaMitra: initial.lembagaMitra,
+    //   tingkat: initial.tingkat,
+    //   judulKegiatan: initial.judulKegiatan,
+    //   manfaat: initial.judulKegiatan,
+    //   waktuDanDurasi: initial.waktuDanDurasi,
+    //   buktiKerjasama: initial.buktiKerjasama,
+    //   tahunBerakhir: initial.tahunBerakhir,
+    // },
+    enableReinitialize: true,
+    // initialValues: {
+    //   lembagaMitra: "",
+    //   tingkat: "",
+    //   judulKegiatan: "",
+    //   manfaat: "",
+    //   waktuDanDurasi: "",
+    //   buktiKerjasama: "",
+    //   tahunBerakhir: 353,
+    // },
+    initialValues: Object.keys(initial).length != 0 ? initial : temp,
+
     onSubmit: (values) => add(values),
   });
   return (
     <>
       <Head>
-        <title>Add Substandar 1 - Bagian 1</title>
+        <title>Edit Substandar 1 - Bagian 1</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 className="h3 mb-0 text-gray-800">
-              Add Substandar 1 - Bagian 1
+              Edit Substandar 1 - Bagian 1
             </h1>
           </div>
           <div className="card shadow mb-4">
@@ -160,7 +202,7 @@ export default function Bagian1() {
                   />
                 </div>
                 <button type="submit" className="btn btn-success">
-                  <i className="fa fa-plus"></i> Tambah Data
+                  <i className="fa fa-edit"></i> Ubah Data
                 </button>
               </form>
             </div>
