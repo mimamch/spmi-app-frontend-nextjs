@@ -9,7 +9,7 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
   const backPath = pathname.split("add")[0];
   const add = async (val) => {
     try {
-      // return console.log(val);
+      // return console.log(val, apiEndPoint);
       const data = await axios.post(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}`,
         {
@@ -24,6 +24,14 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
 
   return (
     <>
+      <style jsx>
+        {`
+          .row {
+            margin: 0;
+            padding: 0;
+          }
+        `}
+      </style>
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -45,24 +53,59 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
                 </div>
               ) : (
                 <>
-                  <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">
-                      <b>{f.title}</b>
-                    </label>
+                  <div className="form-group" style={{ marginBottom: "-5px" }}>
+                    <label className="">{f.title}</label>
                   </div>
-                  <div className="row">
+                  <div className="row justify-content-between">
                     {f.child.map((ch, ii) => (
-                      <div className="form-group col" key={ch + ii}>
-                        <label htmlFor={`InputForm${ch + ii}`}>
-                          {ch.title}
-                        </label>
-                        <Field
-                          required={true}
-                          type={ch.type}
-                          className="form-control"
-                          id={`InputForm${ch + ii}`}
-                          name={f.name + "." + ch.name}
-                        />
+                      <div key={ch + ii}>
+                        {!ch.child ? (
+                          <div className="form-group col" key={ch + ii}>
+                            <label className="" htmlFor={`InputForm${ch + ii}`}>
+                              {ch.title}
+                            </label>
+                            <Field
+                              required={true}
+                              type={ch.type}
+                              className="form-control"
+                              id={`InputForm${ch + ii}`}
+                              name={f.name + "." + ch.name}
+                            />
+                          </div>
+                        ) : (
+                          <>
+                            <div className="form-group ">
+                              <label className="">{ch.title}</label>
+                            </div>
+                            <div className="col">
+                              {ch.child.map((chch, chi) => (
+                                <div
+                                  className="form-group "
+                                  key={ch + chch + chi}
+                                >
+                                  <label
+                                    htmlFor={`InputForm${
+                                      ch + chch + chi + ch.title
+                                    }`}
+                                  >
+                                    {chch.title}
+                                  </label>
+                                  <Field
+                                    required={true}
+                                    type={chch.type}
+                                    className="form-control"
+                                    id={`InputForm${
+                                      ch + chch + chi + ch.title
+                                    }`}
+                                    name={
+                                      f.name + "." + ch.name + "." + chch.name
+                                    }
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
                       </div>
                     ))}
                   </div>

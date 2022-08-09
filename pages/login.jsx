@@ -38,11 +38,12 @@ export default function Login() {
         router.push("/");
       }
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Upsss!",
-        text: error.message,
-      });
+      if (error?.response.status == 401)
+        Swal.fire({
+          icon: "error",
+          title: "Upsss!",
+          text: error.response.data.message,
+        });
       console.log(error);
     }
   };
