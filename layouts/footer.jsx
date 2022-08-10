@@ -5,13 +5,13 @@ export default function Footer() {
       <div className="container my-auto">
         <div className="copyright text-center my-auto ">
           <span>
-            Copyright ©️ 2022, All Right Reserved. With ❤️{" "}
+            Copyright ©️ 2022, All Right Reserved. Crafted by {" "}
             <a
               target="_blank"
               className="text-gray-200"
-              href="https://facebook.com/mimamch28"
+              href="https://instagram.com/kampusubl"
             >
-              mimamch
+              Universitas Bandar Lampung
             </a>
           </span>
         </div>
