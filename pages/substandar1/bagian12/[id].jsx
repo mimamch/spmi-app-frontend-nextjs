@@ -7,6 +7,7 @@ import Head from "next/head";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
+import Cookies from "js-cookie";
 
 export default function Bagian2() {
   const router = useRouter();
@@ -20,6 +21,13 @@ export default function Bagian2() {
         {
           ...val,
         }
+      );
+      Cookies.set(
+        "flash",
+        JSON.stringify({
+          type: "success",
+          text: "Berhasil Mengubah Data",
+        })
       );
       router.push(backPath);
     } catch (error) {

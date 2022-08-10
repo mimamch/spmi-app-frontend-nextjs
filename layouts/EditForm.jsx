@@ -21,6 +21,13 @@ export default function EditFormTemplate({
           ...val,
         }
       );
+      Cookies.set(
+        "flash",
+        JSON.stringify({
+          type: "success",
+          text: "Berhasil Mengubah Data",
+        })
+      );
       router.push(backPath);
     } catch (error) {
       console.log(error.message);

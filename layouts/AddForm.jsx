@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Field, Form, Formik } from "formik";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
   const router = useRouter();
@@ -16,6 +17,14 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
           ...val,
         }
       );
+      Cookies.set(
+        "flash",
+        JSON.stringify({
+          type: "success",
+          text: "Berhasil Mengubah Data",
+        })
+      );
+
       router.push(backPath);
     } catch (error) {
       console.log(error.message);

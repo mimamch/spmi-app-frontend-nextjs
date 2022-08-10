@@ -1,10 +1,12 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import {toast} from 'react-toastify'
 
 export const getServerSideProps = (ctx) => {
   if (ctx.req?.cookies?.token)
@@ -34,16 +36,22 @@ export default function Login() {
         }
       );
       if (log) {
+        Cookies.set('flash', JSON.stringify({
+      type: 'success',
+      text: `Login Berhasil, Selamat Datang !`
+    }))
         router.push("/");
       }
     } catch (error) {
       if (error?.response.status == 401)
-        Swal.fire({
-          icon: "error",
-          title: "Upsss!",
-          text: error.response.data.message,
-        });
+        // Swal.fire({
+        //   icon: "error",
+        //   title: "Upsss!",
+        //   text: error.response.data.message,
+        // });
+        toast.error(error.response.data.message, {theme: 'colored', autoClose: 10000 })
       console.log(error);
+      
     }
   };
   return (

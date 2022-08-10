@@ -4,16 +4,27 @@ import Sidebar from "./sidebar";
 import Topbar from "./topbar";
 import Footer from "./footer";
 import UseScript from "./UseScript";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getMe } from "../store/getUserSlice";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 export default function Wrapper(props) {
   const [user, setUser] = useState(false);
   const isLogin = user ?? props.isLogin;
   const dispatch = useDispatch();
+  const router = useRouter()
+  const dis = async() => {
+      dispatch(getMe()).then(async(res) => {
+       if( res?.payload?.response?.status == 401){
+        await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/log-out`);
+        return router.push('/login')
+       }
+      })
+  }
   useEffect(() => {
-    dispatch(getMe());
-  }, []);
+  dis()
+  }, [dispatch]);
 
   return (
     <>

@@ -26,10 +26,14 @@ export const counterSlice = createSlice({
 });
 
 export const getMe = createAsyncThunk("users/getMe", async (me, thunkAPI) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/me`
-  );
-  return response.data.data;
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/me`
+    );
+    return response.data.data;
+  } catch (error) {
+    return error
+  }
 });
 
 // Action creators are generated for each case reducer function
