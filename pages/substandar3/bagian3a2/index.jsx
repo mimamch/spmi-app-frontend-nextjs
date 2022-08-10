@@ -85,7 +85,7 @@ export default function Bagian1() {
               <th rowSpan="3" className="text-center">
                 Aksi
               </th>
-              {user.role == "admin" && <td rowSpan={3}>{e.user.fullName}</td>}
+              {user.role == "admin" && <th rowSpan={3}>User</th>}
             </tr>
             <tr>
               <th colSpan="4" className="text-center">

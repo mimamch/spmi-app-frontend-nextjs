@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Sidebar(props) {
   return (
     <ul
-      className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+      className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion "
       id="accordionSidebar"
     >
       {/* Sidebar - Brand */}
