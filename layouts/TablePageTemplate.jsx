@@ -12,28 +12,9 @@ export default function TemplateTabel({
   titleHeader,
   titleTable,
 }) {
-  const [data, setData] = useState([]);
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
-
-  //   const getData = async () => {
-  //     try {
-  //       const data = await axios.get(
-  //         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}`
-  //       );
-  //       setData(data.data.data);
-  //       $(document).ready(function () {
-  //         $("#dataTable").DataTable();
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getData();
-  //   }, []);
 
   return (
     <>

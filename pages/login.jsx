@@ -33,7 +33,6 @@ export default function Login() {
           password,
         }
       );
-      console.log(log);
       if (log) {
         router.push("/");
       }
