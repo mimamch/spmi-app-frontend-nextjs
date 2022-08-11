@@ -21,7 +21,7 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
         "flash",
         JSON.stringify({
           type: "success",
-          text: "Berhasil Mengubah Data",
+          text: "Berhasil Menambah Data",
         })
       );
 

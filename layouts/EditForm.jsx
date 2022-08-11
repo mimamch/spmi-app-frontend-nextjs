@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Field, Form, Formik, useFormik } from "formik";
 import axios from "axios";
 import { useState } from "react";
+import SetFlashMessage from "./components/SetFlashMessage";
 
 export default function EditFormTemplate({
   initialValues,
@@ -21,13 +22,11 @@ export default function EditFormTemplate({
           ...val,
         }
       );
-      Cookies.set(
-        "flash",
-        JSON.stringify({
-          type: "success",
-          text: "Berhasil Mengubah Data",
-        })
-      );
+      SetFlashMessage({
+        type: "success",
+        text: "Berhasil Mengubah Data",
+      });
+
       router.push(backPath);
     } catch (error) {
       console.log(error.message);
@@ -42,9 +41,21 @@ export default function EditFormTemplate({
       const data = await axios.get(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${_id}`
       );
+      if (!data.data.data) {
+        SetFlashMessage({
+          type: "error",
+          text: "Data Tidak Ditemukan",
+        });
+        return router.push(backPath);
+      }
       setInitial(data.data.data);
     } catch (error) {
       console.log(error);
+      SetFlashMessage({
+        type: "error",
+        text: "Data Tidak Ditemukan",
+      });
+      return router.push(backPath);
     }
   };
 
