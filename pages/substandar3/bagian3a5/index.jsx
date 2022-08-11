@@ -83,8 +83,8 @@ export default function Bagian1() {
               <th>NIDK</th>
               <th>Mata Kuliah Yang Diampu</th>
               <th>Bobot Kredit (SKS)</th>
-              <th>Aksi</th>
               {user.role == "admin" && <th>User</th>}
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
