@@ -76,14 +76,15 @@ export default function Bagian1() {
         >
           <thead>
             <tr>
-              <th className="text-center">No.</th>
-              <th className="text-center">Nama Dosen Industri/Praktisi</th>
-              <th className="text-center">Pendidikan Tertinggi</th>
-              <th className="text-center">Bidang Keahlian</th>
-              <th className="text-center">NIDK</th>
-              <th className="text-center">Mata Kuliah Yang Diampu</th>
-              <th className="text-center">Bobot Kredit (SKS)</th>
-              <th className="text-center">Aksi</th>
+              <th>No.</th>
+              <th>Nama Dosen Industri/Praktisi</th>
+              <th>Pendidikan Tertinggi</th>
+              <th>Bidang Keahlian</th>
+              <th>NIDK</th>
+              <th>Mata Kuliah Yang Diampu</th>
+              <th>Bobot Kredit (SKS)</th>
+              <th>Aksi</th>
+              {user.role == "admin" && <th>User</th>}
             </tr>
           </thead>
           <tbody>

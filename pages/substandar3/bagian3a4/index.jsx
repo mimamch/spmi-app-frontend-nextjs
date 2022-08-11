@@ -43,9 +43,11 @@ export default function Bagian1() {
             isAccepted: act == "accept" ? "accepted" : "declined",
           }
         );
+        toast.success(`Berhasil Melakukan Aksi`);
       }
       getData();
     } catch (error) {
+      toast.error(`Gagal Melakukan Aksi Karena ${error.message}`);
       console.log(error);
     }
   };
