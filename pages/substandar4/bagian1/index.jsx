@@ -4,10 +4,10 @@ import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
-import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
+import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
 
 export default function Bagian1() {
@@ -16,7 +16,7 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
 
-  const apiEndPoint = `sub3/bagB71`;
+  const apiEndPoint = `sub4/`;
 
   const getData = async () => {
     try {
@@ -58,38 +58,58 @@ export default function Bagian1() {
       console.log(error);
     }
   };
-
   return (
     <>
       <Head>
-        <title>Substandar3 - Bagian 3-B-7-1</title>
+        <title>Substandar4 - Bagian 1</title>
       </Head>
       <TemplateTabel
-        titleHeader={`Tabel 3.b.7 Luaran Penelitian/PkM Lainnya oleh DTPS`}
-        titleTable={`Tabel 3.b.7 Bagian-1 HKI (Paten, Paten Sederhana)`}
+        titleHeader={`Substandar4 - Bagian 1`}
+        titleTable={`Substandar4 - Bagian 1`}
       >
         <table
           id="dataTable"
           className="display table table-bordered"
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%" }}
         >
           <thead>
             <tr>
-              <th>No.</th>
-              <th>Luaran Penelitian dan PkM</th>
-              <th>Tahun</th>
-              <th>Keterangan</th>
-              {user.role == "admin" && <th>User</th>}
-              <th>Aksi</th>
+              <th rowSpan="2">No.</th>
+              <th rowSpan="2">Jenis Penggunaan</th>
+              <th colSpan="4" className="text-center">
+                Unit Pengelola Program Studi (Rupiah)
+              </th>
+              <th colSpan="4" className="text-center">
+                Program Studi (Rupiah)
+              </th>
+              {user.role == "admin" && <td rowSpan="2">User</td>}
+              <th rowSpan="2">Aksi</th>
+            </tr>
+
+            <tr>
+              <th>TS-2</th>
+              <th>TS-1</th>
+              <th>TS</th>
+              <th>Rata-rata</th>
+              <th>TS-2</th>
+              <th>TS-1</th>
+              <th>TS</th>
+              <th>Rata-rata</th>
             </tr>
           </thead>
           <tbody>
             {data.map((e, i) => (
               <tr key={i}>
                 <td>{i + 1}.</td>
-                <td>{e.luaranPenelitian}</td>
-                <td>{e.tahun}</td>
-                <td>{e.keterangan}</td>
+                <td>{e.jenisPenggunaan}</td>
+                <td>{e.unitPengelolaanPs.TS2}</td>
+                <td>{e.unitPengelolaanPs.TS1}</td>
+                <td>{e.unitPengelolaanPs.TS}</td>
+                <td>{Math.round(e.rataRataUnitPengelolaanPs)}</td>
+                <td>{e.programStudi.TS2}</td>
+                <td>{e.programStudi.TS1}</td>
+                <td>{e.programStudi.TS}</td>
+                <td>{Math.round(e.rataRataProgramStudi)}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (

@@ -6,12 +6,13 @@ import { Form, Formik, Field } from "formik";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 export default function Add() {
   const router = useRouter();
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
-  const apiEndPoint = "sub3/bagB2";
+  const apiEndPoint = "sub4/";
   const add = async (val) => {
     try {
       // return console.log(val);
@@ -33,8 +34,13 @@ export default function Add() {
   };
 
   const initialValues = {
-    sumberPembiayaan: "",
-    jumlahJudulPenelitian: {
+    jenisPenggunaan: "",
+    unitPengelolaanPs: {
+      TS2: "",
+      TS1: "",
+      TS: "",
+    },
+    programStudi: {
       TS2: "",
       TS1: "",
       TS: "",
@@ -44,18 +50,18 @@ export default function Add() {
   return (
     <>
       <Head>
-        <title>Add Substandar 3 - Bagian 3 A 5</title>
+        <title>Add Substandar 4 - Bagian 1</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">Form Substandar 3</h1>
+            <h1 className="h3 mb-0 text-gray-800">Form Substandar 4</h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Form Substandar 3 Bagian 3 A 5
+                Form Substandar 4 Bagian 1
               </h6>
             </div>
             <div className="card-body">
@@ -64,13 +70,35 @@ export default function Add() {
                 initialValues={initialValues}
                 field={[
                   {
-                    title: "Sumber Pembiayaan",
-                    name: "sumberPembiayaan",
+                    title: "Jenis Penggunaan",
+                    name: "jenisPenggunaan",
                     type: "text",
                   },
                   {
-                    title: "Jumlah Judul Penelitian",
-                    name: "jumlahJudulPenelitian",
+                    title: "Unit Pengelolaan PS",
+                    name: "unitPengelolaanPs",
+                    type: "text",
+                    child: [
+                      {
+                        title: "TS-2",
+                        name: "TS2",
+                        type: "number",
+                      },
+                      {
+                        title: "TS-1",
+                        name: "TS1",
+                        type: "number",
+                      },
+                      {
+                        title: "TS",
+                        name: "TS",
+                        type: "number",
+                      },
+                    ],
+                  },
+                  {
+                    title: "Program Studi",
+                    name: "programStudi",
                     type: "text",
                     child: [
                       {

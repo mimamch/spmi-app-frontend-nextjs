@@ -1,40 +1,64 @@
-import Head from "next/head";
-import React from "react";
-import FormikTemplate from "../../../layouts/AddForm";
+import Script from "next/script";
+import React, { useEffect } from "react";
 import Wrapper from "../../../layouts/wrapper";
-import { Form, Formik, Field } from "formik";
 import { useRouter } from "next/router";
+import UseScript from "../../../layouts/UseScript";
+import Head from "next/head";
+import { Field, Form, Formik, useFormik } from "formik";
 import axios from "axios";
-import Swal from "sweetalert2";
+import { useState } from "react";
+import EditFormTemplate from "../../../layouts/EditForm";
+import Cookies from "js-cookie";
 
-export default function Add() {
+export default function Bagian1() {
   const router = useRouter();
   const { pathname } = router;
-  const backPath = pathname.split("add")[0];
-  const apiEndPoint = "sub3/bagB2";
+  const backPath = pathname.split("[")[0];
+  const { id } = router.query;
+  const [initial, setInitial] = useState({});
+
+  const apiEndPoint = `sub3/bagB3`;
+
   const add = async (val) => {
     try {
-      // return console.log(val);
-      const data = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}`,
+      const data = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`,
         {
           ...val,
         }
       );
+      Cookies.set(
+        "flash",
+        JSON.stringify({
+          type: "success",
+          text: "Berhasil Mengubah Data",
+        })
+      );
       router.push(backPath);
     } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Upsss!",
-        text: error.message,
-      });
+      console.log(error.message);
     }
   };
 
-  const initialValues = {
+  const getData = async (_id) => {
+    try {
+      if (!_id) return;
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${_id}`
+      );
+      setInitial(data.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData(id);
+  }, [id]);
+
+  const temp = {
     sumberPembiayaan: "",
-    jumlahJudulPenelitian: {
+    jumlahJudulPKM: {
       TS2: "",
       TS1: "",
       TS: "",
@@ -44,24 +68,26 @@ export default function Add() {
   return (
     <>
       <Head>
-        <title>Add Substandar 3 - Bagian 3 A 5</title>
+        <title>Edit Substandar 3 - Bagian B 3</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">Form Substandar 3</h1>
+            <h1 className="h3 mb-0 text-gray-800">
+              Edit Substandar 3 - Bagian B 3
+            </h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Form Substandar 3 Bagian 3 A 5
+                Edit Substandar 3 - Bagian B 3
               </h6>
             </div>
             <div className="card-body">
-              <FormikTemplate
-                apiEndPoint={apiEndPoint}
-                initialValues={initialValues}
+              <EditFormTemplate
+                initialValues={temp}
+                apiEndPoint={`${apiEndPoint}`}
                 field={[
                   {
                     title: "Sumber Pembiayaan",
@@ -69,8 +95,8 @@ export default function Add() {
                     type: "text",
                   },
                   {
-                    title: "Jumlah Judul Penelitian",
-                    name: "jumlahJudulPenelitian",
+                    title: "Jumlah Judul PKM",
+                    name: "jumlahJudulPKM",
                     type: "text",
                     child: [
                       {

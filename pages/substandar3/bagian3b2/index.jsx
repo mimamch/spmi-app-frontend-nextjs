@@ -8,6 +8,7 @@ import TemplateTabel from "../../../layouts/TablePageTemplate";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -104,38 +105,71 @@ export default function Bagian1() {
           <tbody>
             {data.map((e, i) => (
               <tr key={i}>
-                <td>1</td>
-                <td>Shad Decker</td>
-                <td>Regional Director</td>
-                <td>$183,000</td>
-                <td>Edinburgh</td>
-                <td>6373</td>
-                <td className="pl-1">
-                  <ul className=" row list-inline m-0 ">
-                    <li className="list-inline-item">
+                <td>{i + 1}.</td>
+                <td>{e.sumberPembiayaan}</td>
+                <td>{e.jumlahJudulPenelitian.TS2}</td>
+                <td>{e.jumlahJudulPenelitian.TS1}</td>
+                <td>{e.jumlahJudulPenelitian.TS}</td>
+                <td>{e.jumlah}</td>
+                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                <td>
+                  {user.role == "admin" && !e.isAccepted && (
+                    <div>
+                      {" "}
                       <button
-                        className="btn btn-success btn-sm rounded-0"
+                        className="btn btn-success btn-sm "
                         type="button"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Edit"
+                        onClick={() => action(e._id, "accept")}
                       >
-                        <i className="fa fa-edit"></i>
+                        <i className="fas fa-check"></i> Accept
                       </button>
-                    </li>
-                    <br />
-                    <li className=" row list-inline-item pl-1">
                       <button
-                        className="btn btn-danger btn-sm rounded-0"
+                        className="btn btn-danger btn-sm "
                         type="button"
-                        data-toggle="tooltip"
-                        data-placement="top"
-                        title="Delete"
+                        onClick={() => action(e._id, "decline")}
                       >
-                        <i className="fa fa-trash"></i>
+                        <i className="fas fa-times"></i> Decline
                       </button>
-                    </li>
-                  </ul>
+                    </div>
+                  )}
+                  {user.role == "admin" && e.isAccepted && (
+                    <div>
+                      {" "}
+                      <button
+                        className={`btn btn-${
+                          e.isAccepted == "declined" ? "danger" : "success"
+                        } btn-sm disabled`}
+                        type="button"
+                        disabled
+                      >
+                        <i
+                          className={`fas fa-${
+                            e.isAccepted == "accepted" ? "check" : "times"
+                          }`}
+                        ></i>{" "}
+                        {e.isAccepted == "declined"
+                          ? "Declined"
+                          : e.isAccepted == "accepted" && "Accepted"}
+                      </button>
+                    </div>
+                  )}
+                  {user.role == "prodi" && (
+                    <div>
+                      <Link href={`${pathname}/${e._id}`}>
+                        <a className="btn btn-success btn-sm " type="button">
+                          <i className="fa fa-edit"></i> Edit
+                        </a>
+                      </Link>
+
+                      <button
+                        className="btn btn-danger btn-sm "
+                        type="button"
+                        onClick={() => action(e._id, "delete")}
+                      >
+                        <i className="fa fa-trash"></i> Delete
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}

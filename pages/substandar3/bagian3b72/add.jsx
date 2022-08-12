@@ -11,7 +11,7 @@ export default function Add() {
   const router = useRouter();
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
-  const apiEndPoint = "sub3/bagB2";
+  const apiEndPoint = "sub3/bagB72";
   const add = async (val) => {
     try {
       // return console.log(val);
@@ -33,18 +33,15 @@ export default function Add() {
   };
 
   const initialValues = {
-    sumberPembiayaan: "",
-    jumlahJudulPenelitian: {
-      TS2: "",
-      TS1: "",
-      TS: "",
-    },
+    luaranPenelitian: "",
+    tahun: "",
+    keterangan: "",
   };
 
   return (
     <>
       <Head>
-        <title>Add Substandar 3 - Bagian 3 A 5</title>
+        <title>Add Substandar 3 - Bagian 3 B 7 2</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
@@ -55,7 +52,7 @@ export default function Add() {
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Form Substandar 3 Bagian 3 A 5
+                Form Substandar 3 Bagian 3 B 7 2
               </h6>
             </div>
             <div className="card-body">
@@ -64,31 +61,19 @@ export default function Add() {
                 initialValues={initialValues}
                 field={[
                   {
-                    title: "Sumber Pembiayaan",
-                    name: "sumberPembiayaan",
+                    title: "Luaran Penelitian",
+                    name: "luaranPenelitian",
                     type: "text",
                   },
                   {
-                    title: "Jumlah Judul Penelitian",
-                    name: "jumlahJudulPenelitian",
+                    title: "Tahun",
+                    name: "tahun",
+                    type: "number",
+                  },
+                  {
+                    title: "Keterangan",
+                    name: "keterangan",
                     type: "text",
-                    child: [
-                      {
-                        title: "TS-2",
-                        name: "TS2",
-                        type: "number",
-                      },
-                      {
-                        title: "TS-1",
-                        name: "TS1",
-                        type: "number",
-                      },
-                      {
-                        title: "TS",
-                        name: "TS",
-                        type: "number",
-                      },
-                    ],
                   },
                 ]}
               />

@@ -15,8 +15,9 @@ export default function Bagian1() {
   const { pathname } = router;
   const backPath = pathname.split("[")[0];
   const { id } = router.query;
+  const [initial, setInitial] = useState({});
 
-  const apiEndPoint = `sub3/bagB2`;
+  const apiEndPoint = `sub3/bagB71`;
 
   const add = async (val) => {
     try {
@@ -39,8 +40,6 @@ export default function Bagian1() {
     }
   };
 
-  const [initial, setInitial] = useState({});
-
   const getData = async (_id) => {
     try {
       if (!_id) return;
@@ -58,31 +57,28 @@ export default function Bagian1() {
   }, [id]);
 
   const temp = {
-    sumberPembiayaan: "",
-    jumlahJudulPenelitian: {
-      TS2: "",
-      TS1: "",
-      TS: "",
-    },
+    luaranPenelitian: "",
+    tahun: "",
+    keterangan: "",
   };
 
   return (
     <>
       <Head>
-        <title>Edit Substandar 1 - Bagian 1</title>
+        <title>Edit Substandar 3 - Bagian B 6</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 className="h3 mb-0 text-gray-800">
-              Edit Substandar 1 - Bagian 1
+              Edit Substandar 3 - Bagian B 6
             </h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Tabel 1 Bagian-1 Kerjasama Pendidikan
+                Edit Substandar 3 - Bagian B 6
               </h6>
             </div>
             <div className="card-body">
@@ -91,31 +87,19 @@ export default function Bagian1() {
                 apiEndPoint={`${apiEndPoint}`}
                 field={[
                   {
-                    title: "Sumber Pembiayaan",
-                    name: "sumberPembiayaan",
+                    title: "Luaran Penelitian",
+                    name: "luaranPenelitian",
                     type: "text",
                   },
                   {
-                    title: "Jumlah Judul Penelitian",
-                    name: "jumlahJudulPenelitian",
+                    title: "Tahun",
+                    name: "tahun",
+                    type: "number",
+                  },
+                  {
+                    title: "Keterangan",
+                    name: "keterangan",
                     type: "text",
-                    child: [
-                      {
-                        title: "TS-2",
-                        name: "TS2",
-                        type: "number",
-                      },
-                      {
-                        title: "TS-1",
-                        name: "TS1",
-                        type: "number",
-                      },
-                      {
-                        title: "TS",
-                        name: "TS",
-                        type: "number",
-                      },
-                    ],
                   },
                 ]}
               />
@@ -125,21 +109,6 @@ export default function Bagian1() {
           {/* <!-- Content Row --> */}
         </div>
       </Wrapper>
-      {/* <Script
-        src="/assets/vendor/datatables/jquery.dataTables.min.js"
-        strategy="beforeInteractive"
-      />
-      <Script   
-        src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"
-        strategy="lazyOnload"
-      /> */}
-      {/* <Script   
-        src="/assets/js/demo/datatables-demo.js"
-        strategy="lazyOnload"
-      /> */}
-      {/* <UseScript url='/assets/vendor/datatables/jquery.dataTables.min.js' />
-      <UseScript url='/assets/vendor/datatables/dataTables.bootstrap4.min.js' />
-      <UseScript url='/assets/js/demo/datatables-demo.js' /> */}
     </>
   );
 }

@@ -11,6 +11,7 @@ export default function TemplateTabel({
   apiEndPoint,
   titleHeader,
   titleTable,
+  ...props
 }) {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
@@ -22,7 +23,10 @@ export default function TemplateTabel({
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">{titleHeader || "View"}</h1>
+            <div>
+              <h1 className="h3 mb-0 text-gray-800">{titleHeader || "View"}</h1>
+              {props.titleSmall && <small>{props.titleSmall}</small>}
+            </div>
             {user.role == "prodi" && (
               <Link href={`${pathname}/add`}>
                 <a className="btn btn-primary">

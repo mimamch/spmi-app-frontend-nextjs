@@ -112,7 +112,7 @@ export default function EditFormTemplate({
         ))}
 
         <button type="submit" className="btn btn-success">
-          <i className="fa fa-plus"></i> Tambah Data
+          <i className="fa fa-plus"></i> Ubah Data
         </button>
       </Form>
     </Formik>

@@ -11,7 +11,7 @@ export default function Add() {
   const router = useRouter();
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
-  const apiEndPoint = "sub3/bagB2";
+  const apiEndPoint = "sub3/bagB41";
   const add = async (val) => {
     try {
       // return console.log(val);
@@ -33,8 +33,8 @@ export default function Add() {
   };
 
   const initialValues = {
-    sumberPembiayaan: "",
-    jumlahJudulPenelitian: {
+    jenisPublikasi: "",
+    jumlahJudul: {
       TS2: "",
       TS1: "",
       TS: "",
@@ -64,13 +64,13 @@ export default function Add() {
                 initialValues={initialValues}
                 field={[
                   {
-                    title: "Sumber Pembiayaan",
-                    name: "sumberPembiayaan",
+                    title: "Jenis Publikasi",
+                    name: "jenisPublikasi",
                     type: "text",
                   },
                   {
-                    title: "Jumlah Judul Penelitian",
-                    name: "jumlahJudulPenelitian",
+                    title: "Jumlah Judul",
+                    name: "jumlahJudul",
                     type: "text",
                     child: [
                       {

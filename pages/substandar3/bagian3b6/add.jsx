@@ -11,7 +11,7 @@ export default function Add() {
   const router = useRouter();
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
-  const apiEndPoint = "sub3/bagB2";
+  const apiEndPoint = "sub3/bagB6";
   const add = async (val) => {
     try {
       // return console.log(val);
@@ -33,18 +33,17 @@ export default function Add() {
   };
 
   const initialValues = {
-    sumberPembiayaan: "",
-    jumlahJudulPenelitian: {
-      TS2: "",
-      TS1: "",
-      TS: "",
-    },
+    namaDosen: "",
+    namaProduk: "",
+    deskripsiProduk: "",
+    bukti: "",
+    tahun: "",
   };
 
   return (
     <>
       <Head>
-        <title>Add Substandar 3 - Bagian 3 A 5</title>
+        <title>Add Substandar 3 - Bagian 3 B 6</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
@@ -55,7 +54,7 @@ export default function Add() {
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Form Substandar 3 Bagian 3 A 5
+                Form Substandar 3 Bagian 3 B 6
               </h6>
             </div>
             <div className="card-body">
@@ -64,31 +63,29 @@ export default function Add() {
                 initialValues={initialValues}
                 field={[
                   {
-                    title: "Sumber Pembiayaan",
-                    name: "sumberPembiayaan",
+                    title: "Nama Dosen",
+                    name: "namaDosen",
                     type: "text",
                   },
                   {
-                    title: "Jumlah Judul Penelitian",
-                    name: "jumlahJudulPenelitian",
+                    title: "Nama Produk",
+                    name: "namaProduk",
                     type: "text",
-                    child: [
-                      {
-                        title: "TS-2",
-                        name: "TS2",
-                        type: "number",
-                      },
-                      {
-                        title: "TS-1",
-                        name: "TS1",
-                        type: "number",
-                      },
-                      {
-                        title: "TS",
-                        name: "TS",
-                        type: "number",
-                      },
-                    ],
+                  },
+                  {
+                    title: "Deskripsi Produk",
+                    name: "deskripsiProduk",
+                    type: "text",
+                  },
+                  {
+                    title: "Bukti",
+                    name: "bukti",
+                    type: "text",
+                  },
+                  {
+                    title: "Tahun",
+                    name: "tahun",
+                    type: "number",
                   },
                 ]}
               />

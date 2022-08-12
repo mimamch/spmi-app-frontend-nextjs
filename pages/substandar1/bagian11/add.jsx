@@ -6,6 +6,7 @@ import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import { useFormik } from "formik";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function Bagian1() {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function Bagian1() {
           ...val,
         }
       );
-      (<Cookies></Cookies>).set(
+      Cookies.set(
         "flash",
         JSON.stringify({
           type: "success",
