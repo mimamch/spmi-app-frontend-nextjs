@@ -104,6 +104,7 @@ export default function Bagian1() {
                       <th colSpan="3" className="text-center">
                         Jumlah Mahasiswa Asing Paruh Waktu (Part-time)
                       </th>
+                      {user.role == "admin" && <th rowSpan="2">User</th>}
                       <th rowSpan="2">Aksi</th>
                     </tr>
                     <tr>

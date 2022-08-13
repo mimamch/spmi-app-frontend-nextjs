@@ -56,7 +56,7 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
                   <label htmlFor={`InputForm${i}`}>{f.title}</label>
                   <Field
                     required={true}
-                    type={f.type}
+                    type={f.type || "text"}
                     className="form-control"
                     id={`InputForm${i}`}
                     name={f.name}
@@ -77,7 +77,7 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
                             </label>
                             <Field
                               required={true}
-                              type={ch.type}
+                              type={ch.type || "text"}
                               className="form-control"
                               id={`InputForm${ch + ii}`}
                               name={f.name + "." + ch.name}
@@ -103,7 +103,7 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
                                   </label>
                                   <Field
                                     required={true}
-                                    type={chch.type}
+                                    type={chch.type || "text"}
                                     className="form-control"
                                     id={`InputForm${
                                       ch + chch + chi + ch.title

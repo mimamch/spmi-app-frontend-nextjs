@@ -277,8 +277,8 @@ export default function Sidebar(props) {
         >
           <div className="bg-white py-2 collapse-inner rounded">
             <h6 className="collapse-header">Bagian :</h6>
-            <Link href="/substandar7/bagian7">
-              <a className="collapse-item">Bagian 7</a>
+            <Link href="/substandar7/bagian1">
+              <a className="collapse-item">Bagian 1</a>
             </Link>
           </div>
         </div>

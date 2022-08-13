@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
+import { toast } from "react-toastify";
 import Head from "next/head";
 import { useSelector } from "react-redux";
-import toast from "react-toastify";
-import { axios } from "axios";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
+import axios from "axios";
 import Link from "next/link";
 
 export default function Bagian1() {
@@ -16,7 +16,7 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
 
-  const apiEndPoint = `sub6/bag6A`;
+  const apiEndPoint = `sub7`;
 
   const getData = async () => {
     try {
@@ -29,6 +29,7 @@ export default function Bagian1() {
       });
     } catch (error) {
       console.log(error);
+      toast.error(`Error Getting Data :  ${error.message}`);
     }
   };
 
@@ -61,19 +62,21 @@ export default function Bagian1() {
   return (
     <>
       <Head>
-        <title>Substandar6 - Bagian 6-A</title>
+        <title>Substandar 7</title>
       </Head>
       <TemplateTabel
-        titleHeader={`Tabel 6.a Penelitian DTPS yang Melibatkan Mahasiswa`}
-        titleTable={`Tabel 6.a Penelitian DTPS yang Melibatkan Mahasiswa`}
-        titleSmall={`Diisi oleh pengusul dari Program Studi pada program Sarjana/Sarjana Terapan/Magister/Magister Terapan/ Doktor/ Doktor Terapan.`}
+        titleHeader={` Tabel 7 PkM DTPS yang Melibatkan Mahasiswa`}
+        titleTable={`Tabel 7 PkM DTPS yang Melibatkan Mahasiswa`}
+        titleSmall={
+          "Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan."
+        }
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>
             <tr>
               <th>Nomor</th>
               <th>Nama Dosen</th>
-              <th>Tema Penelitian sesuai Roadmap</th>
+              <th>Tema PkM sesuai Roadmap</th>
               <th>Nama Mahasiswa</th>
               <th>Judul Kegiatan</th>
               <th>Tahun</th>
@@ -86,7 +89,7 @@ export default function Bagian1() {
               <tr key={i}>
                 <td>{i + 1}.</td>
                 <td>{e.namaDosen}</td>
-                <td>{e.temaPenelitianSesuaiRoadMap}</td>
+                <td>{e.temaPKMSesuaiRoadMap}</td>
                 <td>{e.namaMahasiswa}</td>
                 <td>{e.judulKegiatan}</td>
                 <td>{e.tahun}</td>

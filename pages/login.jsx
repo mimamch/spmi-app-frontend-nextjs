@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
 export const getServerSideProps = (ctx) => {
   if (ctx.req?.cookies?.token)
@@ -25,6 +25,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const nextUrl = Cookies.get("nextUrl");
   const login = async (e) => {
     e.preventDefault();
     try {
@@ -36,11 +37,15 @@ export default function Login() {
         }
       );
       if (log) {
-        Cookies.set('flash', JSON.stringify({
-      type: 'success',
-      text: `Login Berhasil, Selamat Datang !`
-    }))
-        router.push("/");
+        Cookies.set(
+          "flash",
+          JSON.stringify({
+            type: "success",
+            text: `Login Berhasil, Selamat Datang !`,
+          })
+        );
+        nextUrl ? Cookies.remove("nextUrl") : null;
+        router.push(nextUrl ? nextUrl : "/");
       }
     } catch (error) {
       if (error?.response.status == 401)
@@ -49,9 +54,11 @@ export default function Login() {
         //   title: "Upsss!",
         //   text: error.response.data.message,
         // });
-        toast.error(error.response.data.message, {theme: 'colored', autoClose: 10000 })
+        toast.error(error.response.data.message, {
+          theme: "colored",
+          autoClose: 10000,
+        });
       console.log(error);
-      
     }
   };
   return (
