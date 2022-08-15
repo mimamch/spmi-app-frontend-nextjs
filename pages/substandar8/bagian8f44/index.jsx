@@ -1,117 +1,161 @@
 import Script from "next/script";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import TemplateTabel from "../../../layouts/TablePageTemplate";
+import Link from "next/link";
 
 export default function Bagian1() {
+  const [data, setData] = useState([]);
+  const { pathname } = useRouter();
+  const { getMe } = useSelector((state) => state);
+  const { user } = getMe;
+
+  const apiEndPoint = `sub8/bag8F44`;
+
+  const getData = async () => {
+    try {
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}`
+      );
+      setData(data.data.data);
+      $(document).ready(function () {
+        $("#dataTable").DataTable();
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error(`Error Getting Data :  ${error.message}`);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const action = async (id, act) => {
+    try {
+      if (act == "delete") {
+        const data = await axios.delete(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`
+        );
+        toast.success(`Berhasil Melakukan Aksi`);
+      } else {
+        const data = await axios.put(
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`,
+          {
+            isAccepted: act == "accept" ? "accepted" : "declined",
+          }
+        );
+        toast.success(`Berhasil Melakukan Aksi`);
+      }
+      getData();
+    } catch (error) {
+      toast.error(`Gagal Melakukan Aksi Karena ${error.message}`);
+      console.log(error);
+    }
+  };
   return (
     <>
       <Head>
         <title>Substandar8 - Bagian 8-F-4-4</title>
       </Head>
-      <Wrapper>
-        <div className="container-fluid">
-          {/* <!-- Page Heading --> */}
-          <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">
-              Tabel 8.f.4 Luaran Penelitian/PkM yang Dihasilkan oleh Mahasiswa
-            </h1>
-          </div>
-          <div className="card shadow mb-4">
-            <div className="card-header py-3">
-              <h6 className="m-0 font-weight-bold text-primary">
-                Table 8-F-4-4
-              </h6>
-              <h6 className="m-0 font-weight-bold text-primary">
-              Tabel 8.f.4 Bagian-4 Buku Ber-ISBN, Book Chapter
-              </h6>
-              <h6 className="m-0 font-weight-bold text-primary">
-                Diisi oleh pengusul dari Program Studi pada program Diploma
-                Tiga/Sarjana/Sarjana Terapan
-              </h6>
-            </div>
-            <div className="card-body">
-              <div className="table-responsive">
-                <table
-                  id="dataTable"
-                  className="display table table-bordered"
-                  style={{ width: "100%", height: "100%" }}
-                >
-                  <thead>
-                    <tr>
-                      <th className="text-center">Nomor</th>
-                      <th className="text-center">Luaran Penelitian dan PkM</th>
-                      <th className="text-center">Tahun (YYYY)</th>
-                      <th className="text-center">Keterangan</th>
-                      <th className="text-center">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* <tr>
-                      <td className="text-center">II</td>
-                      <td colSpan="2" className="text-center">aa</td>
-                      <td className="text-center"></td>
-                      <td className="text-center"></td>
-                    </tr> */}
-                    <tr>
-                      <td>1</td>
-                      <td>Regional Director</td>
-                      <td>Regional Director</td>
-                      <td>Regional Director</td>
-                      <td className="pl-1">
-                        <ul className=" row list-inline m-0 ">
-                          <li className="list-inline-item">
-                            <button
-                              className="btn btn-success btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Edit"
-                            >
-                              <i className="fa fa-edit"></i>
-                            </button>
-                          </li>
-                          <br />
-                          <li className=" row list-inline-item pl-1">
-                            <button
-                              className="btn btn-danger btn-sm rounded-0"
-                              type="button"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Delete"
-                            >
-                              <i className="fa fa-trash"></i>
-                            </button>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+      <TemplateTabel
+        titleTable={"Tabel 8.f.4 Bagian-4 Buku Ber-ISBN, Book Chapter"}
+        titleHeader={
+          "Tabel 8.f.4 Luaran Penelitian/PkM yang Dihasilkan oleh Mahasiswa"
+        }
+        titleSmall={
+          "  Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan"
+        }
+      >
+        <table id="dataTable" className="display table table-bordered">
+          <thead>
+            <tr>
+              <th className="text-center">No.</th>
+              <th className="text-center">Luaran Penelitian dan PkM</th>
+              <th className="text-center">Tahun (YYYY)</th>
+              <th className="text-center">Keterangan</th>
+              {user.role == "admin" && <th className="text-center">User</th>}
+              <th className="text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((e, i) => (
+              <tr key={i}>
+                <td>{i + 1}.</td>
+                <td>{e.luaranPenelitian}</td>
+                <td>{e.tahun}</td>
+                <td>{e.keterangan}</td>
 
-          {/* <!-- Content Row --> */}
-        </div>
-      </Wrapper>
-      {/* <Script
-        src="/assets/vendor/datatables/jquery.dataTables.min.js"
-        strategy="beforeInteractive"
-      />
-      <Script   
-        src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"
-        strategy="lazyOnload"
-      /> */}
-      {/* <Script   
-        src="/assets/js/demo/datatables-demo.js"
-        strategy="lazyOnload"
-      /> */}
-      {/* <UseScript url='/assets/vendor/datatables/jquery.dataTables.min.js' />
-      <UseScript url='/assets/vendor/datatables/dataTables.bootstrap4.min.js' />
-      <UseScript url='/assets/js/demo/datatables-demo.js' /> */}
+                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                <td>
+                  {user.role == "admin" && !e.isAccepted && (
+                    <div>
+                      {" "}
+                      <button
+                        className="btn btn-success btn-sm "
+                        type="button"
+                        onClick={() => action(e._id, "accept")}
+                      >
+                        <i className="fas fa-check"></i> Accept
+                      </button>
+                      <button
+                        className="btn btn-danger btn-sm "
+                        type="button"
+                        onClick={() => action(e._id, "decline")}
+                      >
+                        <i className="fas fa-times"></i> Decline
+                      </button>
+                    </div>
+                  )}
+                  {user.role == "admin" && e.isAccepted && (
+                    <div>
+                      {" "}
+                      <button
+                        className={`btn btn-${
+                          e.isAccepted == "declined" ? "danger" : "success"
+                        } btn-sm disabled`}
+                        type="button"
+                        disabled
+                      >
+                        <i
+                          className={`fas fa-${
+                            e.isAccepted == "accepted" ? "check" : "times"
+                          }`}
+                        ></i>{" "}
+                        {e.isAccepted == "declined"
+                          ? "Declined"
+                          : e.isAccepted == "accepted" && "Accepted"}
+                      </button>
+                    </div>
+                  )}
+                  {user.role == "prodi" && (
+                    <div>
+                      <Link href={`${pathname}/${e._id}`}>
+                        <a className="btn btn-success btn-sm " type="button">
+                          <i className="fa fa-edit"></i> Edit
+                        </a>
+                      </Link>
+                      <button
+                        className="btn btn-danger btn-sm "
+                        type="button"
+                        onClick={() => action(e._id, "delete")}
+                      >
+                        <i className="fa fa-trash"></i> Delete
+                      </button>
+                    </div>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </TemplateTabel>
     </>
   );
 }

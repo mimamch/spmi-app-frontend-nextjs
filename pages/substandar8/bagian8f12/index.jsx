@@ -71,11 +71,7 @@ export default function Bagian1() {
           "Diisi oleh pengusul dari Program Studi pada program Sarjana Terapan/Magister Terapan/Doktor Terapan."
         }
       >
-        <table
-          id="dataTable"
-          className="display table table-bordered"
-          style={{ width: "100%", height: "100%" }}
-        >
+        <table id="dataTable" className="display table table-bordered">
           <thead>
             <tr>
               <th rowSpan="2" className="text-center">
