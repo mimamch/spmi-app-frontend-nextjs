@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
+import { setChartData } from "../../../store/ChartModalSlice";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
   const { pathname } = useRouter();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
-
+  const dispatch = useDispatch();
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -21,6 +22,80 @@ export default function Bagian1() {
       $(document).ready(function () {
         $("#dataTable").DataTable();
       });
+      let statusVerifikasi = {
+        accepted: 0,
+        declined: 0,
+        unverif: 0,
+      };
+
+      let pengirim = {};
+      let rataRata = {};
+      data.data.data.map((e) => {
+        e.isAccepted && e.isAccepted == "accepted"
+          ? statusVerifikasi.accepted++
+          : e.isAccepted == "declined"
+          ? statusVerifikasi.declined++
+          : statusVerifikasi.unverif++;
+        if (e.user) {
+          pengirim[e.user.fullName]
+            ? pengirim[e.user.fullName]++
+            : (pengirim[e.user.fullName] = 1);
+        }
+      });
+      dispatch(
+        setChartData([
+          {
+            type: "line",
+            title: "Prodi",
+            labels: Object.keys(pengirim),
+
+            datasets: [
+              {
+                label: "Banyak Data Dari Prodi",
+                data: Object.values(pengirim),
+
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "pie",
+            title: "Status Verifikasi",
+            labels: ["Disetujui", "Ditolak", "Belum Diverifikasi"],
+            datasets: [
+              {
+                label: "# of Votes",
+                data: [
+                  statusVerifikasi.accepted,
+                  statusVerifikasi.declined,
+                  statusVerifikasi.unverif,
+                ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+        ])
+      );
     } catch (error) {
       console.log(error);
     }
@@ -58,15 +133,12 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-A-4</title>
       </Head>
       <TemplateTabel
+        data={data}
         apiEndPoint={`sub3/bagA4`}
         titleHeader={`Substandar3 - Bagian 3-A-4`}
         titleTable={`Bagian 3-A-4`}
       >
-        <table
-          id="dataTable"
-          className="display table table-bordered"
-          style={{ width: "100%", height: "100%" }}
-        >
+        <table id="dataTable" className="display table table-bordered">
           <thead>
             <tr>
               <th className="text-center">No.</th>
@@ -92,7 +164,15 @@ export default function Bagian1() {
           <tbody>
             {data.map((e, i) => (
               <tr key={i}>
-                <td>{i + 1}.</td>
+                <td
+                  className={`${
+                    user.role == "prodi" &&
+                    ((e.isAccepted == "accepted" && "bg-success text-light") ||
+                      (e.isAccepted == "declined" && "bg-danger text-light"))
+                  }`}
+                >
+                  {i + 1}.
+                </td>
                 <td>{e.namaDosen}</td>
                 <td>{e.nidn}</td>
                 <td>{e.pendidikanPasca}</td>

@@ -5,10 +5,11 @@ import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
+import { setChartData } from "../../../store/ChartModalSlice";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ export default function Bagian1() {
   const { user } = getMe;
 
   const apiEndPoint = `sub3/bagB71`;
-
+  const dispatch = useDispatch();
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -27,6 +28,80 @@ export default function Bagian1() {
       $(document).ready(function () {
         $("#dataTable").DataTable();
       });
+
+      let statusVerifikasi = {
+        accepted: 0,
+        declined: 0,
+        unverif: 0,
+      };
+      let pengirim = {};
+      let rataRata = {};
+      data.data.data.map((e) => {
+        e.isAccepted && e.isAccepted == "accepted"
+          ? statusVerifikasi.accepted++
+          : e.isAccepted == "declined"
+          ? statusVerifikasi.declined++
+          : statusVerifikasi.unverif++;
+        if (e.user) {
+          pengirim[e.user.fullName]
+            ? pengirim[e.user.fullName]++
+            : (pengirim[e.user.fullName] = 1);
+        }
+      });
+      dispatch(
+        setChartData([
+          {
+            type: "line",
+            title: "Prodi",
+            labels: Object.keys(pengirim),
+
+            datasets: [
+              {
+                label: "Banyak Data Dari Prodi",
+                data: Object.values(pengirim),
+
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "pie",
+            title: "Status Verifikasi",
+            labels: ["Disetujui", "Ditolak", "Belum Diverifikasi"],
+            datasets: [
+              {
+                label: "# of Votes",
+                data: [
+                  statusVerifikasi.accepted,
+                  statusVerifikasi.declined,
+                  statusVerifikasi.unverif,
+                ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+        ])
+      );
     } catch (error) {
       console.log(error);
     }
@@ -65,6 +140,7 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-B-7-1</title>
       </Head>
       <TemplateTabel
+        data={data}
         titleHeader={`Tabel 3.b.7 Luaran Penelitian/PkM Lainnya oleh DTPS`}
         titleTable={`Tabel 3.b.7 Bagian-1 HKI (Paten, Paten Sederhana)`}
       >
@@ -86,7 +162,15 @@ export default function Bagian1() {
           <tbody>
             {data.map((e, i) => (
               <tr key={i}>
-                <td>{i + 1}.</td>
+                <td
+                  className={`${
+                    user.role == "prodi" &&
+                    ((e.isAccepted == "accepted" && "bg-success text-light") ||
+                      (e.isAccepted == "declined" && "bg-danger text-light"))
+                  }`}
+                >
+                  {i + 1}.
+                </td>
                 <td>{e.luaranPenelitian}</td>
                 <td>{e.tahun}</td>
                 <td>{e.keterangan}</td>

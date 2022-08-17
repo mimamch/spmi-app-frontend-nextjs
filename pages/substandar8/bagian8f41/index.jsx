@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
@@ -15,7 +15,7 @@ export default function Bagian1() {
   const { pathname } = useRouter();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
-
+  const dispatch = useDispatch();
   const apiEndPoint = `sub8/bag8F41`;
 
   const getData = async () => {
@@ -65,6 +65,7 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-F-4-1</title>
       </Head>
       <TemplateTabel
+        data={data}
         titleHeader={"Bagian-1 HKI (Paten, Paten Sederhana)"}
         titleTable={
           "Tabel 8.f.4 Luaran Penelitian/PkM yang Dihasilkan oleh Mahasiswa"
@@ -87,7 +88,15 @@ export default function Bagian1() {
           <tbody>
             {data.map((e, i) => (
               <tr key={i}>
-                <td>{i + 1}.</td>
+                <td
+                  className={`${
+                    user.role == "prodi" &&
+                    ((e.isAccepted == "accepted" && "bg-success text-light") ||
+                      (e.isAccepted == "declined" && "bg-danger text-light"))
+                  }`}
+                >
+                  {i + 1}.
+                </td>
                 <td>{e.luaranPenelitian}</td>
                 <td>{e.tahun}</td>
                 <td>{e.keterangan}</td>

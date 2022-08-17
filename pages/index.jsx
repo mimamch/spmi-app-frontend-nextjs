@@ -1,13 +1,45 @@
 import Head from "next/head";
 import Wrapper from "../layouts/wrapper";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Profiler } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-
+import { Field, Form, Formik } from "formik";
+import { toast } from "react-toastify";
 export default function Home(props) {
   const { getMe } = useSelector((state) => state);
   const [mahasiswa, setmahasiswa] = useState(0);
   const [dosen, setdosen] = useState(0);
+  const [isShow, setIsShow] = useState(false);
+  const [title, setTitle] = useState("");
+  const [initialValues, setInitialValues] = useState({});
+  const [profile, setprofile] = useState({});
+  const submit = async (val) => {
+    const data = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/edit-profile`,
+      {
+        ...val,
+      }
+    );
+    setInitialValues({});
+    setIsShow(false);
+    getProfile();
+    try {
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
+
+  const getProfile = async () => {
+    try {
+      const data = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/get-profile`
+      );
+      setprofile(data.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getData = async () => {
     const mahasiswa = await axios.get(
@@ -29,6 +61,7 @@ export default function Home(props) {
 
   useEffect(() => {
     getData();
+    getProfile();
   }, []);
 
   return (
@@ -36,6 +69,7 @@ export default function Home(props) {
       <Head>
         <title>Dashboard</title>
       </Head>
+
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
@@ -97,14 +131,22 @@ export default function Home(props) {
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
                     <h5>VISI PRODI</h5>
-                    <button className="btn btn-sm btn-success">
+                    <button
+                      className="btn btn-sm btn-success"
+                      onClick={() => {
+                        setInitialValues({});
+                        setTitle("Ubah Visi");
+                        setInitialValues({ visi: profile.visi });
+                        setIsShow(true);
+                      }}
+                    >
                       <i className="fas fa-edit"></i>
                     </button>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p className="card-text">
-                    {getMe.user && `${getMe.user.visi || "Visi Prodi"}`}
+                  <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
+                    {profile.visi}
                   </p>
                 </div>
               </div>
@@ -114,14 +156,24 @@ export default function Home(props) {
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
                     <h5>MISI PRODI</h5>
-                    <button className="btn btn-sm btn-success">
+                    <button
+                      className="btn btn-sm btn-success"
+                      onClick={() => {
+                        setInitialValues({});
+                        setTitle("Ubah Misi");
+                        setInitialValues({
+                          misi: profile.misi,
+                        });
+                        setIsShow(true);
+                      }}
+                    >
                       <i className="fas fa-edit"></i>
                     </button>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p className="card-text">
-                    {getMe.user && `${getMe.user.misi || "Misi Prodi"}`}
+                  <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
+                    {profile.misi || "Misi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -131,14 +183,24 @@ export default function Home(props) {
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
                     <h5>TUJUAN PRODI</h5>
-                    <button className="btn btn-sm btn-success">
+                    <button
+                      className="btn btn-sm btn-success"
+                      onClick={() => {
+                        setInitialValues({});
+                        setTitle("Ubah Tujuan");
+                        setInitialValues({
+                          tujuan: profile.tujuan,
+                        });
+                        setIsShow(true);
+                      }}
+                    >
                       <i className="fas fa-edit"></i>
                     </button>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p className="card-text">
-                    {getMe.user && `${getMe.user.tujuan || "Tujuan Prodi"}`}
+                  <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
+                    {profile.tujuan || "Tujuan Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -148,14 +210,24 @@ export default function Home(props) {
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
                     <h5>SASARAN PRODI</h5>
-                    <button className="btn btn-sm btn-success">
+                    <button
+                      className="btn btn-sm btn-success"
+                      onClick={() => {
+                        setInitialValues({});
+                        setTitle("Ubah Sasaran");
+                        setInitialValues({
+                          sasaran: profile.sasaran,
+                        });
+                        setIsShow(true);
+                      }}
+                    >
                       <i className="fas fa-edit"></i>
                     </button>
                   </div>
                 </div>
                 <div className="card-body">
-                  <p className="card-text">
-                    {getMe.user && `${getMe.user.sasaran || "Sasaran Prodi"}`}
+                  <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
+                    {profile.sasaran || "Sasaran Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -163,6 +235,68 @@ export default function Home(props) {
           </div>
         </div>
       </Wrapper>
+      <div
+        style={{
+          display: isShow ? "flex" : "none",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+          minWidth: "100vw",
+          position: "fixed",
+          inset: 0,
+          zIndex: 20,
+        }}
+        className="p-5"
+      >
+        <div
+          style={{
+            zIndex: 15,
+            // position: "fixed",
+            // width: "100%",
+            background: "white",
+          }}
+          className="col-md-6 p-5 rounded"
+        >
+          <Formik
+            onSubmit={submit}
+            initialValues={initialValues}
+            enableReinitialize={true}
+          >
+            <Form>
+              <div className="col">
+                <div className="form-group">
+                  <label className="h4" htmlFor="field1">
+                    {title}
+                  </label>
+                  <Field
+                    id="field1"
+                    as="textarea"
+                    type="text"
+                    className="form-control"
+                    name={`${Object.keys(initialValues)[0]}`}
+                    style={{ minHeight: "150px" }}
+                  ></Field>
+                </div>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </Form>
+          </Formik>
+        </div>
+        <div
+          onClick={() => setIsShow(false)}
+          style={{
+            background: "black",
+            inset: 0,
+            position: "fixed",
+            zIndex: 10,
+            opacity: "25%",
+          }}
+        ></div>
+      </div>
     </>
   );
 }

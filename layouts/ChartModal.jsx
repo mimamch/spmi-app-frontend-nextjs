@@ -38,20 +38,24 @@ export default function ChartModal() {
             }}
           ></div>
           <div
-            className="row mt-5 p-3 rounded justify-content-around"
+            className="row mt-5 p-3 rounded justify-content-around w-full "
             style={{
               zIndex: 15,
               position: "absolute",
               background: "white",
               //   display: "flex",
-              //   //   width: "100%",
+              maxWidth: "100%",
               //   justifyContent: "space-around",
             }}
           >
             {chartData.map((e, i) => {
               if (e.title == "Prodi" && user.role == "prodi") return;
               return (
-                <div className="card mx-2" key={i}>
+                <div
+                  className="card mx-2 "
+                  style={{ minWidth: "400px" }}
+                  key={i}
+                >
                   <div className="card-body">
                     <h5 className="card-title">{e.title || "Chart"}</h5>
                     {e.type == "pie" && <Pie data={e} />}
