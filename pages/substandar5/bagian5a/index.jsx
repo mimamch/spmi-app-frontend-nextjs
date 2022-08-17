@@ -72,6 +72,8 @@ export default function Bagian1() {
           <thead>
             <tr>
               <th rowSpan="2">No.</th>
+              <th rowSpan="2">Semester</th>
+              <th rowSpan="2">Kode Mata Kuliah</th>
               <th rowSpan="2">Nama Mata Kuliah</th>
               <th rowSpan="2">Mata Kuliah Kompetensi</th>
               <th colSpan="3" className="text-center">
@@ -100,24 +102,11 @@ export default function Bagian1() {
             </tr>
           </thead>
           <tbody>
-            {/* mataKuliahKompetensi: "N",
-    bobot: {
-      kuliah: "",
-      seminar: "",
-      praktikum: "",
-    },
-    konversiKreditKeJam: "",
-    capaianPembelajaran: {
-      sikap: "N",
-      pengetahuan: "N",
-      keterampilanUmum: "N",
-      keterampilanKhusus: "N",
-    },
-    dokumenRencanaPembelajaran: "",
-    unitPenyelenggara: "", */}
             {data.map((e, i) => (
               <tr key={i}>
                 <td>{i + 1}</td>
+                <td>{e.semester}</td>
+                <td>{e.kodeMataKuliah}</td>
                 <td>{e.namaMataKuliah}</td>
                 <td>{e.mataKuliahKompetensi}</td>
                 <td>{e.bobot.kuliah}</td>

@@ -17,7 +17,7 @@ export default function Bagian1() {
   const { id } = router.query;
   const [initial, setInitial] = useState({});
 
-  const apiEndPoint = `sub3/bagB74`;
+  const apiEndPoint = `sub4`;
 
   const add = async (val) => {
     try {
@@ -57,28 +57,34 @@ export default function Bagian1() {
   }, [id]);
 
   const temp = {
-    luaranPenelitian: "",
-    tahun: "",
-    keterangan: "",
+    jenisPenggunaan: "",
+    unitPengelolaanPs: {
+      TS2: "",
+      TS1: "",
+      TS: "",
+    },
+    programStudi: {
+      TS2: "",
+      TS1: "",
+      TS: "",
+    },
   };
 
   return (
     <>
       <Head>
-        <title>Edit Substandar 3 - Bagian B 7 4</title>
+        <title>Edit Substandar 4</title>
       </Head>
       <Wrapper>
         <div className="container-fluid">
           {/* <!-- Page Heading --> */}
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 className="h3 mb-0 text-gray-800">
-              Edit Substandar 3 - Bagian B 7 4
-            </h1>
+            <h1 className="h3 mb-0 text-gray-800">Edit Substandar 4</h1>
           </div>
           <div className="card shadow mb-4">
             <div className="card-header py-3">
               <h6 className="m-0 font-weight-bold text-primary">
-                Edit Substandar 3 - Bagian B 7 4
+                Edit Substandar 4
               </h6>
             </div>
             <div className="card-body">
@@ -87,19 +93,53 @@ export default function Bagian1() {
                 apiEndPoint={`${apiEndPoint}`}
                 field={[
                   {
-                    title: "Luaran Penelitian",
-                    name: "luaranPenelitian",
+                    title: "Jenis Penggunaan",
+                    name: "jenisPenggunaan",
                     type: "text",
                   },
                   {
-                    title: "Tahun",
-                    name: "tahun",
-                    type: "number",
+                    title: "Unit Pengelolaan PS",
+                    name: "unitPengelolaanPs",
+                    type: "text",
+                    child: [
+                      {
+                        title: "TS-2",
+                        name: "TS2",
+                        type: "number",
+                      },
+                      {
+                        title: "TS-1",
+                        name: "TS1",
+                        type: "number",
+                      },
+                      {
+                        title: "TS",
+                        name: "TS",
+                        type: "number",
+                      },
+                    ],
                   },
                   {
-                    title: "Keterangan",
-                    name: "keterangan",
+                    title: "Program Studi",
+                    name: "programStudi",
                     type: "text",
+                    child: [
+                      {
+                        title: "TS-2",
+                        name: "TS2",
+                        type: "number",
+                      },
+                      {
+                        title: "TS-1",
+                        name: "TS1",
+                        type: "number",
+                      },
+                      {
+                        title: "TS",
+                        name: "TS",
+                        type: "number",
+                      },
+                    ],
                   },
                 ]}
               />

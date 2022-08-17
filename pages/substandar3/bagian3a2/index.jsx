@@ -115,12 +115,12 @@ export default function Bagian1() {
                 <td>{e.jumlahMahasiswaYangDibimbing.PsAkreditasi?.TS2}</td>
                 <td>{e.jumlahMahasiswaYangDibimbing.PsAkreditasi?.TS1}</td>
                 <td>{e.jumlahMahasiswaYangDibimbing.PsAkreditasi?.TS}</td>
-                <td>{Math.round(e.avgPsAkreditasi)}</td>
+                <td>{Math.round(e.avgPsAkreditasi * 100) / 100}</td>
                 <td>{e.jumlahMahasiswaYangDibimbing.PsLain?.TS2}</td>
                 <td>{e.jumlahMahasiswaYangDibimbing.PsLain?.TS1}</td>
                 <td>{e.jumlahMahasiswaYangDibimbing.PsLain?.TS}</td>
-                <td>{Math.round(e.avgPsLain)}</td>
-                <td>{Math.round(e.avgJumlah)}</td>
+                <td>{Math.round(e.avgPsLain * 100) / 100}</td>
+                <td>{Math.round(e.avgJumlah * 100) / 100}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (

@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
+import IDRConverter from "../../../layouts/components/IDRConverter";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -66,6 +67,7 @@ export default function Bagian1() {
       <TemplateTabel
         titleHeader={`Substandar4 - Bagian 1`}
         titleTable={`Substandar4 - Bagian 1`}
+        data={data}
       >
         <table
           id="dataTable"
@@ -102,14 +104,14 @@ export default function Bagian1() {
               <tr key={i}>
                 <td>{i + 1}.</td>
                 <td>{e.jenisPenggunaan}</td>
-                <td>{e.unitPengelolaanPs.TS2}</td>
-                <td>{e.unitPengelolaanPs.TS1}</td>
-                <td>{e.unitPengelolaanPs.TS}</td>
-                <td>{Math.round(e.rataRataUnitPengelolaanPs)}</td>
-                <td>{e.programStudi.TS2}</td>
-                <td>{e.programStudi.TS1}</td>
-                <td>{e.programStudi.TS}</td>
-                <td>{Math.round(e.rataRataProgramStudi)}</td>
+                <td>{IDRConverter(e.unitPengelolaanPs.TS2)}</td>
+                <td>{IDRConverter(e.unitPengelolaanPs.TS1)}</td>
+                <td>{IDRConverter(e.unitPengelolaanPs.TS)}</td>
+                <td>{IDRConverter(Math.round(e.rataRataUnitPengelolaanPs))}</td>
+                <td>{IDRConverter(e.programStudi.TS2)}</td>
+                <td>{IDRConverter(e.programStudi.TS1)}</td>
+                <td>{IDRConverter(e.programStudi.TS)}</td>
+                <td>{IDRConverter(Math.round(e.rataRataProgramStudi))}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (

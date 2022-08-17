@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import Wrapper from "./wrapper";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
+import { setShowChart } from "../store/ChartModalSlice";
 
 export default function TemplateTabel({
   children,
   apiEndPoint,
   titleHeader,
   titleTable,
+  data,
   ...props
 }) {
+  const dispatch = useDispatch();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
@@ -36,10 +39,24 @@ export default function TemplateTabel({
             )}
           </div>
           <div className="card shadow mb-4">
-            <div className="card-header py-3">
-              <h6 className="m-0 font-weight-bold text-primary">
-                {titleTable || "Table"}
-              </h6>
+            <div className="card-header py-3 justify-content-between row">
+              <button
+                onClick={() => dispatch(setShowChart())}
+                className="btn btn-primary"
+              >
+                Tampilkan Grafik
+              </button>
+              <button
+                className={`btn btn-${
+                  data.length >= 8
+                    ? "primary"
+                    : (data.length >= 4 && "success") || "warning"
+                }`}
+              >{`Status : ${
+                data.length >= 8
+                  ? "Sangat Terpenuhi"
+                  : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
+              }`}</button>
             </div>
             <div className="card-body">
               <div className="table-responsive">{children}</div>

@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
+import ChartModal from "../layouts/ChartModal";
 
 axios.defaults.withCredentials = true;
 
@@ -52,6 +53,7 @@ export default function App({
     <Provider store={store}>
       <Component {...pageProps} />
       <ToastContainer position="bottom-right" />
+      <ChartModal />
     </Provider>
   );
 }

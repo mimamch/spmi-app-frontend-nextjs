@@ -117,8 +117,8 @@ export default function Bagian1() {
             {data.map((e, i) => (
               <tr key={i}>
                 <td>{i + 1}.</td>
-                <td>{e.dtps && "Y"}</td>
                 <td>{e.namaDosen}</td>
+                <td>{e.dtps && "Y"}</td>
                 <td>{e.ewmp.pendidikan.psYangDiakreditasi}</td>
                 <td>{e.ewmp.pendidikan.psLainDalamPT}</td>
                 <td>{e.ewmp.pendidikan.psLainLuarPT}</td>
@@ -126,7 +126,9 @@ export default function Bagian1() {
                 <td>{e.ewmp.pkm}</td>
                 <td>{e.ewmp.tugasTambahan}</td>
                 <td>{e.jumlahSks}</td>
-                <td>{e.rataRataSks && Math.round(e.rataRataSks)}</td>
+                <td>
+                  {e.rataRataSks && Math.round(e.rataRataSks * 100) / 100}
+                </td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 <td>

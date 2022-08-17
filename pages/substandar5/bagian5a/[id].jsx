@@ -57,6 +57,8 @@ export default function Bagian1() {
   }, [id]);
 
   const temp = {
+    semester: "",
+    kodeMataKuliah: "",
     namaMataKuliah: "",
     mataKuliahKompetensi: "N",
     bobot: {
@@ -111,6 +113,24 @@ export default function Bagian1() {
                 onSubmit={(values) => add(values)}
               >
                 <Form className="col-md-6">
+                  <div className="form-group">
+                    <label htmlFor="semester">Semester</label>
+                    <Field
+                      id="semester"
+                      className="form-control"
+                      type="text"
+                      name="semester"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="kode">Kode Mata Kuliah</label>
+                    <Field
+                      id="kode"
+                      className="form-control"
+                      type="text"
+                      name="kodeMataKuliah"
+                    />
+                  </div>
                   <div className="form-group">
                     <label htmlFor="nama">Nama Mata Kuliah</label>
                     <Field

@@ -5,13 +5,14 @@ import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
+import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
 
 export default function Bagian2A() {
   const [data, setData] = useState([]);
-
+  const dispatch = useDispatch();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
@@ -25,6 +26,105 @@ export default function Bagian2A() {
       $(document).ready(function () {
         $("#dataTable").DataTable();
       });
+      let statusVerifikasi = {
+        accepted: 0,
+        declined: 0,
+        unverif: 0,
+      };
+      let dayaTampung = {};
+      let pengirim = {};
+      data.data.data.map((e) => {
+        e.isAccepted && e.isAccepted == "accepted"
+          ? statusVerifikasi.accepted++
+          : e.isAccepted == "declined"
+          ? statusVerifikasi.declined++
+          : statusVerifikasi.unverif++;
+        if (e.user) {
+          pengirim[e.user.fullName]
+            ? pengirim[e.user.fullName]++
+            : (pengirim[e.user.fullName] = 1);
+        }
+
+        dayaTampung[e.tahunAkademik]
+          ? (dayaTampung[e.tahunAkademik] += e.dayaTampung)
+          : (dayaTampung[e.tahunAkademik] = e.dayaTampung);
+      });
+      dispatch(
+        setChartData([
+          {
+            type: "line",
+            title: "Prodi",
+            labels: Object.keys(pengirim),
+
+            datasets: [
+              {
+                label: "Banyak Data Dari Prodi",
+                data: Object.values(pengirim),
+
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "pie",
+            title: "Status Verifikasi",
+            labels: ["Disetujui", "Ditolak", "Belum Diverifikasi"],
+            datasets: [
+              {
+                label: "# of Votes",
+                data: [
+                  statusVerifikasi.accepted,
+                  statusVerifikasi.declined,
+                  statusVerifikasi.unverif,
+                ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "doughnut",
+            title: "Daya Tampung",
+            labels: Object.keys(dayaTampung),
+            datasets: [
+              {
+                label: "Daya Tampung",
+                data: Object.values(dayaTampung),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+        ])
+      );
     } catch (error) {
       console.log(error);
     }
@@ -75,8 +175,24 @@ export default function Bagian2A() {
             )}
           </div>
           <div className="card shadow mb-4">
-            <div className="card-header py-3">
-              <h6 className="m-0 font-weight-bold text-primary">Table 2-A</h6>
+            <div className="card-header py-3 justify-content-between row">
+              <button
+                onClick={() => dispatch(setShowChart())}
+                className="btn btn-primary"
+              >
+                Tampilkan Grafik
+              </button>
+              <button
+                className={`btn btn-${
+                  data.length >= 8
+                    ? "primary"
+                    : (data.length >= 4 && "success") || "warning"
+                }`}
+              >{`Status : ${
+                data.length >= 8
+                  ? "Sangat Terpenuhi"
+                  : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
+              }`}</button>
             </div>
             <div className="card-body">
               <div className="table-responsive">
@@ -125,7 +241,17 @@ export default function Bagian2A() {
                   <tbody>
                     {data.map((e, i) => (
                       <tr key={i}>
-                        <td>{i + 1}.</td>
+                        <td
+                          className={`${
+                            user.role == "prodi" &&
+                            ((e.isAccepted == "accepted" &&
+                              "bg-success text-light") ||
+                              (e.isAccepted == "declined" &&
+                                "bg-danger text-light"))
+                          }`}
+                        >
+                          {i + 1}.
+                        </td>
                         <td>{e.tahunAkademik}</td>
                         <td>{e.dayaTampung}</td>
                         <td>{e.jumlahCalonMahasiswa.pendaftar}</td>

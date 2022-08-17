@@ -6,7 +6,7 @@ import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import { useSelector } from "react-redux";
 import toast from "react-toastify";
-import { axios } from "axios";
+import axios from "axios";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
 
@@ -64,6 +64,7 @@ export default function Bagian1() {
         <title>Substandar6 - Bagian 6-A</title>
       </Head>
       <TemplateTabel
+        data={data}
         titleHeader={`Tabel 6.a Penelitian DTPS yang Melibatkan Mahasiswa`}
         titleTable={`Tabel 6.a Penelitian DTPS yang Melibatkan Mahasiswa`}
         titleSmall={`Diisi oleh pengusul dari Program Studi pada program Sarjana/Sarjana Terapan/Magister/Magister Terapan/ Doktor/ Doktor Terapan.`}

@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import toast from "react-toastify";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -67,11 +67,7 @@ export default function Bagian1() {
         titleTable="Tabel 3.b.5 Karya Ilmiah DTPS yang Disitasi"
         titleSmall="Diisi oleh pengusul dari program studi pada program Sarjana/Sarjana Terapan/Magister/Magister Terapan/Doktor/Doktor Terapan"
       >
-        <table
-          id="dataTable"
-          className="display table table-bordered"
-          style={{ width: "100%", height: "100%" }}
-        >
+        <table id="dataTable" className="display table table-bordered">
           <thead>
             <tr>
               <th>Nomor</th>
