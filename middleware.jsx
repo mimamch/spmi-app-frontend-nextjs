@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import { NextRequest, NextResponse } from "next/server";
 
 export function middleware(req) {
@@ -25,6 +26,24 @@ export function middleware(req) {
     );
     response.cookies.set("nextUrl", req.nextUrl.pathname);
     return response;
+  }
+
+  if (req.nextUrl.pathname.includes("/users")) {
+    const user = jwtDecode(req.cookies.get("token"));
+    if (user.role == "prodi") {
+      const url = new URL(req.nextUrl.origin + "/");
+      // url.searchParams.set("next", req.nextUrl.pathname);
+      let response = NextResponse.redirect(url);
+      response.cookies.set(
+        "flash",
+        JSON.stringify({
+          text: "Anda Tidak Di-izinkan mengakses halaman ini!",
+          type: "error",
+        })
+      );
+      response.cookies.set("nextUrl", req.nextUrl.pathname);
+      return response;
+    }
   }
 
   // if (
