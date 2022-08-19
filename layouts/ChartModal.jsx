@@ -18,7 +18,7 @@ export default function ChartModal() {
       {showChart && typeof window != undefined && (
         <div
           style={{
-            position: "fixed",
+            position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
@@ -53,7 +53,7 @@ export default function ChartModal() {
               return (
                 <div
                   className="card mx-2 my-2"
-                  style={{ minWidth: "400px" }}
+                  style={{ minWidth: "20%" }}
                   key={i}
                 >
                   <div className="card-body">
