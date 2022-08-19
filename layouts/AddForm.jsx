@@ -51,7 +51,24 @@ export default function FormikTemplate({ initialValues, apiEndPoint, field }) {
         <Form className="col-md-6">
           {field.map((f, i) => (
             <div key={i}>
-              {!f.child ? (
+              {f.type == "select" ? (
+                <div className="form-group">
+                  <label htmlFor={`InputForm${i}`}>{f.title}</label>
+                  <Field
+                    required={true}
+                    as="select"
+                    className="form-control"
+                    id={`InputForm${i}`}
+                    name={f.name}
+                  >
+                    {f.option.map((e, i) => (
+                      <option key={i} value={`${e.value}`}>
+                        {e.title}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+              ) : !f.child ? (
                 <div className="form-group">
                   <label htmlFor={`InputForm${i}`}>{f.title}</label>
                   <Field

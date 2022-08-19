@@ -31,7 +31,11 @@ export default function Bagian1() {
         unverif: 0,
       };
       let pengirim = {};
-      let rataRata = {};
+      let jumlahLulusanDenganWaktuTunggu = {
+        i: 0,
+        ii: 0,
+        iii: 0,
+      };
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
           ? statusVerifikasi.accepted++
@@ -43,6 +47,11 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
+        jumlahLulusanDenganWaktuTunggu.i += e.jumlahLulusanDenganWaktuTunggu.i;
+        jumlahLulusanDenganWaktuTunggu.ii +=
+          e.jumlahLulusanDenganWaktuTunggu.ii;
+        jumlahLulusanDenganWaktuTunggu.iii +=
+          e.jumlahLulusanDenganWaktuTunggu.iii;
       });
       dispatch(
         setChartData([
@@ -76,12 +85,34 @@ export default function Bagian1() {
             labels: ["Disetujui", "Ditolak", "Belum Diverifikasi"],
             datasets: [
               {
-                label: "# of Votes",
+                label: "# ",
                 data: [
                   statusVerifikasi.accepted,
                   statusVerifikasi.declined,
                   statusVerifikasi.unverif,
                 ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Waktu Tunggu",
+            labels: ["< 6 Bulan", "6 Bulan ≤ WT ≤ 18 Bulan", "> 18 Bulan"],
+            datasets: [
+              {
+                label: "# ",
+                data: Object.values(jumlahLulusanDenganWaktuTunggu),
                 backgroundColor: [
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",

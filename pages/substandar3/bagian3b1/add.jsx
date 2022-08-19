@@ -36,7 +36,7 @@ export default function Add() {
     namaDosen: "",
     bidangKeahlian: "",
     rekognisiDanBuktiPendukung: "",
-    tingkat: "",
+    tingkat: "Internasional",
     tahun: "",
   };
 
@@ -76,7 +76,12 @@ export default function Add() {
                   {
                     title: "Tingkat",
                     name: "tingkat",
-                    type: "text",
+                    type: "select",
+                    option: [
+                      { value: "Internasional", title: "Internasional" },
+                      { value: "Nasional", title: "Nasional" },
+                      { value: "Lokal", title: "Lokal" },
+                    ],
                   },
                   { title: "Tahun", name: "tahun", type: "number" },
                 ]}

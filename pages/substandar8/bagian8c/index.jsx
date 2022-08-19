@@ -31,7 +31,15 @@ export default function Bagian1() {
         unverif: 0,
       };
       let pengirim = {};
-      let rataRata = {};
+      let jumlahMahasiswaYangLulusPada = {
+        TS6: 0,
+        TS5: 0,
+        TS4: 0,
+        TS3: 0,
+        TS2: 0,
+        TS1: 0,
+        TS: 0,
+      };
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
           ? statusVerifikasi.accepted++
@@ -43,6 +51,13 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
+        jumlahMahasiswaYangLulusPada.TS6 += e.jumlahMahasiswaYangLulusPada.TS6;
+        jumlahMahasiswaYangLulusPada.TS5 += e.jumlahMahasiswaYangLulusPada.TS5;
+        jumlahMahasiswaYangLulusPada.TS4 += e.jumlahMahasiswaYangLulusPada.TS4;
+        jumlahMahasiswaYangLulusPada.TS3 += e.jumlahMahasiswaYangLulusPada.TS3;
+        jumlahMahasiswaYangLulusPada.TS2 += e.jumlahMahasiswaYangLulusPada.TS2;
+        jumlahMahasiswaYangLulusPada.TS1 += e.jumlahMahasiswaYangLulusPada.TS1;
+        jumlahMahasiswaYangLulusPada.TS += e.jumlahMahasiswaYangLulusPada.TS;
       });
       dispatch(
         setChartData([
@@ -82,6 +97,28 @@ export default function Bagian1() {
                   statusVerifikasi.declined,
                   statusVerifikasi.unverif,
                 ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Mahasiswa Yang Lulus",
+            labels: Object.keys(jumlahMahasiswaYangLulusPada),
+            datasets: [
+              {
+                label: "Jumlah Mahasiswa Yang Lulus",
+                data: Object.values(jumlahMahasiswaYangLulusPada),
                 backgroundColor: [
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",

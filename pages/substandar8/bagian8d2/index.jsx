@@ -31,7 +31,11 @@ export default function Bagian1() {
         unverif: 0,
       };
       let pengirim = {};
-      let rataRata = {};
+      let jumlahTingkatKesesuaian = {
+        rendah: 0,
+        sedang: 0,
+        tinggi: 0,
+      };
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
           ? statusVerifikasi.accepted++
@@ -43,6 +47,9 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
+        jumlahTingkatKesesuaian.rendah += e.jumlahTingkatKesesuaian.rendah;
+        jumlahTingkatKesesuaian.sedang += e.jumlahTingkatKesesuaian.sedang;
+        jumlahTingkatKesesuaian.tinggi += e.jumlahTingkatKesesuaian.tinggi;
       });
       dispatch(
         setChartData([
@@ -76,12 +83,34 @@ export default function Bagian1() {
             labels: ["Disetujui", "Ditolak", "Belum Diverifikasi"],
             datasets: [
               {
-                label: "# of Votes",
+                label: "# ",
                 data: [
                   statusVerifikasi.accepted,
                   statusVerifikasi.declined,
                   statusVerifikasi.unverif,
                 ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Kesesuaian Bidang Kerja",
+            labels: ["Rendah", "Sedang", "Tinggi"],
+            datasets: [
+              {
+                label: "# ",
+                data: Object.values(jumlahTingkatKesesuaian),
                 backgroundColor: [
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",

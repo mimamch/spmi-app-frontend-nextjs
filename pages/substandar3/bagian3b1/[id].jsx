@@ -103,7 +103,12 @@ export default function Bagian1() {
                   {
                     title: "Tingkat",
                     name: "tingkat",
-                    type: "text",
+                    type: "select",
+                    option: [
+                      { value: "Internasional", title: "Internasional" },
+                      { value: "Nasional", title: "Nasional" },
+                      { value: "Lokal", title: "Lokal" },
+                    ],
                   },
                   { title: "Tahun", name: "tahun", type: "number" },
                 ]}

@@ -33,6 +33,18 @@ export default function Bagian2A() {
       };
       let dayaTampung = {};
       let pengirim = {};
+      let jumlahCalonMahasiswa = {
+        pendaftar: 0,
+        lulusSeleksi: 0,
+      };
+      let jumlahMahasiswaBaru = {
+        reguler: 0,
+        transfer: 0,
+      };
+      let jumlahMahasiswaAktif = {
+        reguler: 0,
+        transfer: 0,
+      };
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
           ? statusVerifikasi.accepted++
@@ -48,6 +60,16 @@ export default function Bagian2A() {
         dayaTampung[e.tahunAkademik]
           ? (dayaTampung[e.tahunAkademik] += e.dayaTampung)
           : (dayaTampung[e.tahunAkademik] = e.dayaTampung);
+
+        jumlahCalonMahasiswa.pendaftar += e.jumlahCalonMahasiswa.pendaftar;
+        jumlahCalonMahasiswa.lulusSeleksi +=
+          e.jumlahCalonMahasiswa.lulusSeleksi;
+
+        jumlahMahasiswaBaru.reguler += e.jumlahMahasiswaBaru.reguler;
+        jumlahMahasiswaBaru.transfer += e.jumlahMahasiswaBaru.transfer;
+
+        jumlahMahasiswaAktif.reguler += e.jumlahMahasiswaAktif.reguler;
+        jumlahMahasiswaAktif.transfer += e.jumlahMahasiswaAktif.transfer;
       });
       dispatch(
         setChartData([
@@ -109,6 +131,72 @@ export default function Bagian2A() {
               {
                 label: "Daya Tampung",
                 data: Object.values(dayaTampung),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Calon Mahasiswa",
+            labels: ["Pendaftar", "Lulus Seleksi"],
+            datasets: [
+              {
+                label: "Jumlah Calon Mahasiswa",
+                data: Object.values(jumlahCalonMahasiswa),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Mahasiswa Baru",
+            labels: ["Reguler", "Transfer"],
+            datasets: [
+              {
+                label: "Jumlah Mahasiswa Baru",
+                data: Object.values(jumlahMahasiswaBaru),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Mahasiswa Aktif",
+            labels: ["Reguler", "Transfer"],
+            datasets: [
+              {
+                label: "Jumlah Mahasiswa Aktif",
+                data: Object.values(jumlahMahasiswaAktif),
                 backgroundColor: [
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",

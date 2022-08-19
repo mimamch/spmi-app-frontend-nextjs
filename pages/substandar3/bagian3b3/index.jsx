@@ -34,6 +34,11 @@ export default function Bagian1() {
         declined: 0,
         unverif: 0,
       };
+      let jumlahJudulPKM = {
+        TS2: 0,
+        TS1: 0,
+        TS: 0,
+      };
       let pengirim = {};
       let rataRata = {};
       data.data.data.map((e) => {
@@ -47,6 +52,9 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
+        jumlahJudulPKM.TS2 += e.jumlahJudulPKM.TS2;
+        jumlahJudulPKM.TS1 += e.jumlahJudulPKM.TS1;
+        jumlahJudulPKM.TS += e.jumlahJudulPKM.TS;
       });
       dispatch(
         setChartData([
@@ -90,6 +98,28 @@ export default function Bagian1() {
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",
                   "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Judul PKM",
+            labels: Object.keys(jumlahJudulPKM),
+            datasets: [
+              {
+                label: "Jumlah",
+                data: Object.values(jumlahJudulPKM),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.8)",
+                  "rgba(255, 0, 0, 0.7)",
+                  "rgba(255, 200, 0, 0.7)",
                 ],
                 borderColor: [
                   "rgba(242, 0, 255, 1)",

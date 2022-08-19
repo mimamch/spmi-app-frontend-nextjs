@@ -44,7 +44,7 @@ export default function ChartModal() {
               position: "absolute",
               background: "white",
               //   display: "flex",
-              maxWidth: "100%",
+              maxWidth: "85%",
               //   justifyContent: "space-around",
             }}
           >
@@ -52,7 +52,7 @@ export default function ChartModal() {
               if (e.title == "Prodi" && user.role == "prodi") return;
               return (
                 <div
-                  className="card mx-2 "
+                  className="card mx-2 my-2"
                   style={{ minWidth: "400px" }}
                   key={i}
                 >
@@ -60,7 +60,18 @@ export default function ChartModal() {
                     <h5 className="card-title">{e.title || "Chart"}</h5>
                     {e.type == "pie" && <Pie data={e} />}
                     {e.type == "doughnut" && <Doughnut data={e} />}
-                    {e.type == "bar" && <Bar data={e} />}
+                    {e.type == "bar" && (
+                      <Bar
+                        data={e}
+                        options={{
+                          plugins: {
+                            legend: {
+                              display: false,
+                            },
+                          },
+                        }}
+                      />
+                    )}
                     {e.type == "line" && <Line data={e} />}
                   </div>
                 </div>

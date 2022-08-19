@@ -31,7 +31,21 @@ export default function Bagian1() {
         declined: 0,
         unverif: 0,
       };
-      let mahasiswaAktif = {};
+      let jumlahMahasiswaAktif = {
+        TS2: 0,
+        TS1: 0,
+        TS: 0,
+      };
+      let jumlahMahasiswaAsingPenuhWaktu = {
+        TS2: 0,
+        TS1: 0,
+        TS: 0,
+      };
+      let jumlahMahasiswaAsingParuhWaktu = {
+        TS2: 0,
+        TS1: 0,
+        TS: 0,
+      };
       let pengirim = {};
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
@@ -44,10 +58,22 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
-        mahasiswaAktif[e.programStudi] =
-          e.jumlahMahasiswaAktif.TS2 +
-          e.jumlahMahasiswaAktif.TS1 +
-          e.jumlahMahasiswaAktif.TS;
+        jumlahMahasiswaAktif.TS2 += e.jumlahMahasiswaAktif.TS2;
+        jumlahMahasiswaAktif.TS1 += e.jumlahMahasiswaAktif.TS1;
+        jumlahMahasiswaAktif.TS += e.jumlahMahasiswaAktif.TS;
+
+        jumlahMahasiswaAsingPenuhWaktu.TS2 +=
+          e.jumlahMahasiswaAsingPenuhWaktu.TS2;
+        jumlahMahasiswaAsingPenuhWaktu.TS1 +=
+          e.jumlahMahasiswaAsingPenuhWaktu.TS1;
+        jumlahMahasiswaAsingPenuhWaktu.TS +=
+          e.jumlahMahasiswaAsingPenuhWaktu.TS;
+        jumlahMahasiswaAsingParuhWaktu.TS2 +=
+          e.jumlahMahasiswaAsingParuhWaktu.TS2;
+        jumlahMahasiswaAsingParuhWaktu.TS1 +=
+          e.jumlahMahasiswaAsingParuhWaktu.TS1;
+        jumlahMahasiswaAsingParuhWaktu.TS +=
+          e.jumlahMahasiswaAsingParuhWaktu.TS;
       });
       dispatch(
         setChartData([
@@ -103,12 +129,56 @@ export default function Bagian1() {
           },
           {
             type: "bar",
-            title: "Total Mahasiswa Aktif",
-            labels: Object.keys(mahasiswaAktif),
+            title: "Jumlah Mahasiswa Aktif",
+            labels: Object.keys(jumlahMahasiswaAktif),
             datasets: [
               {
                 label: "Mahasiswa",
-                data: Object.values(mahasiswaAktif),
+                data: Object.values(jumlahMahasiswaAktif),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Mahasiswa Asing Penuh Waktu",
+            labels: Object.keys(jumlahMahasiswaAsingPenuhWaktu),
+            datasets: [
+              {
+                label: "Mahasiswa",
+                data: Object.values(jumlahMahasiswaAsingPenuhWaktu),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Mahasiswa Asing Paruh Waktu",
+            labels: Object.keys(jumlahMahasiswaAsingParuhWaktu),
+            datasets: [
+              {
+                label: "Mahasiswa",
+                data: Object.values(jumlahMahasiswaAsingParuhWaktu),
                 backgroundColor: [
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",

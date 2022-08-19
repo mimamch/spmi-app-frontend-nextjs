@@ -32,7 +32,11 @@ export default function Bagian1() {
         unverif: 0,
       };
       let pengirim = {};
-      let rataRata = {};
+      let tingkat = {
+        Internasional: 0,
+        Nasional: 0,
+        Lokal: 0,
+      };
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
           ? statusVerifikasi.accepted++
@@ -44,6 +48,7 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
+        tingkat[e.tingkat]++;
       });
       dispatch(
         setChartData([
@@ -77,12 +82,34 @@ export default function Bagian1() {
             labels: ["Disetujui", "Ditolak", "Belum Diverifikasi"],
             datasets: [
               {
-                label: "# of Votes",
+                label: "Status Verifikasi",
                 data: [
                   statusVerifikasi.accepted,
                   statusVerifikasi.declined,
                   statusVerifikasi.unverif,
                 ],
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.5)",
+                  "rgba(255, 0, 0, 0.5)",
+                  "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Tingkat",
+            labels: Object.keys(tingkat),
+            datasets: [
+              {
+                label: "Tingkat",
+                data: Object.values(tingkat),
                 backgroundColor: [
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",
