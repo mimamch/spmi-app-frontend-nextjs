@@ -1,6 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 export default function Sidebar(props) {
+  const user = useSelector((state) => state.getMe.user);
   return (
     <ul
       className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion "
@@ -9,10 +12,26 @@ export default function Sidebar(props) {
       {/* Sidebar - Brand */}
       <Link href="/">
         <a className="sidebar-brand d-flex align-items-center justify-content-center">
-          <div className="sidebar-brand-icon rotate-n-15">
-            <i className="fas fa-laugh-wink" />
+          <div
+            className="p-1 mt-2"
+            style={{
+              width: "100px",
+            }}
+          >
+            <Image
+              width="100%"
+              height="100%"
+              // layout="responsive"
+              objectFit="contain"
+              // style={{
+              //   width: "70px",
+              //   height: "70px",
+              // }}
+              src="/assets/img/LOGO-UBL.png"
+              alt="LOGO"
+            />
           </div>
-          <div className="sidebar-brand-text mx-3">SPMI APP</div>
+          <div className="sidebar-brand-text mx-3">SPMI</div>
         </a>
       </Link>
       {/* Divider */}
@@ -358,16 +377,27 @@ export default function Sidebar(props) {
           </div>
         </div>
       </li>
+      <hr className="sidebar-divider m-0" />
+      {user.role == "admin" && (
+        <li className="nav-item">
+          <Link href="/users">
+            <a className="nav-link">
+              <i className="fas fa-fw fa-user"></i>
+              <span>Manajemen Pengguna</span>
+            </a>
+          </Link>
+        </li>
+      )}
 
       {/* Divider */}
-      <hr className="sidebar-divider" />
+      {/* <hr className="sidebar-divider" /> */}
       {/* Heading */}
 
       {/* Nav Item - Pages Collapse Menu */}
 
       {/* Divider */}
       {/* Sidebar Toggler (Sidebar) */}
-      <div className="text-center d-none d-md-inline">
+      <div className="text-center d-none d-md-inline mt-3">
         <button className="rounded-circle border-0" id="sidebarToggle" />
       </div>
     </ul>

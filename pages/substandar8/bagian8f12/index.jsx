@@ -34,7 +34,12 @@ export default function Bagian1() {
         unverif: 0,
       };
       let pengirim = {};
-      let rataRata = {};
+      let jumlahJudul = {
+        TS2: 0,
+        TS1: 0,
+        TS: 0,
+      };
+
       data.data.data.map((e) => {
         e.isAccepted && e.isAccepted == "accepted"
           ? statusVerifikasi.accepted++
@@ -46,6 +51,9 @@ export default function Bagian1() {
             ? pengirim[e.user.fullName]++
             : (pengirim[e.user.fullName] = 1);
         }
+        jumlahJudul.TS2 += e.jumlahJudul.TS2;
+        jumlahJudul.TS1 += e.jumlahJudul.TS1;
+        jumlahJudul.TS += e.jumlahJudul.TS;
       });
       dispatch(
         setChartData([
@@ -89,6 +97,28 @@ export default function Bagian1() {
                   "rgba(242, 0, 255, 0.5)",
                   "rgba(255, 0, 0, 0.5)",
                   "rgba(255, 0, 0, 0.1)",
+                ],
+                borderColor: [
+                  "rgba(242, 0, 255, 1)",
+                  "rgba(255, 0, 0, 1)",
+                  "rgba(255, 206, 86, 1)",
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
+          {
+            type: "bar",
+            title: "Jumlah Judul ",
+            labels: Object.keys(jumlahJudul),
+            datasets: [
+              {
+                label: "Jumlah",
+                data: Object.values(jumlahJudul),
+                backgroundColor: [
+                  "rgba(242, 0, 255, 0.8)",
+                  "rgba(255, 0, 0, 0.7)",
+                  "rgba(255, 200, 0, 0.7)",
                 ],
                 borderColor: [
                   "rgba(242, 0, 255, 1)",
