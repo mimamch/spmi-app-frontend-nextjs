@@ -139,6 +139,7 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-B-1</title>
       </Head>
       <TemplateTabel
+        data={data}
         titleHeader={" Tabel 8.b.1 Prestasi Akademik Mahasiswa"}
         titleTable={" Tabel 8.b.1 Prestasi Akademik Mahasiswa"}
       >

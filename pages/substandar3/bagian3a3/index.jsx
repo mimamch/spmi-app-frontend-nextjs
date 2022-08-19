@@ -144,12 +144,12 @@ export default function Bagian1() {
             <tr>
               <th rowSpan="3" className="text-center">
                 No.
+              </th>{" "}
+              <th rowSpan="3" className="text-center">
+                Nama Dosen
               </th>
               <th rowSpan="3" className="text-center">
                 DTPS
-              </th>
-              <th rowSpan="3" className="text-center">
-                Nama Dosen
               </th>
               <th colSpan="6" className="text-center">
                 Ekuivalen Waktu Mengajar Penuh (EWMP)
