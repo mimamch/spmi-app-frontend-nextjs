@@ -130,7 +130,7 @@ export default function Home(props) {
               <div className="card">
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
-                    <h5>VISI PRODI</h5>
+                    <h5>VISI </h5>
                     <button
                       className="btn btn-sm btn-success"
                       onClick={() => {
@@ -146,7 +146,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.visi}
+                    {profile.visi || "Visi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function Home(props) {
               <div className="card">
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
-                    <h5>MISI PRODI</h5>
+                    <h5>MISI </h5>
                     <button
                       className="btn btn-sm btn-success"
                       onClick={() => {
@@ -182,7 +182,7 @@ export default function Home(props) {
               <div className="card">
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
-                    <h5>TUJUAN PRODI</h5>
+                    <h5>TUJUAN </h5>
                     <button
                       className="btn btn-sm btn-success"
                       onClick={() => {
@@ -209,7 +209,7 @@ export default function Home(props) {
               <div className="card">
                 <div className="card-header">
                   <div className="row  justify-content-between items-center ">
-                    <h5>SASARAN PRODI</h5>
+                    <h5>SASARAN </h5>
                     <button
                       className="btn btn-sm btn-success"
                       onClick={() => {
