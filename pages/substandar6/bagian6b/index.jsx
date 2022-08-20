@@ -139,6 +139,7 @@ export default function Bagian1() {
         <title>Substandar6 - Bagian 6-B</title>
       </Head>
       <TemplateTabel
+        data={data}
         titleHeader={`Tabel 6.b Penelitian DTPS yang Menjadi Rujukan Tema Tesis/Disertasi`}
         titleTable={`Tabel 6.b Penelitian DTPS yang Menjadi Rujukan Tema Tesis/Disertasi`}
         titleSmall={`Diisi oleh pengusul dari Program Studi pada programSarjana/Sarjana Terapan/Magister/Magister Terapan/ Doktor/ Doktor Terapan.`}

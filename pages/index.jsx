@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
+import DateNow from "../layouts/components/DateNow";
+import TimeNow from "../layouts/components/TimeNow";
 export default function Home(props) {
   const { getMe } = useSelector((state) => state);
   const [mahasiswa, setmahasiswa] = useState(0);
@@ -93,7 +95,7 @@ export default function Home(props) {
                         TOTAL MAHASISWA
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {mahasiswa}
+                        {mahasiswa || 0}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -114,7 +116,47 @@ export default function Home(props) {
                         TOTAL DOSEN
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {dosen}
+                        {dosen || 0}
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-danger shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                        Jam Saat Ini
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        <TimeNow />
+                      </div>
+                    </div>
+                    <div className="col-auto">
+                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-xl-3 col-md-6 mb-4">
+              <div className="card border-left-primary shadow h-100 py-2">
+                <div className="card-body">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col mr-2">
+                      <div className="text-xs font-weight-bold text-dark text-uppercase mb-1">
+                        Tanggal Hari Ini
+                      </div>
+                      <div className="h5 mb-0 font-weight-bold text-gray-800">
+                        <DateNow />
                       </div>
                     </div>
                     <div className="col-auto">
@@ -125,6 +167,7 @@ export default function Home(props) {
               </div>
             </div>
           </div>
+
           <div className="row">
             <div className="col-6 my-3">
               <div className="card">

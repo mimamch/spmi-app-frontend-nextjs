@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
-import toast from "react-toastify";
+import { toast } from "react-toastify";
 import axios from "axios";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";

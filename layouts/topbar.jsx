@@ -1,4 +1,5 @@
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
@@ -52,6 +53,12 @@ export default function Topbar(props) {
               className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
               aria-labelledby="userDropdown"
             >
+              <Link href="/profile">
+                <a className="dropdown-item">
+                  <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+              </Link>
               <div className="dropdown-divider"></div>
               <a
                 // onClick={signOut}
