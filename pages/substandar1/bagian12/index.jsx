@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -8,13 +8,14 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 export default function Bagian2() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
   const dispatch = useDispatch();
-
+  const tableRef = useRef(null);
   const [data, setData] = useState([]);
   const getData = async () => {
     try {
@@ -195,6 +196,14 @@ export default function Bagian2() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+              <DownloadTableExcel
+                filename={pathname || "Table Export"}
+                currentTableRef={tableRef.current}
+              >
+                <button className="btn btn-success">
+                  <i className="fas fa-download"></i> Export Excel
+                </button>
+              </DownloadTableExcel>
             </div>
             <div className="card-body">
               <div className="table-responsive">
@@ -203,6 +212,7 @@ export default function Bagian2() {
                   id="dataTable"
                   width="100%"
                   cellSpacing="0"
+                  ref={tableRef}
                 >
                   <thead className="overflow-x-scrollable">
                     <tr>
@@ -213,6 +223,7 @@ export default function Bagian2() {
                       <th>Manfaat bagi PS yang Diakreditasi</th>
                       <th>Waktu dan Durasi</th>
                       <th>Bukti Kerjasama</th>
+                      <th>Tahun Berakhir</th>
                       {user.role == "admin" && <th>User</th>}
                       <th>Aksi</th>
                     </tr>
@@ -238,6 +249,7 @@ export default function Bagian2() {
                         <td>{e.manfaat}</td>
                         <td>{e.waktuDanDurasi}</td>
                         <td>{e.buktiKerjasama}</td>
+                        <td>{e.tahunBerakhir}</td>
                         {user.role == "admin" && <td>{e.user.fullName}</td>}
                         <td>
                           {user.role == "admin" && !e.isAccepted && (

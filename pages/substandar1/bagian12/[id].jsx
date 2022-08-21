@@ -60,6 +60,7 @@ export default function Bagian2() {
     manfaat: "",
     waktuDanDurasi: "",
     buktiKerjasama: "",
+    tahunBerakhir: "",
   };
 
   const formik = useFormik({
@@ -191,6 +192,20 @@ export default function Bagian2() {
                     name="buktiKerjasama"
                     autoComplete="off"
                     value={formik.values.buktiKerjasama}
+                    onChange={formik.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="text5">Tahun Berakhir</label>
+                  <input
+                    required
+                    type="text"
+                    className="form-control"
+                    id="text5"
+                    placeholder=""
+                    name="tahunBerakhir"
+                    autoComplete="off"
+                    value={formik.values.tahunBerakhir}
                     onChange={formik.handleChange}
                   />
                 </div>

@@ -8,14 +8,15 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
-
+import { DownloadTableExcel } from "react-export-table-to-excel";
+import { useRef } from "react";
 export default function Bagian3() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-
+  const tableRef = useRef(null);
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -195,10 +196,19 @@ export default function Bagian3() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+              <DownloadTableExcel
+                filename={pathname || "Table Export"}
+                currentTableRef={tableRef.current}
+              >
+                <button className="btn btn-success">
+                  <i className="fas fa-download"></i> Export Excel
+                </button>
+              </DownloadTableExcel>
             </div>
             <div className="card-body">
               <div className="table-responsive">
                 <table
+                  ref={tableRef}
                   className="table table-bordered"
                   id="dataTable"
                   width="100%"

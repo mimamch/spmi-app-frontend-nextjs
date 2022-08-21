@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 export default function Bagian1() {
   const { getMe, chart } = useSelector((state) => state);
@@ -14,7 +15,7 @@ export default function Bagian1() {
   const { pathname } = useRouter();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-
+  const tableRef = useRef(null);
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -23,7 +24,7 @@ export default function Bagian1() {
 
       setData(data.data.data);
       $(document).ready(function () {
-        $("#dataTable").DataTable();
+        $("#dataTable").DataTable({});
       });
       let statusVerifikasi = {
         accepted: 0,
@@ -194,6 +195,14 @@ export default function Bagian1() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+              <DownloadTableExcel
+                filename={pathname || "Table Export"}
+                currentTableRef={tableRef.current}
+              >
+                <button className="btn btn-success">
+                  <i className="fas fa-download"></i> Export Excel
+                </button>
+              </DownloadTableExcel>
             </div>
             <div className="card-body">
               <div className="table-responsive">
@@ -202,6 +211,7 @@ export default function Bagian1() {
                   id="dataTable"
                   width="100%"
                   cellSpacing="0"
+                  ref={tableRef}
                 >
                   <thead className="overflow-x-scrollable">
                     <tr>

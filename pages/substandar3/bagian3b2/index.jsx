@@ -26,7 +26,34 @@ export default function Bagian1() {
       );
       setData(data.data.data);
       $(document).ready(function () {
-        $("#dataTable").DataTable();
+        $("#dataTable").DataTable({
+          footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+            // Remove the formatting to get integer data for summation
+            var intVal = function (i) {
+              return typeof i === "string"
+                ? i.replace(/[\$,]/g, "") * 1
+                : typeof i === "number"
+                ? i
+                : 0;
+            };
+            function getFooterSum(col) {
+              let colData = api
+                .column(col)
+                .data()
+                .reduce(function (a, b) {
+                  return intVal(a) + intVal(b);
+                }, 0);
+              $(api.column(col).footer()).html(colData);
+            }
+            getFooterSum(2);
+            getFooterSum(3);
+            getFooterSum(4);
+            getFooterSum(5);
+          },
+          // destroy: true,
+          retrieve: true,
+        });
       });
 
       let statusVerifikasi = {
@@ -287,6 +314,16 @@ export default function Bagian1() {
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th>Jumlah</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
         </table>
       </TemplateTabel>
     </>
