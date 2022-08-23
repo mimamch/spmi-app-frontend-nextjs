@@ -15,7 +15,9 @@ export default function Bagian1() {
   const { pathname } = useRouter();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
+  // REF TABLE
   const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -195,6 +197,8 @@ export default function Bagian1() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+
+              {/* TOMBOL DOWNLOAD EXCEL */}
               <DownloadTableExcel
                 filename={pathname || "Table Export"}
                 currentTableRef={tableRef.current}
@@ -203,6 +207,7 @@ export default function Bagian1() {
                   <i className="fas fa-download"></i> Export Excel
                 </button>
               </DownloadTableExcel>
+              {/* TOMBOL DOWNLOAD EXCEL */}
             </div>
             <div className="card-body">
               <div className="table-responsive">

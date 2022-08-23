@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -211,13 +212,29 @@ export default function Bagian1() {
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag2/${id}`
         );
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag2/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       console.log(error);
@@ -292,6 +309,7 @@ export default function Bagian1() {
                         Jumlah Mahasiswa Asing Paruh Waktu (Part-time)
                       </th>
                       {user.role == "admin" && <th rowSpan="2">User</th>}
+                      <th rowSpan="2">Komentar</th>
                       <th rowSpan="2">Aksi</th>
                     </tr>
                     <tr>
@@ -332,6 +350,9 @@ export default function Bagian1() {
                         <td>{e.jumlahMahasiswaAsingParuhWaktu.TS}</td>
 
                         {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        {/* KOMENTAR */}
+                        <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                         <td>
                           {user.role == "admin" && !e.isAccepted && (
                             <div>

@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useEffect } from "react";
-import Clock from "react-live-clock";
 export default function TimeNow() {
   const [time, settime] = useState("");
   const [hour, setHour] = useState(new Date());
