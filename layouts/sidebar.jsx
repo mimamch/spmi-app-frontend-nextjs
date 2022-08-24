@@ -37,7 +37,7 @@ export default function Sidebar(props) {
       {/* Divider */}
       <hr className="sidebar-divider my-0" />
       {/* Nav Item - Dashboard */}
-      <li className="nav-item active">
+      <li className="nav-item ">
         <Link href="/">
           <a className="nav-link">
             <i className="fas fa-fw fa-tachometer-alt" />
@@ -45,6 +45,16 @@ export default function Sidebar(props) {
           </a>
         </Link>
       </li>
+      {user.role == "admin" && (
+        <li className="nav-item ">
+          <Link href="/grafik-keseluruhan">
+            <a className="nav-link">
+              <i className="fas fa-fw fa-tachometer-alt" />
+              <span>Grafik Keseluruhan</span>
+            </a>
+          </Link>
+        </li>
+      )}
       {/* Divider */}
       <hr className="sidebar-divider" />
       {/* Heading */}
