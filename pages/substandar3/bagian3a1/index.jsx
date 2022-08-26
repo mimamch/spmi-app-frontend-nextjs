@@ -114,13 +114,29 @@ export default function Bagian1() {
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1/${id}`
         );
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       console.log(error);

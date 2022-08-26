@@ -143,14 +143,29 @@ export default function Bagian1() {
         );
         toast.success(`Berhasil Melakukan Aksi`);
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
-        toast.success(`Berhasil Melakukan Aksi`);
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       toast.error(`Gagal Melakukan Aksi Karena ${error.message}`);
