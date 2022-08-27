@@ -17,13 +17,12 @@ export default function TemplateTabel({
   ...props
 }) {
   const dispatch = useDispatch();
-  // REF TABLE
-  const tableRef = useRef(null);
-  // REF TABLE
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
-
+   // REF TABLE
+   const tableRef = useRef(null);
+   // REF TABLE
   return (
     <>
       <Wrapper>
