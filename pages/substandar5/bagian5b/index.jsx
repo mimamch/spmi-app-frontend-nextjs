@@ -157,6 +157,9 @@ export default function Bagian1() {
         data={data}
         titleHeader={`Tabel 5.b Integrasi Kegiatan Penelitian/PkM dalam Pembelajaran`}
         titleTable={`Tabel 5.b Integrasi Kegiatan Penelitian/PkM dalam Pembelajaran`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table
           id="dataTable"

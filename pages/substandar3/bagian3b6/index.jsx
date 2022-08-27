@@ -165,6 +165,9 @@ export default function Bagian1() {
         titleSmall={`  Diisi oleh pengusul dari program studi pada program
     Sarjana/Sarjana Terapan/Magister/Magister Terapan/Doktor/Doktor
     Terapan`}
+    // KIRIM REF
+    tableRef={tableRef}
+    // KIRIM REF
       >
         <table
           id="dataTable"

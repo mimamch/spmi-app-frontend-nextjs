@@ -160,6 +160,9 @@ export default function Bagian1() {
         titleHeader="Substandar3 - Bagian 3-B-5"
         titleTable="Tabel 3.b.5 Karya Ilmiah DTPS yang Disitasi"
         titleSmall="Diisi oleh pengusul dari program studi pada program Sarjana/Sarjana Terapan/Magister/Magister Terapan/Doktor/Doktor Terapan"
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>

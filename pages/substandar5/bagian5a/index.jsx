@@ -187,6 +187,9 @@ export default function Bagian1() {
         data={data}
         titleHeader={`Bagian 5 A`}
         titleTable={`Bagian 5 A`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table
           id="dataTable"

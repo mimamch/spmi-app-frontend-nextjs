@@ -163,6 +163,9 @@ export default function Bagian1() {
         titleSmall={
           "Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan."
         }
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>

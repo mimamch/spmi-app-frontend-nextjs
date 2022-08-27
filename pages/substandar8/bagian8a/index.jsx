@@ -160,6 +160,9 @@ export default function Bagian1() {
         data={data}
         titleHeader={"Tabel 8.a IPK Lulusan"}
         titleTable={"Tabel 8.a IPK Lulusan"}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>

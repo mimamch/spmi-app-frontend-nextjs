@@ -161,6 +161,9 @@ export default function Bagian1() {
         titleHeader={`Tabel 6.b Penelitian DTPS yang Menjadi Rujukan Tema Tesis/Disertasi`}
         titleTable={`Tabel 6.b Penelitian DTPS yang Menjadi Rujukan Tema Tesis/Disertasi`}
         titleSmall={`Diisi oleh pengusul dari Program Studi pada programSarjana/Sarjana Terapan/Magister/Magister Terapan/ Doktor/ Doktor Terapan.`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>

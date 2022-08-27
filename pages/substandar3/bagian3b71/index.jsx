@@ -161,6 +161,9 @@ export default function Bagian1() {
         data={data}
         titleHeader={`Tabel 3.b.7 Luaran Penelitian/PkM Lainnya oleh DTPS`}
         titleTable={`Tabel 3.b.7 Bagian-1 HKI (Paten, Paten Sederhana)`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table
           id="dataTable"

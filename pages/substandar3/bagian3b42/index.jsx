@@ -218,6 +218,9 @@ export default function Bagian1() {
         titleTable={`Tabel 3.b.4 Pagelaran/Pameran/Presentasi/Publikasi Ilmiah DTPS`}
         titleSmall={` Diisi oleh pengusul dari Program Studi pada program Diploma
         Tiga/Sarjana Terapan/Magister Terapan/Doktor Terapan.`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table
           id="dataTable"

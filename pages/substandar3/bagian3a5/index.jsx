@@ -161,6 +161,9 @@ const tableRef = useRef(null);
         apiEndPoint={apiEndPoint}
         titleHeader={`Substandar3 - Bagian 3-A-5`}
         titleTable={`Bagian 3-A-5`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table
           id="dataTable"

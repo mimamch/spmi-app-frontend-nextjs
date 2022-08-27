@@ -167,6 +167,9 @@ export default function Bagian1() {
         titleTable={
           "  Tabel 8.f.3 Produk/Jasa DTPS yang Dihasilkan Mahasiswa yang Diadopsi oleh Industri/Masyarakat"
         }
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>
