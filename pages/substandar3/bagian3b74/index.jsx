@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -18,7 +19,9 @@ export default function Bagian1() {
   const { user } = getMe;
   const dispatch = useDispatch();
   const apiEndPoint = `sub3/bagB74`;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -169,6 +172,7 @@ export default function Bagian1() {
               <th>Tahun</th>
               <th>Keterangan</th>
               {user.role == "admin" && <td>User</td>}
+              <th>Komentar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -188,6 +192,9 @@ export default function Bagian1() {
                 <td>{e.tahun}</td>
                 <td>{e.keterangan}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -13,6 +14,9 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const dispatch = useDispatch();
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -173,6 +177,7 @@ export default function Bagian1() {
                 Kesesuaian Bidang Keahlian dengan Mata Kuliah yang Diampu
               </th>
               {user.role == "admin" && <th>User</th>}
+              <th>Komentar</th>
               <th className="text-center">Aksi</th>
             </tr>
           </thead>
@@ -198,6 +203,9 @@ export default function Bagian1() {
                 <td>{e.mataKuliahYangDiAmpuPadaPsAkreditasi}</td>
                 <td>{e.kesesuaianBidangKeahlian}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

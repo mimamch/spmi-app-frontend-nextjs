@@ -10,6 +10,7 @@ import axios from "axios";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { useRef } from "react";
+import Swal from "sweetalert2";
 export default function Bagian3() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
@@ -241,6 +242,7 @@ export default function Bagian3() {
                       <th>Bukti Kerjasama</th>
                       <th>Tahun Berakhirnya Kerjasama</th>
                       {user.role == "admin" && <th>User</th>}
+                      <th>Komentar</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -267,6 +269,9 @@ export default function Bagian3() {
                         <td>{e.buktiKerjasama}</td>
                         <td>{e.tahunBerakhir}</td>
                         {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        {/* KOMENTAR */}
+                        <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                         <td>
                           {user.role == "admin" && !e.isAccepted && (
                             <div>

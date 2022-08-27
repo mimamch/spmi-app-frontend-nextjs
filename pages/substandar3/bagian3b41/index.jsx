@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -10,6 +10,7 @@ import axios from "axios";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -18,7 +19,9 @@ export default function Bagian1() {
   const { user } = getMe;
   const dispatch = useDispatch();
   const apiEndPoint = `sub3/bagB41`;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -238,6 +241,9 @@ export default function Bagian1() {
                   User
                 </th>
               )}
+              <th rowSpan="2" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="2" className="text-center">
                 Aksi
               </th>

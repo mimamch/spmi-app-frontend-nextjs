@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -8,6 +8,7 @@ import axios from "axios";
 import Link from "next/link";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -15,7 +16,9 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -240,6 +243,7 @@ export default function Bagian1() {
               <th rowSpan="3" className="text-center">
                 Rata-rata Jumlah Bimbingan di Semua Program/Semester
               </th>
+              <th rowSpan="3" className="text-center">Komentar</th>
               <th rowSpan="3" className="text-center">
                 Aksi
               </th>
@@ -288,6 +292,9 @@ export default function Bagian1() {
                 <td>{Math.round(e.avgPsLain * 100) / 100}</td>
                 <td>{Math.round(e.avgJumlah * 100) / 100}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

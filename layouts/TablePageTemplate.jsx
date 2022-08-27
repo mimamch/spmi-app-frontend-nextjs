@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "./wrapper";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
 import { setShowChart } from "../store/ChartModalSlice";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 export default function TemplateTabel({
   children,
@@ -16,6 +17,9 @@ export default function TemplateTabel({
   ...props
 }) {
   const dispatch = useDispatch();
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
@@ -57,6 +61,16 @@ export default function TemplateTabel({
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+               {/* TOMBOL DOWNLOAD EXCEL */}
+               <DownloadTableExcel
+                filename={pathname || "Table Export"}
+                currentTableRef={tableRef.current}
+              >
+                <button className="btn btn-success">
+                  <i className="fas fa-download"></i> Export Excel
+                </button>
+              </DownloadTableExcel>
+              {/* TOMBOL DOWNLOAD EXCEL */}
             </div>
             <div className="card-body">
               <div className="table-responsive">{children}</div>

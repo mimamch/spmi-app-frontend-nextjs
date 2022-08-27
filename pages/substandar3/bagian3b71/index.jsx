@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -10,13 +10,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
   const { pathname } = useRouter();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const apiEndPoint = `sub3/bagB71`;
   const dispatch = useDispatch();
   const getData = async () => {
@@ -171,6 +174,7 @@ export default function Bagian1() {
               <th>Tahun</th>
               <th>Keterangan</th>
               {user.role == "admin" && <th>User</th>}
+              <th>Komentar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -190,6 +194,9 @@ export default function Bagian1() {
                 <td>{e.tahun}</td>
                 <td>{e.keterangan}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

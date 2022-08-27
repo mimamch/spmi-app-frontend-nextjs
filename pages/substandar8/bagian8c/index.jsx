@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,13 +7,16 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
   const { pathname } = useRouter();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const apiEndPoint = `sub8/bag8C`;
   const dispatch = useDispatch();
   const getData = async () => {
@@ -217,7 +220,7 @@ export default function Bagian1() {
                 Rata-rata Masa Studi
               </th>
               {user.role == "admin" && <th rowSpan="2">User</th>}
-
+              <th rowSpan="2" className="text-center">Komentar</th>
               <th rowSpan="2" className="text-center">
                 Aksi
               </th>
@@ -258,6 +261,9 @@ export default function Bagian1() {
                 <td>{e.rataRataMasaStudi}</td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
