@@ -227,6 +227,9 @@ export default function Bagian1() {
         titleHeader={`Substandar 3 - Bagian 3-A-2`}
         titleTable={`Substandar 3 - Bagian 3-A-2`}
         apiEndPoint={`sub3/bagA2`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>
@@ -243,7 +246,9 @@ export default function Bagian1() {
               <th rowSpan="3" className="text-center">
                 Rata-rata Jumlah Bimbingan di Semua Program/Semester
               </th>
-              <th rowSpan="3" className="text-center">Komentar</th>
+              <th rowSpan="3" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="3" className="text-center">
                 Aksi
               </th>
@@ -294,7 +299,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

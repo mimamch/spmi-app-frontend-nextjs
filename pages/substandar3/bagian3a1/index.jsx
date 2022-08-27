@@ -185,8 +185,8 @@ export default function Bagian1() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
-            {/* TOMBOL DOWNLOAD EXCEL */}
-            <DownloadTableExcel
+              {/* TOMBOL DOWNLOAD EXCEL */}
+              <DownloadTableExcel
                 filename={pathname || "Table Export"}
                 currentTableRef={tableRef.current}
               >

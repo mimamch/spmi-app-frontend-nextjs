@@ -14,15 +14,16 @@ export default function TemplateTabel({
   titleHeader,
   titleTable,
   data,
+  tableRef,
   ...props
 }) {
   const dispatch = useDispatch();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
-   // REF TABLE
-   const tableRef = useRef(null);
-   // REF TABLE
+  // REF TABLE
+  //  const tableRef = useRef(null);
+  // REF TABLE
   return (
     <>
       <Wrapper>
@@ -60,8 +61,8 @@ export default function TemplateTabel({
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
-               {/* TOMBOL DOWNLOAD EXCEL */}
-               <DownloadTableExcel
+              {/* TOMBOL DOWNLOAD EXCEL */}
+              <DownloadTableExcel
                 filename={pathname || "Table Export"}
                 currentTableRef={tableRef.current}
               >

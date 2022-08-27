@@ -156,8 +156,15 @@ export default function Bagian1() {
         apiEndPoint={`sub3/bagA4`}
         titleHeader={`Substandar3 - Bagian 3-A-4`}
         titleTable={`Bagian 3-A-4`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          id="dataTable"
+          ref={tableRef}
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th className="text-center">No.</th>
@@ -205,7 +212,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

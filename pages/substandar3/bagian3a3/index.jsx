@@ -152,7 +152,6 @@ export default function Bagian1() {
   useEffect(() => {
     getData();
   }, []);
-
   const action = async (id, act) => {
     try {
       if (act == "delete") {
@@ -201,8 +200,15 @@ export default function Bagian1() {
       Perguruan Tinggi`}
         titleTable={`Tabel 3.a.3 `}
         apiEndPoint={`sub3/bagA3`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          id="dataTable"
+          ref={tableRef}
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th rowSpan="3" className="text-center">
@@ -223,7 +229,10 @@ export default function Bagian1() {
               <th rowSpan="3" className="text-center">
                 Rata-rata per Semester (SKS)
               </th>
-              <th rowSpan="2" className="text-center">Komentar</th>
+              {user.role == "admin" && <th rowSpan={3}>User</th>}
+              <th rowSpan="3" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="3" className="text-center">
                 Aksi
               </th>
@@ -241,7 +250,6 @@ export default function Bagian1() {
               <th rowSpan="2" className="text-center">
                 Tugas Tambahan &/ Penunjang
               </th>
-              {user.role == "admin" && <th rowSpan={2}>User</th>}
             </tr>
 
             <tr>
@@ -278,7 +286,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
