@@ -199,11 +199,7 @@ export default function Bagian1() {
         titleHeader={`Substandar3 - Bagian 3-B-2`}
         titleTable={`Substandar3 - Bagian 3-B-2`}
       >
-        <table
-          id="dataTable"
-          className="display table table-bordered"
-          style={{ width: "100%", height: "100%" }}
-        >
+        <table id="dataTable" className="display table table-bordered">
           <thead>
             <tr>
               <th rowSpan="2" className="text-center">
@@ -318,6 +314,8 @@ export default function Bagian1() {
             <tr>
               <th></th>
               <th>Jumlah</th>
+              <th></th>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>

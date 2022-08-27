@@ -323,6 +323,7 @@ export default function Bagian1() {
               <th>0</th>
               <th>0</th>
               <th></th>
+              <th></th>
             </tr>
           </tfoot>
         </table>

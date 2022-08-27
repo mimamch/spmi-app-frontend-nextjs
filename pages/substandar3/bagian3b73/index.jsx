@@ -153,7 +153,7 @@ export default function Bagian1() {
               <th>Luaran Penelitian dan PkM</th>
               <th>Tahun</th>
               <th>Keterangan</th>
-              {user.role == "admin" && <td>User</td>}
+              {user.role == "admin" && <th>User</th>}
               <th>Aksi</th>
             </tr>
           </thead>

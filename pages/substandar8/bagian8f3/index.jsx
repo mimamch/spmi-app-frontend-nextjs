@@ -159,6 +159,7 @@ export default function Bagian1() {
               <th className="text-center">Deskripsi Produk/ Jasa </th>
               <th className="text-center">Bukti</th>
               <th className="text-center">Tahun</th>
+              {user.role == "admin" && <th className="text-center">User</th>}
               <th className="text-center">Aksi</th>
             </tr>
           </thead>
