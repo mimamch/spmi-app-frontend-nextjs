@@ -275,8 +275,11 @@ export default function Bagian1() {
                 <td>{e.jumlahJudul.TS1}</td>
                 <td>{e.jumlahJudul.TS1}</td>
                 <td>{e.jumlah}</td>
-
+                
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
@@ -321,12 +324,13 @@ export default function Bagian1() {
                   {user.role == "prodi" && (
                     <div>
                       <Link href={`${pathname}/${e._id}`}>
-                        <a className="btn btn-success btn-sm " type="button">
+                        <a className="btn btn-warning btn-sm " type="button">
                           <i className="fa fa-edit"></i> Edit
                         </a>
                       </Link>
+
                       <button
-                        className="btn btn-danger btn-sm "
+                        className="btn btn-dark btn-sm "
                         type="button"
                         onClick={() => action(e._id, "delete")}
                       >

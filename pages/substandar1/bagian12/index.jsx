@@ -321,6 +321,25 @@ export default function Bagian2() {
                             <div>
                               <Link href={`${pathname}/${e._id}`}>
                                 <a
+                                  className="btn btn-warning btn-sm "
+                                  type="button"
+                                >
+                                  <i className="fa fa-edit"></i> Edit
+                                </a>
+                              </Link>
+
+                              <button
+                                className="btn btn-dark btn-sm "
+                                type="button"
+                                onClick={() => action(e._id, "delete")}
+                              >
+                                <i className="fa fa-trash"></i> Delete
+                              </button>
+                            </div>
+                          )}{user.role == "prodi" && (
+                            <div>
+                              <Link href={`${pathname}/${e._id}`}>
+                                <a
                                   className="btn btn-success btn-sm "
                                   type="button"
                                 >
