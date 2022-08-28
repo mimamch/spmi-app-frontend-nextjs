@@ -348,9 +348,8 @@ export default function Bagian1() {
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
               {user.role == "admin" && <th></th>}
-              <th></th>
-              <th></th>
               <th></th>
               <th></th>
             </tr>
