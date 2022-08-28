@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useRef,  useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -290,8 +290,8 @@ export default function Bagian1() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
-            {/* TOMBOL DOWNLOAD EXCEL */}
-            <DownloadTableExcel
+              {/* TOMBOL DOWNLOAD EXCEL */}
+              <DownloadTableExcel
                 filename={pathname || "Table Export"}
                 currentTableRef={tableRef.current}
               >
@@ -417,7 +417,7 @@ export default function Bagian1() {
                             <div>
                               <Link href={`${pathname}/${e._id}`}>
                                 <a
-                                  className="btn btn-success btn-sm "
+                                  className="btn btn-warning btn-sm "
                                   type="button"
                                 >
                                   <i className="fa fa-edit"></i> Edit
@@ -425,7 +425,7 @@ export default function Bagian1() {
                               </Link>
 
                               <button
-                                className="btn btn-danger btn-sm "
+                                className="btn btn-dark btn-sm "
                                 type="button"
                                 onClick={() => action(e._id, "delete")}
                               >
