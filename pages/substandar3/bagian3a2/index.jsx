@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -8,6 +8,7 @@ import axios from "axios";
 import Link from "next/link";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -15,7 +16,9 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -185,13 +188,29 @@ export default function Bagian1() {
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA2/${id}`
         );
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA2/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       console.log(error);
@@ -208,6 +227,9 @@ export default function Bagian1() {
         titleHeader={`Substandar 3 - Bagian 3-A-2`}
         titleTable={`Substandar 3 - Bagian 3-A-2`}
         apiEndPoint={`sub3/bagA2`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
         <table id="dataTable" className="display table table-bordered">
           <thead>
@@ -223,6 +245,9 @@ export default function Bagian1() {
               </th>
               <th rowSpan="3" className="text-center">
                 Rata-rata Jumlah Bimbingan di Semua Program/Semester
+              </th>
+              <th rowSpan="3" className="text-center">
+                Komentar
               </th>
               <th rowSpan="3" className="text-center">
                 Aksi
@@ -272,6 +297,9 @@ export default function Bagian1() {
                 <td>{Math.round(e.avgPsLain * 100) / 100}</td>
                 <td>{Math.round(e.avgJumlah * 100) / 100}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

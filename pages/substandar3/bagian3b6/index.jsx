@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -10,6 +10,7 @@ import TemplateTabel from "../../../layouts/TablePageTemplate";
 import axios from "axios";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -18,7 +19,9 @@ export default function Bagian1() {
   const { user } = getMe;
   const dispatch = useDispatch();
   const apiEndPoint = `sub3/bagB6`;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -119,14 +122,29 @@ export default function Bagian1() {
         );
         toast.success(`Berhasil Melakukan Aksi`);
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
-        toast.success(`Berhasil Melakukan Aksi`);
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       toast.error(`Gagal Melakukan Aksi Karena ${error.message}`);
@@ -140,6 +158,7 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-B-6</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Substandar3 - Bagian 3-B-6`}
         titleTable={`Tabel 3.b.6 Produk/Jasa DTPS yang Diadopsi oleh
@@ -150,6 +169,7 @@ export default function Bagian1() {
       >
         <table
           id="dataTable"
+          ref={tableRef}
           className="display table table-bordered"
           style={{ width: "100%", height: "100%" }}
         >
@@ -162,6 +182,7 @@ export default function Bagian1() {
               <th>Bukti</th>
               <th>Tahun</th>
               {user.role == "admin" && <th>User</th>}
+              <th>Komentar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -184,6 +205,9 @@ export default function Bagian1() {
                 <td>{e.tahun}</td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

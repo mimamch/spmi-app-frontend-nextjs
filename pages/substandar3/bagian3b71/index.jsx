@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -10,13 +10,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
   const { pathname } = useRouter();
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const apiEndPoint = `sub3/bagB71`;
   const dispatch = useDispatch();
   const getData = async () => {
@@ -119,14 +122,29 @@ export default function Bagian1() {
         );
         toast.success(`Berhasil Melakukan Aksi`);
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
-        toast.success(`Berhasil Melakukan Aksi`);
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       toast.error(`Gagal Melakukan Aksi Karena ${error.message}`);
@@ -140,11 +158,13 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-B-7-1</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Tabel 3.b.7 Luaran Penelitian/PkM Lainnya oleh DTPS`}
         titleTable={`Tabel 3.b.7 Bagian-1 HKI (Paten, Paten Sederhana)`}
       >
         <table
+          ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
           style={{ width: "100%", height: "100%" }}
@@ -156,6 +176,7 @@ export default function Bagian1() {
               <th>Tahun</th>
               <th>Keterangan</th>
               {user.role == "admin" && <th>User</th>}
+              <th>Komentar</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -175,6 +196,9 @@ export default function Bagian1() {
                 <td>{e.tahun}</td>
                 <td>{e.keterangan}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {/* KOMENTAR */}
+                <td>{e.komentar}</td>
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Link from "next/link";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -14,7 +16,9 @@ export default function Bagian1() {
   const { user } = getMe;
   const { pathname } = useRouter();
   const dispatch = useDispatch();
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -114,13 +118,29 @@ export default function Bagian1() {
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1/${id}`
         );
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       console.log(error);
@@ -165,13 +185,25 @@ export default function Bagian1() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+              {/* TOMBOL DOWNLOAD EXCEL */}
+              <DownloadTableExcel
+                filename={pathname || "Table Export"}
+                currentTableRef={tableRef.current}
+              >
+                <button className="btn btn-success">
+                  <i className="fas fa-download"></i> Export Excel
+                </button>
+              </DownloadTableExcel>
+              {/* TOMBOL DOWNLOAD EXCEL */}
             </div>
             <div className="card-body">
               <div className="table-responsive">
                 <table
+                  className="table table-bordered"
                   id="dataTable"
-                  className="display table table-bordered"
-                  style={{ width: "100%" }}
+                  width="100%"
+                  cellSpacing="0"
+                  ref={tableRef}
                 >
                   <thead>
                     <tr>
@@ -197,6 +229,7 @@ export default function Bagian1() {
                       </th>
                       <th rowSpan="2">Mata Kuliah yang Diampu pada PS Lain</th>
                       {user.role == "admin" && <th rowSpan="2">User</th>}
+                      <th rowSpan="2">Komentar</th>
                       <th rowSpan="2">Aksi</th>
                     </tr>
                     <tr>
@@ -232,6 +265,9 @@ export default function Bagian1() {
                         <td>{e.mataKuliahYangDiAmpuPadaPsLain}</td>
 
                         {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        {/* KOMENTAR */}
+                        <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                         <td key={i}>
                           {user.role == "admin" && !e.isAccepted && (
                             <div>

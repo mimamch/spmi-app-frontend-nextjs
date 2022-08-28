@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
 import { DownloadTableExcel } from "react-export-table-to-excel";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const { getMe, chart } = useSelector((state) => state);
@@ -144,13 +145,29 @@ export default function Bagian1() {
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${id}`
         );
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       console.log(error);
@@ -229,6 +246,7 @@ export default function Bagian1() {
                       <th>Bukti Kerjasama</th>
                       <th>Tahun Berakhirnya Kerjasama</th>
                       {user.role == "admin" && <th>User</th>}
+                      <th>Komentar</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -255,6 +273,9 @@ export default function Bagian1() {
                         <td>{e.buktiKerjasama}</td>
                         <td>{e.tahunBerakhir}</td>
                         {user.role == "admin" && <td>{e.user.fullName}</td>}
+                         {/* KOMENTAR */}
+                        <td>{e.komentar}</td>
+                        {/* KOMENTAR */}
                         <td>
                           {user.role == "admin" && !e.isAccepted && (
                             <div>

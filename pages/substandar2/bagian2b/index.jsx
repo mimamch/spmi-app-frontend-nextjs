@@ -1,5 +1,5 @@
 import Script from "next/script";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef,  useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import UseScript from "../../../layouts/UseScript";
@@ -9,6 +9,7 @@ import axios from "axios";
 import Link from "next/link";
 import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
 import Swal from "sweetalert2";
+import { DownloadTableExcel } from "react-export-table-to-excel";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -16,7 +17,9 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const { pathname } = useRouter();
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -287,13 +290,25 @@ export default function Bagian1() {
                   ? "Sangat Terpenuhi"
                   : (data.length >= 4 && "Terpenuhi") || "Belum Terpenuhi"
               }`}</button>
+            {/* TOMBOL DOWNLOAD EXCEL */}
+            <DownloadTableExcel
+                filename={pathname || "Table Export"}
+                currentTableRef={tableRef.current}
+              >
+                <button className="btn btn-success">
+                  <i className="fas fa-download"></i> Export Excel
+                </button>
+              </DownloadTableExcel>
+              {/* TOMBOL DOWNLOAD EXCEL */}
             </div>
             <div className="card-body">
               <div className="table-responsive">
                 <table
+                  className="table table-bordered"
                   id="dataTable"
-                  className="display table table-bordered"
-                  style={{ width: "100%" }}
+                  width="100%"
+                  cellSpacing="0"
+                  ref={tableRef}
                 >
                   <thead>
                     <tr>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Wrapper from "../../../layouts/wrapper";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import axios from "axios";
 import Link from "next/link";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -16,7 +17,9 @@ export default function Bagian1() {
   const { user } = getMe;
   const dispatch = useDispatch();
   const apiEndPoint = `sub8/bag8E1`;
-
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -175,14 +178,29 @@ export default function Bagian1() {
         );
         toast.success(`Berhasil Melakukan Aksi`);
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
-        toast.success(`Berhasil Melakukan Aksi`);
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       toast.error(`Gagal Melakukan Aksi Karena ${error.message}`);
@@ -195,6 +213,7 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-E-1</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={" Tabel 8.e.1 Tempat Kerja Lulusan"}
         titleTable={" Tabel 8.e.1 Tempat Kerja Lulusan"}
@@ -202,7 +221,11 @@ export default function Bagian1() {
           "   Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan"
         }
       >
-        <table id="dataTable" className="display table table-bordered ">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered "
+        >
           <thead>
             <tr>
               <th rowSpan="2" className="text-center">
@@ -219,6 +242,9 @@ export default function Bagian1() {
                 Tempat Kerja/Berwirausaha
               </th>
               {user.role == "admin" && <th rowSpan={2}>User</th>}
+              <th rowSpan="2" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="2" className="text-center">
                 Aksi
               </th>
@@ -249,6 +275,7 @@ export default function Bagian1() {
                 <td>{e.jumlahBerdasarkanTingkat.internasional}</td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                <td>{e.komentar}</td>
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
@@ -316,6 +343,8 @@ export default function Bagian1() {
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
+              {user.role == "admin" && <td></td>}
               <th></th>
             </tr>
           </tfoot>

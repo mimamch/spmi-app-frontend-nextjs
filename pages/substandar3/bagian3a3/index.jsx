@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -13,6 +14,9 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const dispatch = useDispatch();
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -148,7 +152,6 @@ export default function Bagian1() {
   useEffect(() => {
     getData();
   }, []);
-
   const action = async (id, act) => {
     try {
       if (act == "delete") {
@@ -156,13 +159,29 @@ export default function Bagian1() {
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA3/${id}`
         );
       } else {
+        // UPDATE KOMENTAR
+        let komentar = "";
+        if (act == "decline") {
+          const confirm = await Swal.fire({
+            title: "Tambahkan Komentar",
+            input: "textarea",
+            confirmButtonText: "Tolak",
+            cancelButtonText: "Batal",
+            showCancelButton: true,
+            confirmButtonColor: "red",
+          });
+          if (!confirm.isConfirmed) return;
+          komentar = confirm.value;
+        }
         const data = await axios.put(
           `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA3/${id}`,
           {
             isAccepted: act == "accept" ? "accepted" : "declined",
+            komentar: komentar ? komentar : null,
           }
         );
       }
+      // END UPDATE KOMENTAR
       getData();
     } catch (error) {
       console.log(error);
@@ -181,13 +200,20 @@ export default function Bagian1() {
       Perguruan Tinggi`}
         titleTable={`Tabel 3.a.3 `}
         apiEndPoint={`sub3/bagA3`}
+        // KIRIM REF
+        tableRef={tableRef}
+        // KIRIM REF
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          id="dataTable"
+          ref={tableRef}
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th rowSpan="3" className="text-center">
                 No.
-              </th>{" "}
+              </th>
               <th rowSpan="3" className="text-center">
                 Nama Dosen
               </th>
@@ -202,6 +228,10 @@ export default function Bagian1() {
               </th>
               <th rowSpan="3" className="text-center">
                 Rata-rata per Semester (SKS)
+              </th>
+              {user.role == "admin" && <th rowSpan={3}>User</th>}
+              <th rowSpan="3" className="text-center">
+                Komentar
               </th>
               <th rowSpan="3" className="text-center">
                 Aksi
@@ -218,11 +248,9 @@ export default function Bagian1() {
                 PkM
               </th>
               <th rowSpan="2" className="text-center">
-                Tugas Tambahan &/ Penunjang
+                Tugas Tambahan dan Penunjang
               </th>
-              {user.role == "admin" && <th rowSpan={2}>User</th>}
             </tr>
-
             <tr>
               <th className="text-center">PS yang Diakreditasi</th>
               <th className="text-center">PS lain di dalam PT</th>
@@ -255,6 +283,9 @@ export default function Bagian1() {
                 </td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+
+                <td>{e.komentar}</td>
+
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
