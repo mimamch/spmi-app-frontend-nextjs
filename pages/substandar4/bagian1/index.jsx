@@ -180,7 +180,7 @@ export default function Bagian1() {
                 Program Studi (Rupiah)
               </th>
               {user.role == "admin" && <td rowSpan="2">User</td>}
-              <th>Komentar</th>
+              <th  rowSpan="2">Komentar</th>
               <th rowSpan="2">Aksi</th>
             </tr>
 
