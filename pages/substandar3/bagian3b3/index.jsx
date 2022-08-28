@@ -224,7 +224,7 @@ export default function Bagian1() {
           ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
-        >
+        > 
           <thead>
             <tr>
               <th rowSpan="2" className="text-center">
@@ -349,6 +349,7 @@ export default function Bagian1() {
               <th></th>
               <th></th>
               {user.role == "admin" && <th></th>}
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
