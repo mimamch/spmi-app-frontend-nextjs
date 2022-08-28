@@ -15,7 +15,7 @@ import { toast, ToastContainer } from "react-toastify";
 import ChartModal from "../layouts/ChartModal";
 
 axios.defaults.withCredentials = true;
-
+axios.defaults.headers["token"] = cookies.get("token");
 // axios.interceptors.response.use(response => {
 //   return response
 // }, async(err) => {

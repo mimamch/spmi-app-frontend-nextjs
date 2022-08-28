@@ -37,6 +37,10 @@ export default function Login() {
         }
       );
       if (log) {
+        Cookies.set("token", log.data.data.token, {
+          expires: 7,
+        });
+        axios.defaults.headers["token"] = log.data.data.token;
         Cookies.set(
           "flash",
           JSON.stringify({
@@ -48,7 +52,7 @@ export default function Login() {
         router.push(nextUrl ? nextUrl : "/");
       }
     } catch (error) {
-      if (error?.response.status == 401)
+      if (error?.response?.status == 401)
         // Swal.fire({
         //   icon: "error",
         //   title: "Upsss!",

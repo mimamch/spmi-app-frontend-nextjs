@@ -1,15 +1,24 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import SetFlashMessage from "./components/SetFlashMessage";
 
 export default function Topbar(props) {
-  const { getMe } = useSelector((state) => state);
   const router = useRouter();
+  const { getMe } = useSelector((state) => state);
   const logOut = async () => {
     await axios.get(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/log-out`);
+    Cookies.remove("token");
+    axios.defaults.headers["token"] = undefined;
+    SetFlashMessage({ type: "success", text: "Berhasil Log-Out" });
     router.push("/login");
   };
+
+  if (getMe.isError) {
+    logOut();
+  }
 
   return (
     <nav className="navbar navbar-expand navbar-light bg-gray-100 topbar mb-4 static-top shadow-sm">

@@ -10,13 +10,16 @@ const initialState = {
 export const counterSlice = createSlice({
   name: "counter",
   initialState,
+  // reducers : ,
   extraReducers: (builder) => {
     builder.addCase(getMe.pending, (state) => {
       state.isLoading = true;
+      state.isError = false;
     });
     builder.addCase(getMe.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
+      state.isError = false;
     });
     builder.addCase(getMe.rejected, (state, actions) => {
       state.isLoading = false;
@@ -26,14 +29,10 @@ export const counterSlice = createSlice({
 });
 
 export const getMe = createAsyncThunk("users/getMe", async (me, thunkAPI) => {
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/me`
-    );
-    return response.data.data;
-  } catch (error) {
-    return error
-  }
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/me`
+  );
+  return response.data.data;
 });
 
 // Action creators are generated for each case reducer function
