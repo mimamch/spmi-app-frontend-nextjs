@@ -19,9 +19,9 @@ export default function Bagian1() {
   const { user } = getMe;
   const dispatch = useDispatch();
   const apiEndPoint = `sub3/bagA5`;
-// REF TABLE
-const tableRef = useRef(null);
-// REF TABLE
+  // REF TABLE
+  const tableRef = useRef(null);
+  // REF TABLE
   const getData = async () => {
     try {
       const data = await axios.get(
@@ -157,12 +157,14 @@ const tableRef = useRef(null);
         <title>Substandar3 - Bagian 3-A-5</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         apiEndPoint={apiEndPoint}
         titleHeader={`Substandar3 - Bagian 3-A-5`}
         titleTable={`Bagian 3-A-5`}
       >
         <table
+          ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
           style={{ width: "100%", height: "100%" }}
@@ -203,7 +205,7 @@ const tableRef = useRef(null);
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

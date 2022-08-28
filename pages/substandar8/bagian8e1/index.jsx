@@ -213,6 +213,7 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-E-1</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={" Tabel 8.e.1 Tempat Kerja Lulusan"}
         titleTable={" Tabel 8.e.1 Tempat Kerja Lulusan"}
@@ -220,7 +221,11 @@ export default function Bagian1() {
           "   Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan"
         }
       >
-        <table id="dataTable" className="display table table-bordered ">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered "
+        >
           <thead>
             <tr>
               <th rowSpan="2" className="text-center">
@@ -237,7 +242,9 @@ export default function Bagian1() {
                 Tempat Kerja/Berwirausaha
               </th>
               {user.role == "admin" && <th rowSpan={2}>User</th>}
-              <th rowSpan="2" className="text-center">Komentar</th>
+              <th rowSpan="2" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="2" className="text-center">
                 Aksi
               </th>
@@ -268,6 +275,7 @@ export default function Bagian1() {
                 <td>{e.jumlahBerdasarkanTingkat.internasional}</td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
+                <td>{e.komentar}</td>
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
@@ -335,6 +343,8 @@ export default function Bagian1() {
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
+              {user.role == "admin" && <td></td>}
               <th></th>
             </tr>
           </tfoot>

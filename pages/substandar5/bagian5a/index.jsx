@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
+import Swal from "sweetalert2";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -184,14 +185,15 @@ export default function Bagian1() {
         <title>Substandar5 - Bagian 5-A</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Bagian 5 A`}
         titleTable={`Bagian 5 A`}
       >
         <table
+          ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
-          style={{ width: "100%" }}
         >
           <thead>
             <tr>
@@ -256,7 +258,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

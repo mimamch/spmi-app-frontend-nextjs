@@ -196,10 +196,12 @@ export default function Bagian1() {
       </Head>
       <TemplateTabel
         data={data}
+        tableRef={tableRef}
         titleHeader={`Substandar5 - Bagian 5-C`}
         titleTable={`Substandar5 - Bagian 5-C`}
       >
         <table
+          ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
           style={{ width: "100%", height: "100%" }}
@@ -223,7 +225,9 @@ export default function Bagian1() {
                   User
                 </th>
               )}
-              <th rowSpan="2" className="text-center">Komentar</th>
+              <th rowSpan="2" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="2" className="text-center">
                 Aksi
               </th>
@@ -254,9 +258,9 @@ export default function Bagian1() {
                 <td>{e.tingkatKepuasanMahasiswa.kurang + "%"}</td>
                 <td>{e.rencanaTindakLanjut}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
 
                 <td>
                   {user.role == "admin" && !e.isAccepted && (

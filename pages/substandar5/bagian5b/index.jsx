@@ -154,14 +154,15 @@ export default function Bagian1() {
         <title>Substandar5 - Bagian 5-B</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Tabel 5.b Integrasi Kegiatan Penelitian/PkM dalam Pembelajaran`}
         titleTable={`Tabel 5.b Integrasi Kegiatan Penelitian/PkM dalam Pembelajaran`}
       >
         <table
+          ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
-          style={{ width: "100%", height: "100%" }}
         >
           <thead>
             <tr>
@@ -196,7 +197,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

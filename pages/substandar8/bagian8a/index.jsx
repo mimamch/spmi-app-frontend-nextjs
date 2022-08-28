@@ -157,11 +157,16 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-A</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={"Tabel 8.a IPK Lulusan"}
         titleTable={"Tabel 8.a IPK Lulusan"}
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th rowSpan="2" className="text-center">
@@ -177,7 +182,9 @@ export default function Bagian1() {
                 Index Prestasi Kumulatif
               </th>
               {user.role == "admin" && <th rowSpan="2">User</th>}
-              <th rowSpan="2" className="text-center">Komentar</th>
+              <th rowSpan="2" className="text-center">
+                Komentar
+              </th>
               <th rowSpan="2" className="text-center">
                 Aksi
               </th>
@@ -210,7 +217,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

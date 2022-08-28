@@ -156,12 +156,17 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-B-5</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader="Substandar3 - Bagian 3-B-5"
         titleTable="Tabel 3.b.5 Karya Ilmiah DTPS yang Disitasi"
         titleSmall="Diisi oleh pengusul dari program studi pada program Sarjana/Sarjana Terapan/Magister/Magister Terapan/Doktor/Doktor Terapan"
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th>Nomor</th>
@@ -195,7 +200,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

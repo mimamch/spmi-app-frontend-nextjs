@@ -156,12 +156,17 @@ export default function Bagian1() {
         <title>Substandar6 - Bagian 6-A</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Tabel 6.a Penelitian DTPS yang Melibatkan Mahasiswa`}
         titleTable={`Tabel 6.a Penelitian DTPS yang Melibatkan Mahasiswa`}
         titleSmall={`Diisi oleh pengusul dari Program Studi pada program Sarjana/Sarjana Terapan/Magister/Magister Terapan/ Doktor/ Doktor Terapan.`}
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th>Nomor</th>
@@ -193,9 +198,9 @@ export default function Bagian1() {
                 <td>{e.judulKegiatan}</td>
                 <td>{e.tahun}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
 
                 <td>
                   {user.role == "admin" && !e.isAccepted && (

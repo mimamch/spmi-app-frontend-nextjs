@@ -18,7 +18,7 @@ export default function Bagian1() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
   const dispatch = useDispatch();
-  const apiEndPoint = `sub6/bag6B`; 
+  const apiEndPoint = `sub6/bag6B`;
   // REF TABLE
   const tableRef = useRef(null);
   // REF TABLE
@@ -157,12 +157,17 @@ export default function Bagian1() {
         <title>Substandar6 - Bagian 6-B</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Tabel 6.b Penelitian DTPS yang Menjadi Rujukan Tema Tesis/Disertasi`}
         titleTable={`Tabel 6.b Penelitian DTPS yang Menjadi Rujukan Tema Tesis/Disertasi`}
         titleSmall={`Diisi oleh pengusul dari Program Studi pada programSarjana/Sarjana Terapan/Magister/Magister Terapan/ Doktor/ Doktor Terapan.`}
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th>Nomor</th>
@@ -194,9 +199,9 @@ export default function Bagian1() {
                 <td>{e.judulTesis}</td>
                 <td>{e.tahun}</td>
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

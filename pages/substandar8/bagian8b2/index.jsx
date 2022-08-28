@@ -184,6 +184,7 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-B-2</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={"Tabel 8.b.2 Prestasi Non-akademik Mahasiswa"}
         titleTable={"Tabel 8.b.2 Prestasi Non-akademik Mahasiswa"}
@@ -191,7 +192,11 @@ export default function Bagian1() {
           "Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan"
         }
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th className="text-center">No.</th>
@@ -223,7 +228,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

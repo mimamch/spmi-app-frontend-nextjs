@@ -158,11 +158,13 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-B-7-1</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Tabel 3.b.7 Luaran Penelitian/PkM Lainnya oleh DTPS`}
         titleTable={`Tabel 3.b.7 Bagian-1 HKI (Paten, Paten Sederhana)`}
       >
         <table
+          ref={tableRef}
           id="dataTable"
           className="display table table-bordered"
           style={{ width: "100%", height: "100%" }}
@@ -196,7 +198,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

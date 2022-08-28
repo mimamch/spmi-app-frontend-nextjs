@@ -213,7 +213,7 @@ export default function Bagian1() {
             <tr>
               <th rowSpan="3" className="text-center">
                 No.
-              </th>{" "}
+              </th>
               <th rowSpan="3" className="text-center">
                 Nama Dosen
               </th>
@@ -248,10 +248,9 @@ export default function Bagian1() {
                 PkM
               </th>
               <th rowSpan="2" className="text-center">
-                Tugas Tambahan &/ Penunjang
+                Tugas Tambahan dan Penunjang
               </th>
             </tr>
-
             <tr>
               <th className="text-center">PS yang Diakreditasi</th>
               <th className="text-center">PS lain di dalam PT</th>
@@ -284,9 +283,9 @@ export default function Bagian1() {
                 </td>
 
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
-                {/* KOMENTAR */}
+
                 <td>{e.komentar}</td>
-                {/* KOMENTAR */}
+
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

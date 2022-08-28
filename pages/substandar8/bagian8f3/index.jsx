@@ -157,6 +157,7 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-F-3</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleSmaall={
           " Diisi oleh pengusul dari Program Studi pada program Diploma Tiga/Sarjana/Sarjana Terapan."
@@ -168,7 +169,11 @@ export default function Bagian1() {
           "  Tabel 8.f.3 Produk/Jasa DTPS yang Dihasilkan Mahasiswa yang Diadopsi oleh Industri/Masyarakat"
         }
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th className="text-center">Nomor</th>
@@ -177,6 +182,7 @@ export default function Bagian1() {
               <th className="text-center">Deskripsi Produk/ Jasa </th>
               <th className="text-center">Bukti</th>
               <th className="text-center">Tahun</th>
+              {user.role == "admin" && <th className="text-center">User</th>}
               <th className="text-center">Komentar</th>
               <th className="text-center">Aksi</th>
             </tr>
@@ -202,7 +208,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

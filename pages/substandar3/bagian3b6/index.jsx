@@ -158,6 +158,7 @@ export default function Bagian1() {
         <title>Substandar3 - Bagian 3-B-6</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={`Substandar3 - Bagian 3-B-6`}
         titleTable={`Tabel 3.b.6 Produk/Jasa DTPS yang Diadopsi oleh
@@ -168,6 +169,7 @@ export default function Bagian1() {
       >
         <table
           id="dataTable"
+          ref={tableRef}
           className="display table table-bordered"
           style={{ width: "100%", height: "100%" }}
         >
@@ -205,7 +207,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>

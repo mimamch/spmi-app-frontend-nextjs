@@ -184,11 +184,16 @@ export default function Bagian1() {
         <title>Substandar8 - Bagian 8-B-1</title>
       </Head>
       <TemplateTabel
+        tableRef={tableRef}
         data={data}
         titleHeader={" Tabel 8.b.1 Prestasi Akademik Mahasiswa"}
         titleTable={" Tabel 8.b.1 Prestasi Akademik Mahasiswa"}
       >
-        <table id="dataTable" className="display table table-bordered">
+        <table
+          ref={tableRef}
+          id="dataTable"
+          className="display table table-bordered"
+        >
           <thead>
             <tr>
               <th className="text-center">No.</th>
@@ -220,7 +225,7 @@ export default function Bagian1() {
                 {user.role == "admin" && <td>{e.user.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
-                        {/* KOMENTAR */}
+                {/* KOMENTAR */}
                 <td>
                   {user.role == "admin" && !e.isAccepted && (
                     <div>
