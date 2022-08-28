@@ -2,15 +2,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Bar, Pie, Doughnut, Line } from "react-chartjs-2";
 
-export default function GrafikSub2Bagian1() {
-  const [sub2bag1State, setsub2bag1State] = useState({});
+export default function GrafikSub2Bagian2() {
+  const [sub2bag2State, setsub2bag2State] = useState({});
   const getData = async () => {
     try {
-      const sub2bag1 = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/grafik/sub2/bag1`
+      const sub2bag2 = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/grafik/sub2/bag2`
       );
-      //   console.log(sub2bag1.data.data);
-      setsub2bag1State(sub2bag1.data.data);
+      // console.log(sub2bag2.data.data);
+      setsub2bag2State(sub2bag2.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -23,9 +23,7 @@ export default function GrafikSub2Bagian1() {
   return (
     <div className="card shadow mb-4">
       <div className="card-body mb-3">
-        <h4 className="card-title p-2 text-dark mx-5 my-5">
-          Substandar 2 Bagian A
-        </h4>
+        <h4 className="card-title p-2 text-dark ">Substandar 2 Bagian B</h4>
         <div className="row justify-content-around">
           <div className="col-md-3 ">
             <h5 className="card-title p-2 text-dark mx-5 my-5">
@@ -40,11 +38,11 @@ export default function GrafikSub2Bagian1() {
                 },
               }}
               data={{
-                labels: Object.keys(sub2bag1State.pengirim || {}),
+                labels: Object.keys(sub2bag2State.pengirim || {}),
                 datasets: [
                   {
                     label: "Jumlah",
-                    data: Object.values(sub2bag1State.pengirim || {}),
+                    data: Object.values(sub2bag2State.pengirim || {}),
                     backgroundColor: [
                       "rgba(255, 99, 132, 0.2)",
                       "rgba(54, 162, 235, 0.2)",
@@ -77,7 +75,7 @@ export default function GrafikSub2Bagian1() {
                 datasets: [
                   {
                     label: "#",
-                    data: Object.values(sub2bag1State.statusVerifikasi || {}),
+                    data: Object.values(sub2bag2State.statusVerifikasi || {}),
                     backgroundColor: [
                       "rgba(255, 99, 132, 0.2)",
                       "rgba(54, 162, 235, 0.2)",
@@ -101,34 +99,8 @@ export default function GrafikSub2Bagian1() {
             />
           </div>
           <div className="col-md-3 ">
-            <h5 className="card-title p-2 text-dark mx-5 my-5">Daya Tampung</h5>
-            <Doughnut
-              data={{
-                labels: Object.keys(sub2bag1State.dayaTampung || {}),
-                datasets: [
-                  {
-                    label: "Banyak Data Dari Prodi",
-                    data: Object.values(sub2bag1State.dayaTampung || {}),
-
-                    backgroundColor: [
-                      "rgba(242, 0, 255, 0.5)",
-                      "rgba(255, 0, 0, 0.5)",
-                      "rgba(255, 0, 0, 0.1)",
-                    ],
-                    borderColor: [
-                      "rgba(242, 0, 255, 1)",
-                      "rgba(255, 0, 0, 1)",
-                      "rgba(255, 206, 86, 1)",
-                    ],
-                    borderWidth: 1,
-                  },
-                ],
-              }}
-            />
-          </div>
-          <div className="col-md-3 ">
             <h5 className="card-title p-2 text-dark mx-5 my-5">
-              Jumlah Calon Mahasiswa
+              Jumlah Asing Penuh Waktu
             </h5>
             <Bar
               options={{
@@ -139,12 +111,14 @@ export default function GrafikSub2Bagian1() {
                 },
               }}
               data={{
-                labels: Object.keys(sub2bag1State.jumlahCalonMahasiswa || {}),
+                labels: Object.keys(
+                  sub2bag2State.jumlahMahasiswaAsingPenuhWaktu || {}
+                ),
                 datasets: [
                   {
                     label: "Jumlah Calon Mahasiswa",
                     data: Object.values(
-                      sub2bag1State.jumlahCalonMahasiswa || {}
+                      sub2bag2State.jumlahMahasiswaAsingPenuhWaktu || {}
                     ),
                     backgroundColor: [
                       "rgba(242, 0, 255, 0.5)",
@@ -164,7 +138,7 @@ export default function GrafikSub2Bagian1() {
           </div>
           <div className="col-md-3 ">
             <h5 className="card-title p-2 text-dark mx-5 my-5">
-              Jumlah Mahasiswa Baru
+              Jumlah Asing Paruh Waktu
             </h5>
             <Bar
               options={{
@@ -175,12 +149,14 @@ export default function GrafikSub2Bagian1() {
                 },
               }}
               data={{
-                labels: Object.keys(sub2bag1State.jumlahMahasiswaBaru || {}),
+                labels: Object.keys(
+                  sub2bag2State.jumlahMahasiswaAsingParuhWaktu || {}
+                ),
                 datasets: [
                   {
                     label: "Jumlah Mahasiswa Baru",
                     data: Object.values(
-                      sub2bag1State.jumlahMahasiswaBaru || {}
+                      sub2bag2State.jumlahMahasiswaAsingParuhWaktu || {}
                     ),
                     backgroundColor: [
                       "rgba(242, 0, 255, 0.5)",
@@ -211,12 +187,12 @@ export default function GrafikSub2Bagian1() {
                 },
               }}
               data={{
-                labels: Object.keys(sub2bag1State.jumlahMahasiswaAktif || {}),
+                labels: Object.keys(sub2bag2State.jumlahMahasiswaAktif || {}),
                 datasets: [
                   {
                     label: "Jumlah Mahasiswa Aktif",
                     data: Object.values(
-                      sub2bag1State.jumlahMahasiswaAktif || {}
+                      sub2bag2State.jumlahMahasiswaAktif || {}
                     ),
                     backgroundColor: [
                       "rgba(242, 0, 255, 0.5)",
