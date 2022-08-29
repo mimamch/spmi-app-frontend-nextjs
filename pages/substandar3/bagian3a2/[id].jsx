@@ -15,10 +15,11 @@ export default function Bagian1() {
   const { pathname } = router;
   const backPath = pathname.split("[")[0];
   const { id } = router.query;
+  const apiEndPoint = `sub3/bagA2`;
   const add = async (val) => {
     try {
       const data = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1/${id}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA2/${id}`,
         {
           ...val,
         }
@@ -38,11 +39,11 @@ export default function Bagian1() {
 
   const [initial, setInitial] = useState({});
 
-  const getData = async (_id) => {
+  const getData = async (id) => {
     try {
-      if (!_id) return;
+      if (!id) return;
       const data = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1/${_id}`
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA2/${id}`
       );
       setInitial(data.data.data);
     } catch (error) {
@@ -55,19 +56,20 @@ export default function Bagian1() {
   }, [id]);
 
   const temp = {
-    tahunAkademik: "",
-    dayaTampung: "",
-    jumlahCalonMahasiswa: {
-      pendaftar: "",
-      lulusSeleksi: "",
-    },
-    jumlahMahasiswaBaru: {
-      reguler: "",
-      transfer: "",
-    },
-    jumlahMahasiswaAktif: {
-      reguler: "",
-      transfer: "",
+    namaDosen: "",
+    jumlahMahasiswaYangDibimbing: {
+      PsAkreditasi: {
+        TS2: "",
+        TS1: "",
+        TS: "",
+        // avg: {type: Number, default: 0},
+      },
+      PsLain: {
+        TS2: "",
+        TS1: "",
+        TS: "",
+        // avg: {type: Number, default: 0},
+      },
     },
   };
 
@@ -92,87 +94,65 @@ export default function Bagian1() {
             </div>
             <div className="card-body">
               <EditFormTemplate
-                initialValues={{
-                  namaDosen: "",
-                  nidn: "",
-                  pendidikanPascaSarjana: {
-                    magister: "",
-                    doktor: "",
-                  },
-                  bidangKeahlian: "",
-                  keseuaian: "",
-                  jabatanAkademik: "",
-                  sertifikatPendidikProfessional: "",
-                  sertifikatKompetensi: "",
-                  mataKuliahYangDiAmpuPadaPsAkreditasi: "",
-                  kesesuaianBidangKeahlian: "",
-                  mataKuliahYangDiAmpuPadaPsLain: "",
-                }}
-                apiEndPoint={`sub3/bagA1`}
+                initialValues={temp}
+                apiEndPoint={apiEndPoint}
                 field={[
                   {
                     title: "Nama Dosen",
                     type: "text",
                     name: "namaDosen",
                   },
+
                   {
-                    title: "NIDN",
+                    title: "Jumlah Mahasiswa Yang Dibimbing",
                     type: "text",
-                    name: "nidn",
-                  },
-                  {
-                    title: "Pendidikan Pasca Sarjana",
-                    type: "text",
-                    name: "pendidikanPascaSarjana",
+                    name: "jumlahMahasiswaYangDibimbing",
                     child: [
                       {
-                        title: "Magister",
+                        title: "- PS yang Diakreditasi",
                         type: "text",
-                        name: "magister",
+                        name: "PsAkreditasi",
+                        child: [
+                          {
+                            title: "TS-2",
+                            type: "number",
+                            name: "TS2",
+                          },
+                          {
+                            title: "TS-1",
+                            type: "number",
+                            name: "TS1",
+                          },
+                          {
+                            title: "TS",
+                            type: "number",
+                            name: "TS",
+                          },
+                        ],
                       },
-                      { title: "Doktor", type: "text", name: "doktor" },
+                      {
+                        title: "- PS Lain",
+                        type: "text",
+                        name: "PsLain",
+                        child: [
+                          {
+                            title: "TS-2",
+                            type: "number",
+                            name: "TS2",
+                          },
+                          {
+                            title: "TS-1",
+                            type: "number",
+                            name: "TS1",
+                          },
+                          {
+                            title: "TS",
+                            type: "number",
+                            name: "TS",
+                          },
+                        ],
+                      },
                     ],
-                  },
-                  {
-                    title: "Bidang Keahlian",
-                    type: "text",
-                    name: "bidangKeahlian",
-                  },
-                  {
-                    title: "Kesesuaian dengan Kompetensi Inti PS",
-                    type: "text",
-                    name: "keseuaian",
-                  },
-                  {
-                    title: "Jabatan Akademik",
-                    type: "text",
-                    name: "jabatanAkademik",
-                  },
-                  {
-                    title: "Sertifikat Pendidik Professional",
-                    type: "text",
-                    name: "sertifikatPendidikProfessional",
-                  },
-                  {
-                    title: "Sertifikat Kompetensi",
-                    type: "text",
-                    name: "sertifikatKompetensi",
-                  },
-                  {
-                    title: "Mata Kuliah Yang DiAmpu Pada PS Yang diakreditasi",
-                    type: "text",
-                    name: "mataKuliahYangDiAmpuPadaPsAkreditasi",
-                  },
-                  {
-                    title:
-                      "Kesesuaian Bidang Keahlian dengan Mata Kuliah yang Diampu",
-                    type: "text",
-                    name: "kesesuaianBidangKeahlian",
-                  },
-                  {
-                    title: "Mata Kuliah Yang Diampu Pada PS Lain",
-                    type: "text",
-                    name: "mataKuliahYangDiAmpuPadaPsLain",
                   },
                 ]}
               />

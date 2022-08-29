@@ -117,7 +117,7 @@ export default function Bagian1() {
     try {
       if (act == "delete") {
         const data = await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_ENDPOINTKOMENTAR}/${apiEndPoint}/${id}`
+          `${process.env.NEXT_PUBLIC_API_ENDPOINT}/${apiEndPoint}/${id}`
         );
         toast.success(`Berhasil Melakukan Aksi`);
       } else {
