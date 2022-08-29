@@ -122,7 +122,7 @@ export default function Home(props) {
                       </div>
                     </div>
                     <div className="col-auto">
-                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i className="fas fa-user fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export default function Home(props) {
                       </div>
                     </div>
                     <div className="col-auto">
-                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i className="fas fa-clock fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export default function Home(props) {
                       </div>
                     </div>
                     <div className="col-auto">
-                      <i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i className="fas fa-calendar fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -177,7 +177,7 @@ export default function Home(props) {
                   <div className="row  justify-content-between items-center ">
                     <h5>VISI </h5>
                     <button
-                      className="btn btn-sm btn-success"
+                      className="btn btn-sm btn-warning"
                       onClick={() => {
                         setInitialValues({});
                         setTitle("Ubah Visi");
@@ -185,7 +185,7 @@ export default function Home(props) {
                         setIsShow(true);
                       }}
                     >
-                      <i className="fas fa-edit"></i>
+                      <i className="fas fa-pen"></i>
                     </button>
                   </div>
                 </div>
@@ -202,7 +202,7 @@ export default function Home(props) {
                   <div className="row  justify-content-between items-center ">
                     <h5>MISI </h5>
                     <button
-                      className="btn btn-sm btn-success"
+                      className="btn btn-sm btn-warning"
                       onClick={() => {
                         setInitialValues({});
                         setTitle("Ubah Misi");
@@ -212,7 +212,7 @@ export default function Home(props) {
                         setIsShow(true);
                       }}
                     >
-                      <i className="fas fa-edit"></i>
+                      <i className="fas fa-pen"></i>
                     </button>
                   </div>
                 </div>
@@ -229,7 +229,7 @@ export default function Home(props) {
                   <div className="row  justify-content-between items-center ">
                     <h5>TUJUAN </h5>
                     <button
-                      className="btn btn-sm btn-success"
+                      className="btn btn-sm btn-warning"
                       onClick={() => {
                         setInitialValues({});
                         setTitle("Ubah Tujuan");
@@ -239,7 +239,7 @@ export default function Home(props) {
                         setIsShow(true);
                       }}
                     >
-                      <i className="fas fa-edit"></i>
+                      <i className="fas fa-pen"></i>
                     </button>
                   </div>
                 </div>
@@ -256,7 +256,7 @@ export default function Home(props) {
                   <div className="row  justify-content-between items-center ">
                     <h5>SASARAN </h5>
                     <button
-                      className="btn btn-sm btn-success"
+                      className="btn btn-sm btn-warning"
                       onClick={() => {
                         setInitialValues({});
                         setTitle("Ubah Sasaran");
@@ -266,7 +266,7 @@ export default function Home(props) {
                         setIsShow(true);
                       }}
                     >
-                      <i className="fas fa-edit"></i>
+                      <i className="fas fa-pen"></i>
                     </button>
                   </div>
                 </div>

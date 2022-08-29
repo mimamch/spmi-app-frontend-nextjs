@@ -49,7 +49,7 @@ export default function Sidebar(props) {
         <li className="nav-item ">
           <Link href="/grafik-keseluruhan">
             <a className="nav-link">
-              <i className="fas fa-fw fa-tachometer-alt" />
+              <i className="fas fa-chart-area" />
               <span>Grafik Keseluruhan</span>
             </a>
           </Link>
@@ -69,7 +69,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseTwo"
         >
-          <i className="fas fa-fw fa-cog" />
+          <i className="fas fa-book" />
           <span>Substandar 1</span>
         </a>
         <div
@@ -102,7 +102,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities2"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 2</span>
         </a>
         <div
@@ -132,7 +132,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 3</span>
         </a>
         <div
@@ -205,7 +205,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities4"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 4</span>
         </a>
         <div
@@ -232,7 +232,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities5"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 5</span>
         </a>
         <div
@@ -265,7 +265,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities6"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 6</span>
         </a>
         <div
@@ -295,7 +295,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities7"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 7</span>
         </a>
         <div
@@ -322,7 +322,7 @@ export default function Sidebar(props) {
           aria-expanded="true"
           aria-controls="collapseUtilities8"
         >
-          <i className="fas fa-fw fa-wrench" />
+          <i className="fas fa-book" />
           <span>Substandar 8</span>
         </a>
         <div
