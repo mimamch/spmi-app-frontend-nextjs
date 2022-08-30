@@ -282,7 +282,7 @@ export default function Bagian1() {
                   {e.rataRataSks && Math.round(e.rataRataSks * 100) / 100}
                 </td>
 
-                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {user.role == "admin" && <td>{e?.user?.fullName}</td>}
 
                 <td>{e.komentar}</td>
 

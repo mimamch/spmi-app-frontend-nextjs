@@ -214,7 +214,7 @@ export default function Bagian1() {
                 <td>{IDRConverter(e.programStudi.TS1)}</td>
                 <td>{IDRConverter(e.programStudi.TS)}</td>
                 <td>{IDRConverter(Math.round(e.rataRataProgramStudi))}</td>
-                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
                 {/* KOMENTAR */}

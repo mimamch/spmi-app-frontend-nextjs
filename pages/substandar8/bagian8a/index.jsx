@@ -214,7 +214,7 @@ export default function Bagian1() {
                 <td>{e.indexPrestasiKumulatif.rataRata}</td>
                 <td>{e.indexPrestasiKumulatif.max}</td>
 
-                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
                 {/* KOMENTAR */}

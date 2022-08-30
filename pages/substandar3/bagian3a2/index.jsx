@@ -296,7 +296,7 @@ export default function Bagian1() {
                 <td>{e.jumlahMahasiswaYangDibimbing.PsLain?.TS}</td>
                 <td>{Math.round(e.avgPsLain * 100) / 100}</td>
                 <td>{Math.round(e.avgJumlah * 100) / 100}</td>
-                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
                 {/* KOMENTAR */}

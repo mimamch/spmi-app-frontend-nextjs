@@ -275,7 +275,7 @@ export default function Bagian1() {
                 <td>{e.jumlahTingkatKesesuaian.sedang}</td>
                 <td>{e.jumlahTingkatKesesuaian.tinggi}</td>
 
-                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
                 {/* KOMENTAR */}

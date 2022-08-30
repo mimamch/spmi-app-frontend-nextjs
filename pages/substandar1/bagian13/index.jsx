@@ -268,7 +268,7 @@ export default function Bagian3() {
                         <td>{e.waktuDanDurasi}</td>
                         <td>{e.buktiKerjasama}</td>
                         <td>{e.tahunBerakhir}</td>
-                        {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                         {/* KOMENTAR */}
                         <td>{e.komentar}</td>
                         {/* KOMENTAR */}

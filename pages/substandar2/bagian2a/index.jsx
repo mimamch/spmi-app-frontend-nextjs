@@ -381,7 +381,7 @@ export default function Bagian2A() {
                         <td>{e.jumlahMahasiswaBaru.transfer}</td>
                         <td>{e.jumlahMahasiswaAktif.reguler}</td>
                         <td>{e.jumlahMahasiswaAktif.transfer}</td>
-                        {user.role == "admin" && <td>{e.user.fullName}</td>}
+                        {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                         {/* KOMENTAR */}
                         <td>{e.komentar}</td>
                         {/* KOMENTAR */}

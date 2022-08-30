@@ -205,7 +205,7 @@ export default function Bagian1() {
                 <td>{e.bukti}</td>
                 <td>{e.tahun}</td>
 
-                {user.role == "admin" && <td>{e.user.fullName}</td>}
+                {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>
                 {/* KOMENTAR */}
