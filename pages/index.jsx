@@ -14,6 +14,12 @@ export default function Home(props) {
   const [isShow, setIsShow] = useState(false);
   const [title, setTitle] = useState("");
   const [initialValues, setInitialValues] = useState({});
+  const [initialHistory, setInitialHistory] = useState({
+    visi: [],
+    misi: [],
+    tujuan: [],
+    sasaran: [],
+  });
   const [profile, setprofile] = useState({});
   const submit = async (val) => {
     const data = await axios.post(
@@ -37,6 +43,13 @@ export default function Home(props) {
       const data = await axios.get(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/get-profile`
       );
+      const { visi, misi, tujuan, sasaran } = data?.data?.data;
+      setInitialHistory({
+        visi: visi || [],
+        misi: misi || [],
+        tujuan: tujuan || [],
+        sasaran: sasaran || [],
+      });
       setprofile(data.data.data);
     } catch (error) {
       console.log(error);
@@ -181,7 +194,9 @@ export default function Home(props) {
                       onClick={() => {
                         setInitialValues({});
                         setTitle("Ubah Visi");
-                        setInitialValues({ visi: profile.visi });
+                        setInitialValues({
+                          visi: profile?.visi?.[profile.visi?.length - 1] || "",
+                        });
                         setIsShow(true);
                       }}
                     >
@@ -191,7 +206,8 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.visi || "Visi Belum Di isi"}
+                    {profile?.visi?.[profile.visi?.length - 1] ||
+                      "Visi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -207,7 +223,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Misi");
                         setInitialValues({
-                          misi: profile.misi,
+                          misi: profile?.misi?.[profile.misi?.length - 1] || "",
                         });
                         setIsShow(true);
                       }}
@@ -218,7 +234,8 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.misi || "Misi Belum Di isi"}
+                    {profile.misi?.[profile.misi?.length - 1] ||
+                      "Misi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -234,7 +251,8 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Tujuan");
                         setInitialValues({
-                          tujuan: profile.tujuan,
+                          tujuan:
+                            profile.tujuan?.[profile.tujuan?.length - 1] || "",
                         });
                         setIsShow(true);
                       }}
@@ -245,7 +263,8 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.tujuan || "Tujuan Belum Di isi"}
+                    {profile.tujuan?.[profile.tujuan?.length - 1] ||
+                      "Tujuan Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -261,7 +280,9 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Sasaran");
                         setInitialValues({
-                          sasaran: profile.sasaran,
+                          sasaran:
+                            profile.sasaran?.[profile.sasaran?.length - 1] ||
+                            "",
                         });
                         setIsShow(true);
                       }}
@@ -272,7 +293,8 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.sasaran || "Sasaran Belum Di isi"}
+                    {profile.sasaran?.[profile.sasaran?.length - 1] ||
+                      "Sasaran Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -284,21 +306,23 @@ export default function Home(props) {
         style={{
           display: isShow ? "flex" : "none",
           justifyContent: "center",
-          alignItems: "center",
+          // alignItems: "center",
           minHeight: "100vh",
-          minWidth: "100vw",
-          position: "fixed",
+          width: "100%",
+          position: "absolute",
           inset: 0,
           zIndex: 20,
+          justifyContent: "center",
         }}
         className="p-5"
       >
         <div
           style={{
-            zIndex: 15,
             // position: "fixed",
             // width: "100%",
+            zIndex: 15,
             background: "white",
+            position: "absolute",
           }}
           className="col-md-6 p-5 rounded"
         >
@@ -330,6 +354,29 @@ export default function Home(props) {
               </div>
             </Form>
           </Formik>
+          <div
+            className="card p-3 mt-5"
+            style={{
+              zIndex: 15,
+              width: "100%",
+              position: "relative",
+            }}
+          >
+            <h5 className="card-title">
+              <i className="fas fa-history"></i> Riwayat
+            </h5>
+            <div className="card-body">
+              {initialHistory[`${Object.keys(initialValues)[0]}`]?.length == 0
+                ? null
+                : initialHistory[`${Object.keys(initialValues)[0]}`]?.map(
+                    (e, i) => (
+                      <div className="card mb-3" key={i}>
+                        <div className="card-body">{e}</div>
+                      </div>
+                    )
+                  )}
+            </div>
+          </div>
         </div>
         <div
           onClick={() => setIsShow(false)}
