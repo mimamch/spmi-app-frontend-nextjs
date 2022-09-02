@@ -163,7 +163,8 @@ export default function Bagian1() {
         let komentar = "";
         if (act == "decline") {
           const confirm = await Swal.fire({
-            title: "Tambahkan Komentar",
+            title: `Tambahkan Komentar 
+            <h4 class='text-danger'>Peringatan! Aksi tidak dapat diubah!</h4>`,
             input: "textarea",
             confirmButtonText: "Tolak",
             cancelButtonText: "Batal",
