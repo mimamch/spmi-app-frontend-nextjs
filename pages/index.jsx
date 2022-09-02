@@ -45,10 +45,10 @@ export default function Home(props) {
       );
       const { visi, misi, tujuan, sasaran } = data?.data?.data;
       setInitialHistory({
-        visi: visi || [],
-        misi: misi || [],
-        tujuan: tujuan || [],
-        sasaran: sasaran || [],
+        visi: visi?.reverse() || [],
+        misi: misi?.reverse() || [],
+        tujuan: tujuan?.reverse() || [],
+        sasaran: sasaran?.reverse() || [],
       });
       setprofile(data.data.data);
     } catch (error) {
@@ -110,7 +110,7 @@ export default function Home(props) {
                         TOTAL MAHASISWA
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {mahasiswa || 0}
+                        {mahasiswa ?? 0}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -131,7 +131,7 @@ export default function Home(props) {
                         TOTAL DOSEN
                       </div>
                       <div className="h5 mb-0 font-weight-bold text-gray-800">
-                        {dosen || 0}
+                        {dosen ?? 0}
                       </div>
                     </div>
                     <div className="col-auto">
@@ -195,7 +195,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Visi");
                         setInitialValues({
-                          visi: profile?.visi?.[profile.visi?.length - 1] || "",
+                          visi: profile?.visi?.[0] ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -206,8 +206,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile?.visi?.[profile.visi?.length - 1] ||
-                      "Visi Belum Di isi"}
+                    {profile?.visi?.[0] ?? "Visi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -223,7 +222,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Misi");
                         setInitialValues({
-                          misi: profile?.misi?.[profile.misi?.length - 1] || "",
+                          misi: profile?.misi?.[0] ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -234,8 +233,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.misi?.[profile.misi?.length - 1] ||
-                      "Misi Belum Di isi"}
+                    {profile?.misi?.[0] ?? "Misi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -251,8 +249,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Tujuan");
                         setInitialValues({
-                          tujuan:
-                            profile.tujuan?.[profile.tujuan?.length - 1] || "",
+                          tujuan: profile?.tujuan?.[0] ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -263,8 +260,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.tujuan?.[profile.tujuan?.length - 1] ||
-                      "Tujuan Belum Di isi"}
+                    {profile?.tujuan?.[0] ?? "Tujuan Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -280,9 +276,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Sasaran");
                         setInitialValues({
-                          sasaran:
-                            profile.sasaran?.[profile.sasaran?.length - 1] ||
-                            "",
+                          sasaran: profile?.sasaran?.[0] ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -293,8 +287,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile.sasaran?.[profile.sasaran?.length - 1] ||
-                      "Sasaran Belum Di isi"}
+                    {profile?.sasaran?.[0] ?? "Sasaran Belum Di isi"}
                   </p>
                 </div>
               </div>
