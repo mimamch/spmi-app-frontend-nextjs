@@ -18,6 +18,11 @@ export default function Bagian2() {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag2`,
         {
           ...val,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       Cookies.set(
@@ -42,6 +47,7 @@ export default function Bagian2() {
       waktuDanDurasi: "",
       buktiKerjasama: "",
       tahunBerakhir: "",
+      file: null,
     },
     onSubmit: (values) => add(values),
   });
@@ -165,6 +171,21 @@ export default function Bagian2() {
                     autoComplete="off"
                     value={formik.values.tahunBerakhir}
                     onChange={formik.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="file">File</label>
+                  <input
+                    required
+                    type="file"
+                    className="form-control"
+                    id="file"
+                    placeholder=""
+                    name="file"
+                    autoComplete="off"
+                    onChange={(value) =>
+                      formik.setFieldValue("file", value.currentTarget.files[0])
+                    }
                   />
                 </div>
 

@@ -13,11 +13,17 @@ export default function Bagian1() {
   const { pathname } = router;
   const backPath = pathname.split("add")[0];
   const add = async (val) => {
+    console.log(val);
     try {
       const data = await axios.post(
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1`,
         {
           ...val,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       Cookies.set(
@@ -42,6 +48,7 @@ export default function Bagian1() {
       waktuDanDurasi: "",
       buktiKerjasama: "",
       tahunBerakhir: "",
+      file: null,
     },
     onSubmit: (values) => add(values),
   });
@@ -165,6 +172,21 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.tahunBerakhir}
                     onChange={formik.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="file">Tahun Berakhirnya Kerjasama</label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="file"
+                    name="file"
+                    placeholder=""
+                    autoComplete="off"
+                    // value={formik.values.tahunBerakhir}
+                    onChange={(value) =>
+                      formik.setFieldValue("file", value.currentTarget.files[0])
+                    }
                   />
                 </div>
                 <button type="submit" className="btn btn-success">

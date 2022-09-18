@@ -22,10 +22,12 @@ export default function Home(props) {
   });
   const [profile, setprofile] = useState({});
   const submit = async (val) => {
+    // return console.log(val);
     const data = await axios.post(
       `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/edit-profile`,
       {
         ...val,
+        createdAt: new Date(),
       }
     );
     setInitialValues({});
@@ -55,7 +57,6 @@ export default function Home(props) {
       console.log(error);
     }
   };
-
   const getData = async () => {
     const mahasiswa = await axios.get(
       `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1`
@@ -195,7 +196,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Visi");
                         setInitialValues({
-                          visi: profile?.visi?.[0] ?? "",
+                          visi: profile?.visi?.[0]?.data ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -206,7 +207,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile?.visi?.[0] ?? "Visi Belum Di isi"}
+                    {profile?.visi?.[0]?.data ?? "Visi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -222,7 +223,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Misi");
                         setInitialValues({
-                          misi: profile?.misi?.[0] ?? "",
+                          misi: profile?.misi?.[0]?.data ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -233,7 +234,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile?.misi?.[0] ?? "Misi Belum Di isi"}
+                    {profile?.misi?.[0]?.data ?? "Misi Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -249,7 +250,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Tujuan");
                         setInitialValues({
-                          tujuan: profile?.tujuan?.[0] ?? "",
+                          tujuan: profile?.tujuan?.[0]?.data ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -260,7 +261,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile?.tujuan?.[0] ?? "Tujuan Belum Di isi"}
+                    {profile?.tujuan?.[0]?.data ?? "Tujuan Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -276,7 +277,7 @@ export default function Home(props) {
                         setInitialValues({});
                         setTitle("Ubah Sasaran");
                         setInitialValues({
-                          sasaran: profile?.sasaran?.[0] ?? "",
+                          sasaran: profile?.sasaran?.[0]?.data ?? "",
                         });
                         setIsShow(true);
                       }}
@@ -287,7 +288,7 @@ export default function Home(props) {
                 </div>
                 <div className="card-body">
                   <p className="card-text" style={{ whiteSpace: "pre-wrap" }}>
-                    {profile?.sasaran?.[0] ?? "Sasaran Belum Di isi"}
+                    {profile?.sasaran?.[0]?.data ?? "Sasaran Belum Di isi"}
                   </p>
                 </div>
               </div>
@@ -364,7 +365,15 @@ export default function Home(props) {
                 : initialHistory[`${Object.keys(initialValues)[0]}`]?.map(
                     (e, i) => (
                       <div className="card mb-3" key={i}>
-                        <div className="card-body">{e}</div>
+                        <div className="card-body">
+                          <p
+                            className="card-title"
+                            style={{ textAlign: "end" }}
+                          >
+                            {new Date(e.createdAt).toLocaleString()}
+                          </p>
+                          <p className="card-text">{e.data}</p>
+                        </div>
                       </div>
                     )
                   )}

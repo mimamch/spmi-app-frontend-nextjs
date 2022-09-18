@@ -8,6 +8,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { setChartData } from "../../../store/ChartModalSlice";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -201,9 +202,10 @@ export default function Bagian1() {
               <th className="text-center">Rekognisi dan Bukti Pendukung</th>
               <th className="text-center">Tingkat</th>
               <th className="text-center">Tahun</th>
+              <th className="text-center">File</th>
+              {user.role == "admin" && <th className="text-center">User</th>}
               <th className="text-center">Komentar</th>
               <th className="text-center">Aksi</th>
-              {user.role == "admin" && <th className="text-center">User</th>}
             </tr>
           </thead>
           <tbody>
@@ -222,7 +224,17 @@ export default function Bagian1() {
                 <td>{e.bidangKeahlian}</td>
                 <td>{e.rekognisiDanBuktiPendukung}</td>
                 <td>{e.tingkat}</td>
-                <td>{e.tahun}</td>
+                <td>{e.tahun}</td>{" "}
+                <td>
+                  {e.file && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => window.open(`${API_BASE_URL}/${e.file}`)}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
                 {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>

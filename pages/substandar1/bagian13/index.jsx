@@ -11,6 +11,7 @@ import { setChartData, setShowChart } from "../../../store/ChartModalSlice";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { useRef } from "react";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 export default function Bagian3() {
   const { getMe } = useSelector((state) => state);
   const { user } = getMe;
@@ -195,6 +196,24 @@ export default function Bagian3() {
               </Link>
             )}
           </div>
+          {user.role == "prodi" && (
+            <div className="card mb-2" style={{ width: "25rem" }}>
+              <div className="card-body">
+                <h5 className="card-title">Keterangan Warna : </h5>
+                <ul className="list-group card-text ">
+                  <li className="list-group-item bg-success text-white">
+                    Hijau : Verifikasi Diterima
+                  </li>
+                  <li className="list-group-item bg-danger text-white">
+                    Merah : Verifikasi Ditolak
+                  </li>
+                  <li className="list-group-item">
+                    Tidak berwarna : Belum Diverifikasi
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
           <div className="card shadow mb-4">
             <div className="card-header py-3 justify-content-between row">
               <button
@@ -242,6 +261,7 @@ export default function Bagian3() {
                       <th>Waktu dan Durasi</th>
                       <th>Bukti Kerjasama</th>
                       <th>Tahun Berakhirnya Kerjasama</th>
+                      <th>File</th>
                       {user.role == "admin" && <th>User</th>}
                       <th>Komentar</th>
                       <th>Aksi</th>
@@ -269,6 +289,18 @@ export default function Bagian3() {
                         <td>{e.waktuDanDurasi}</td>
                         <td>{e.buktiKerjasama}</td>
                         <td>{e.tahunBerakhir}</td>
+                        <td>
+                          {e.file && (
+                            <button
+                              className="btn btn-success btn-sm"
+                              onClick={() =>
+                                window.open(`${API_BASE_URL}/${e.file}`)
+                              }
+                            >
+                              Download
+                            </button>
+                          )}
+                        </td>
                         {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                         {/* KOMENTAR */}
                         <td>{e.komentar}</td>

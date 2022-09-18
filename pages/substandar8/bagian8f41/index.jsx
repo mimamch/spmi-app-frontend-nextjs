@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -105,6 +106,7 @@ export default function Bagian1() {
               <th className="text-center">Luaran Penelitian dan PkM</th>
               <th className="text-center">Tahun (YYYY)</th>
               <th className="text-center">Keterangan</th>
+              <th className="text-center">File</th>
               {user.role == "admin" && <th className="text-center">User</th>}
               <th className="text-center">Komentar</th>
               <th className="text-center">Aksi</th>
@@ -125,7 +127,16 @@ export default function Bagian1() {
                 <td>{e.luaranPenelitian}</td>
                 <td>{e.tahun}</td>
                 <td>{e.keterangan}</td>
-
+                <td>
+                  {e.file && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => window.open(`${API_BASE_URL}/${e.file}`)}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
                 {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>

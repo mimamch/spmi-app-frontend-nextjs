@@ -9,6 +9,7 @@ import Link from "next/link";
 import TemplateTabel from "../../../layouts/TablePageTemplate";
 import { setChartData } from "../../../store/ChartModalSlice";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -242,6 +243,7 @@ export default function Bagian1() {
                 Jumlah Lulusan Terlacak yang Bekerja Berdasarkan Tingkat/Ukuran
                 Tempat Kerja/Berwirausaha
               </th>
+              {<th rowSpan={2}>File</th>}
               {user.role == "admin" && <th rowSpan={2}>User</th>}
               <th rowSpan="2" className="text-center">
                 Komentar
@@ -274,7 +276,16 @@ export default function Bagian1() {
                 <td>{e.jumlahBerdasarkanTingkat.lokal}</td>
                 <td>{e.jumlahBerdasarkanTingkat.nasional}</td>
                 <td>{e.jumlahBerdasarkanTingkat.internasional}</td>
-
+                <td>
+                  {e.file && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => window.open(`${API_BASE_URL}/${e.file}`)}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
                 {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 <td>{e.komentar}</td>
                 <td>
@@ -340,6 +351,7 @@ export default function Bagian1() {
             <tr>
               <th></th>
               <th>Jumlah</th>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>

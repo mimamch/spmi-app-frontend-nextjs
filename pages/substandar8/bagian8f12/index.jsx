@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -242,6 +243,9 @@ export default function Bagian1() {
               <th rowSpan="2" className="text-center">
                 Jumlah
               </th>
+              <th rowSpan="2" className="text-center">
+                File
+              </th>
               {user.role == "admin" && (
                 <th rowSpan="2" className="text-center">
                   User
@@ -278,7 +282,16 @@ export default function Bagian1() {
                 <td>{e.jumlahJudul.TS1}</td>
                 <td>{e.jumlahJudul.TS1}</td>
                 <td>{e.jumlah}</td>
-
+                <td>
+                  {e.file && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => window.open(`${API_BASE_URL}/${e.file}`)}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
                 {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>

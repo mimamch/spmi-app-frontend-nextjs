@@ -18,6 +18,11 @@ export default function Bagian1() {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag2`,
         {
           ...val,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       Cookies.set(
@@ -69,134 +74,153 @@ export default function Bagian1() {
                     TS1: "",
                     TS: "",
                   },
+                  file: "",
                 }}
                 onSubmit={(values) => add(values)}
               >
-                <Form>
-                  <div className="form-group">
-                    <label htmlFor="InputForm">Program Studi</label>
-                    <Field
-                      type="text"
-                      className="form-control"
-                      id="InputForm"
-                      placeholder=""
-                      name="programStudi"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">
-                      <b>Jumlah Mahasiswa Aktif</b>
-                    </label>
-                  </div>
-                  <div className="row">
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS-2</label>
+                {(props) => (
+                  <Form>
+                    <div className="form-group">
+                      <label htmlFor="InputForm">Program Studi</label>
                       <Field
-                        type="number"
+                        type="text"
                         className="form-control"
+                        id="InputForm"
                         placeholder=""
-                        name="jumlahMahasiswaAktif.TS2"
+                        name="programStudi"
                       />
                     </div>
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS-1</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        name="jumlahMahasiswaAktif.TS1"
-                        placeholder=""
-                      />
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlSelect1">
+                        <b>Jumlah Mahasiswa Aktif</b>
+                      </label>
                     </div>
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS</label>
-                      <Field
-                        name="jumlahMahasiswaAktif.TS"
-                        type="number"
-                        className="form-control"
-                        placeholder=""
-                      />
+                    <div className="row">
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS-2</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          placeholder=""
+                          name="jumlahMahasiswaAktif.TS2"
+                        />
+                      </div>
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS-1</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="jumlahMahasiswaAktif.TS1"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS</label>
+                        <Field
+                          name="jumlahMahasiswaAktif.TS"
+                          type="number"
+                          className="form-control"
+                          placeholder=""
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <br />
-                  <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">
-                      <b>
-                        Jumlah Mahasiswa Asing Penuh Waktu (<i>Full-Time</i>)
-                      </b>
-                    </label>
-                  </div>
-                  <div className="row">
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS-2</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        name="jumlahMahasiswaAsingPenuhWaktu.TS2"
-                        placeholder=""
-                      />
+                    <br />
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlSelect1">
+                        <b>
+                          Jumlah Mahasiswa Asing Penuh Waktu (<i>Full-Time</i>)
+                        </b>
+                      </label>
                     </div>
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS-1</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        name="jumlahMahasiswaAsingPenuhWaktu.TS1"
-                        placeholder=""
-                      />
+                    <div className="row">
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS-2</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="jumlahMahasiswaAsingPenuhWaktu.TS2"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS-1</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="jumlahMahasiswaAsingPenuhWaktu.TS1"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="jumlahMahasiswaAsingPenuhWaktu.TS"
+                          placeholder=""
+                        />
+                      </div>
                     </div>
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        name="jumlahMahasiswaAsingPenuhWaktu.TS"
-                        placeholder=""
-                      />
+                    <br />
+                    <div className="form-group">
+                      <label htmlFor="exampleFormControlSelect1">
+                        <b>
+                          Jumlah Mahasiswa Asing Paruh Waktu (<i>Part-Time</i>)
+                        </b>
+                      </label>
                     </div>
-                  </div>
-                  <br />
-                  <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">
-                      <b>
-                        Jumlah Mahasiswa Asing Paruh Waktu (<i>Part-Time</i>)
-                      </b>
-                    </label>
-                  </div>
-                  <div className="row">
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS-2</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        placeholder=""
-                        name="jumlahMahasiswaAsingParuhWaktu.TS2"
-                      />
+                    <div className="row">
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS-2</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          placeholder=""
+                          name="jumlahMahasiswaAsingParuhWaktu.TS2"
+                        />
+                      </div>
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS-1</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="jumlahMahasiswaAsingParuhWaktu.TS1"
+                          placeholder=""
+                        />
+                      </div>
+                      <div className="col-2">
+                        <label htmlFor="exampleFormControlSelect1">TS</label>
+                        <Field
+                          type="number"
+                          className="form-control"
+                          name="jumlahMahasiswaAsingParuhWaktu.TS"
+                          placeholder=""
+                        />
+                      </div>
                     </div>
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS-1</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        name="jumlahMahasiswaAsingParuhWaktu.TS1"
-                        placeholder=""
-                      />
-                    </div>
-                    <div className="col-2">
-                      <label htmlFor="exampleFormControlSelect1">TS</label>
-                      <Field
-                        type="number"
-                        className="form-control"
-                        name="jumlahMahasiswaAsingParuhWaktu.TS"
-                        placeholder=""
-                      />
-                    </div>
-                  </div>
-                  <br />
 
-                  <button type="submit" className="btn btn-success">
-                    <i className="fa fa-plus"></i> Tambah Data
-                  </button>
-                </Form>
+                    <div className="form-group">
+                      <label htmlFor="file" className="">
+                        File
+                      </label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        id="file"
+                        name="file"
+                        onChange={(value) => {
+                          props.setFieldValue(
+                            "file",
+                            value.currentTarget.files[0]
+                          );
+                        }}
+                      />
+                    </div>
+                    <button type="submit" className="btn btn-success">
+                      <i className="fa fa-plus"></i> Tambah Data
+                    </button>
+                  </Form>
+                )}
               </Formik>
             </div>
           </div>

@@ -11,6 +11,7 @@ import TemplateTabel from "../../../layouts/TablePageTemplate";
 import Link from "next/link";
 import { setChartData } from "../../../store/ChartModalSlice";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -212,6 +213,7 @@ export default function Bagian1() {
               </th>
               <th rowSpan="2">Dokumen Rencana Pembelajaran</th>
               <th rowSpan="2">Unit Penyelenggara</th>
+              <th rowSpan="2">File</th>
               {user.role == "admin" && <th rowSpan="2">User</th>}
               <th rowSpan="2">Komentar</th>
               <th rowSpan="2">Aksi</th>
@@ -255,7 +257,16 @@ export default function Bagian1() {
                 <td>{e.capaianPembelajaran.keterampilanKhusus}</td>
                 <td>{e.dokumenRencanaPembelajaran}</td>
                 <td>{e.unitPenyelenggara}</td>
-
+                <td>
+                  {e.file && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => window.open(`${API_BASE_URL}/${e.file}`)}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
                 {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>

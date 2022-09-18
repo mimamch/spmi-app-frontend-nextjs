@@ -42,6 +42,26 @@ export default function TemplateTabel({
               </Link>
             )}
           </div>
+
+          {user.role == "prodi" && (
+            <div className="card mb-2" style={{ width: "25rem" }}>
+              <div className="card-body">
+                <h5 className="card-title">Keterangan Warna : </h5>
+                <ul className="list-group card-text ">
+                  <li className="list-group-item bg-success text-white">
+                    Hijau : Verifikasi Diterima
+                  </li>
+                  <li className="list-group-item bg-danger text-white">
+                    Merah : Verifikasi Ditolak
+                  </li>
+                  <li className="list-group-item">
+                    Tidak berwarna : Belum Diverifikasi
+                  </li>
+                </ul>
+              </div>
+            </div>
+          )}
+
           <div className="card shadow mb-4">
             <div className="card-header py-3 justify-content-between row">
               <button

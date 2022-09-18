@@ -40,6 +40,7 @@ export default function Login() {
         Cookies.set("token", log.data.data.token, {
           expires: 7,
         });
+
         axios.defaults.headers["token"] = log.data.data.token;
         Cookies.set(
           "flash",

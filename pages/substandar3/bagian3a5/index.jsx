@@ -11,6 +11,7 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import { setChartData } from "../../../store/ChartModalSlice";
 import Swal from "sweetalert2";
+import { API_BASE_URL } from "../../../lib/shared_variables";
 
 export default function Bagian1() {
   const [data, setData] = useState([]);
@@ -179,6 +180,7 @@ export default function Bagian1() {
               <th>NIDK</th>
               <th>Mata Kuliah Yang Diampu</th>
               <th>Bobot Kredit (SKS)</th>
+              <th>File</th>
               {user.role == "admin" && <th>User</th>}
               <th>Komentar</th>
               <th>Aksi</th>
@@ -202,7 +204,16 @@ export default function Bagian1() {
                 <td>{e.nidk}</td>
                 <td>{e.mataKuliahYangDiAmpu}</td>
                 <td>{e.bobotKredit}</td>
-
+                <td>
+                  {e.file && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={() => window.open(`${API_BASE_URL}/${e.file}`)}
+                    >
+                      Download
+                    </button>
+                  )}
+                </td>
                 {user.role == "admin" && <td>{e?.user?.fullName}</td>}
                 {/* KOMENTAR */}
                 <td>{e.komentar}</td>

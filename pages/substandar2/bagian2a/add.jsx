@@ -18,6 +18,11 @@ export default function Bagian1() {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1`,
         {
           ...val,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       Cookies.set(
@@ -67,135 +72,157 @@ export default function Bagian1() {
                     reguler: "",
                     transfer: "",
                   },
+                  file: "",
                 }}
                 onSubmit={(values) => add(values)}
               >
-                <Form>
-                  <div className="form-group">
-                    <label htmlFor="text1">Tahun Akademik</label>
-                    <Field
-                      required
-                      type="text"
-                      className="form-control"
-                      id="text1"
-                      name="tahunAkademik"
-                      placeholder=""
-                      autoComplete="off"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="dayaTampung">Daya Tampung</label>
-                    <Field
-                      required
-                      type="number"
-                      className="form-control"
-                      id="dayaTampung"
-                      name="dayaTampung"
-                      placeholder=""
-                      autoComplete="off"
-                    />
-                  </div>
-                  <label className="col-4  text-center">
-                    Jumlah Calon Mahasiswa
-                  </label>
-                  <div className="row">
-                    <div className="form-group col-2">
-                      <label htmlFor="Pendaftar">Pendaftar</label>
+                {(props) => (
+                  <Form>
+                    <div className="form-group">
+                      <label htmlFor="text1">Tahun Akademik</label>
                       <Field
                         required
-                        type="number"
+                        type="text"
                         className="form-control"
-                        id="Pendaftar"
-                        name="jumlahCalonMahasiswa.pendaftar"
+                        id="text1"
+                        name="tahunAkademik"
                         placeholder=""
                         autoComplete="off"
                       />
                     </div>
-                    <div className="form-group col-2">
-                      <label htmlFor="Lulus" className="text-right  col">
-                        Lulus Seleksi
+
+                    <div className="form-group">
+                      <label htmlFor="dayaTampung">Daya Tampung</label>
+                      <Field
+                        required
+                        type="number"
+                        className="form-control"
+                        id="dayaTampung"
+                        name="dayaTampung"
+                        placeholder=""
+                        autoComplete="off"
+                      />
+                    </div>
+                    <label className="col-4  text-center">
+                      Jumlah Calon Mahasiswa
+                    </label>
+                    <div className="row">
+                      <div className="form-group col-2">
+                        <label htmlFor="Pendaftar">Pendaftar</label>
+                        <Field
+                          required
+                          type="number"
+                          className="form-control"
+                          id="Pendaftar"
+                          name="jumlahCalonMahasiswa.pendaftar"
+                          placeholder=""
+                          autoComplete="off"
+                        />
+                      </div>
+                      <div className="form-group col-2">
+                        <label htmlFor="Lulus" className="text-right  col">
+                          Lulus Seleksi
+                        </label>
+                        <Field
+                          required
+                          type="number"
+                          className="form-control"
+                          id="Lulus"
+                          name="jumlahCalonMahasiswa.lulusSeleksi"
+                          placeholder=""
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+
+                    <label className="col-4 text-center">
+                      Jumlah Mahasiswa Baru
+                    </label>
+                    <div className="row">
+                      <div className="form-group col-2">
+                        <label htmlFor="Reguler">Reguler</label>
+                        <Field
+                          required
+                          type="number"
+                          className="form-control"
+                          id="Reguler"
+                          name="jumlahMahasiswaBaru.reguler"
+                          placeholder=""
+                          autoComplete="off"
+                        />
+                      </div>
+                      <div className="form-group col-2">
+                        <label htmlFor="transfer" className="text-right  col">
+                          Transfer
+                        </label>
+                        <Field
+                          required
+                          type="number"
+                          className="form-control"
+                          id="transfer"
+                          name="jumlahMahasiswaBaru.transfer"
+                          placeholder=""
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+
+                    <label className="col-4 text-center">
+                      Jumlah Mahasiswa Aktif
+                    </label>
+                    <div className="row">
+                      <div className="form-group col-2">
+                        <label htmlFor="Reguler">Reguler</label>
+                        <Field
+                          required
+                          type="number"
+                          className="form-control"
+                          id="Reguler"
+                          name="jumlahMahasiswaAktif.reguler"
+                          placeholder=""
+                          autoComplete="off"
+                        />
+                      </div>
+                      <div className="form-group col-2">
+                        <label htmlFor="transfer" className="text-right  col">
+                          Transfer
+                        </label>
+                        <Field
+                          required
+                          type="number"
+                          className="form-control"
+                          id="transfer"
+                          name="jumlahMahasiswaAktif.transfer"
+                          placeholder=""
+                          autoComplete="off"
+                        />
+                      </div>
+                    </div>
+                    <div className="form-group ">
+                      <label htmlFor="file" className="text-right ">
+                        File
                       </label>
-                      <Field
-                        required
-                        type="number"
+                      <input
+                        type="file"
                         className="form-control"
-                        id="Lulus"
-                        name="jumlahCalonMahasiswa.lulusSeleksi"
+                        id="file"
+                        name="file"
                         placeholder=""
                         autoComplete="off"
+                        onChange={(value) => {
+                          console.log(value.currentTarget.files[0]);
+                          props.setFieldValue(
+                            "file",
+                            value.currentTarget.files[0]
+                          );
+                        }}
                       />
                     </div>
-                  </div>
-
-                  <label className="col-4 text-center">
-                    Jumlah Mahasiswa Baru
-                  </label>
-                  <div className="row">
-                    <div className="form-group col-2">
-                      <label htmlFor="Reguler">Reguler</label>
-                      <Field
-                        required
-                        type="number"
-                        className="form-control"
-                        id="Reguler"
-                        name="jumlahMahasiswaBaru.reguler"
-                        placeholder=""
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="form-group col-2">
-                      <label htmlFor="transfer" className="text-right  col">
-                        Transfer
-                      </label>
-                      <Field
-                        required
-                        type="number"
-                        className="form-control"
-                        id="transfer"
-                        name="jumlahMahasiswaBaru.transfer"
-                        placeholder=""
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
-
-                  <label className="col-4 text-center">
-                    Jumlah Mahasiswa Aktif
-                  </label>
-                  <div className="row">
-                    <div className="form-group col-2">
-                      <label htmlFor="Reguler">Reguler</label>
-                      <Field
-                        required
-                        type="number"
-                        className="form-control"
-                        id="Reguler"
-                        name="jumlahMahasiswaAktif.reguler"
-                        placeholder=""
-                        autoComplete="off"
-                      />
-                    </div>
-                    <div className="form-group col-2">
-                      <label htmlFor="transfer" className="text-right  col">
-                        Transfer
-                      </label>
-                      <Field
-                        required
-                        type="number"
-                        className="form-control"
-                        id="transfer"
-                        name="jumlahMahasiswaAktif.transfer"
-                        placeholder=""
-                        autoComplete="off"
-                      />
-                    </div>
-                  </div>
-
-                  <button type="submit" className="btn btn-success">
-                    <i className="fa fa-plus"></i> Tambah Data
-                  </button>
-                </Form>
+                    <button type="submit" className="btn btn-success">
+                      <i className="fa fa-plus"></i> Tambah Data
+                    </button>
+                  </Form>
+                )}
               </Formik>
             </div>
           </div>
