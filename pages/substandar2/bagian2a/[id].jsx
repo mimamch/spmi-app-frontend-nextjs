@@ -20,6 +20,11 @@ export default function Bagian1() {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub2/bag1/${id}`,
         {
           ...val,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       Cookies.set(
@@ -110,7 +115,6 @@ export default function Bagian1() {
                       autoComplete="off"
                     />
                   </div>
-
                   <div className="form-group">
                     <label htmlFor="dayaTampung">Daya Tampung</label>
                     <Field
@@ -154,7 +158,6 @@ export default function Bagian1() {
                       />
                     </div>
                   </div>
-
                   <label className="col-4 text-center">
                     Jumlah Mahasiswa Baru
                   </label>
@@ -186,7 +189,6 @@ export default function Bagian1() {
                       />
                     </div>
                   </div>
-
                   <label className="col-4 text-center">
                     Jumlah Mahasiswa Aktif
                   </label>
@@ -218,7 +220,24 @@ export default function Bagian1() {
                       />
                     </div>
                   </div>
-
+                  <div className="form-group">
+                    <label htmlFor="file">File</label>
+                    <input
+                      required
+                      type="file"
+                      className="form-control"
+                      id="file"
+                      placeholder=""
+                      name="file"
+                      autoComplete="off"
+                      onChange={(value) =>
+                        formik.setFieldValue(
+                          "file",
+                          value.currentTarget.files[0]
+                        )
+                      }
+                    />
+                  </div>
                   <button type="submit" className="btn btn-success">
                     <i className="fa fa-plus"></i> Tambah Data
                   </button>

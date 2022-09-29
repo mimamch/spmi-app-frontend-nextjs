@@ -274,18 +274,18 @@ export default function Bagian1() {
             )}
           </div>
           {user.role == "prodi" && (
-            <div className="card mb-2" style={{ width: "25rem" }}>
+            <div className="card mb-2" style={{ width: "35rem" }}>
               <div className="card-body">
                 <h5 className="card-title">Keterangan Warna : </h5>
                 <ul className="list-group card-text ">
                   <li className="list-group-item bg-success text-white">
-                    Hijau : Verifikasi Diterima
+                    Hijau Pada Kolom Nomor Artinya Terverifikasi
                   </li>
                   <li className="list-group-item bg-danger text-white">
-                    Merah : Verifikasi Ditolak
+                    Merah Pada Kolom Nomor Artinya Verifikasi Ditolak
                   </li>
                   <li className="list-group-item">
-                    Tidak berwarna : Belum Diverifikasi
+                    Putih Artinya Belum Diverifikasi
                   </li>
                 </ul>
               </div>

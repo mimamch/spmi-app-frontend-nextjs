@@ -20,6 +20,11 @@ export default function Bagian1() {
         `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub1/bag1/${id}`,
         {
           ...val,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
       Cookies.set(
@@ -36,7 +41,6 @@ export default function Bagian1() {
   };
 
   const [initial, setInitial] = useState({});
-
   const getData = async (_id) => {
     try {
       if (!_id) return;
@@ -60,7 +64,8 @@ export default function Bagian1() {
     manfaat: "",
     waktuDanDurasi: "",
     buktiKerjasama: "",
-    tahunBerakhir: 353,
+    tahunBerakhir: "",
+    file: null,
   };
 
   const formik = useFormik({
@@ -207,6 +212,21 @@ export default function Bagian1() {
                     autoComplete="off"
                     value={formik.values.tahunBerakhir}
                     onChange={formik.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="file">File</label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="file"
+                    name="file"
+                    placeholder=""
+                    autoComplete="off"
+                    // value={formik.values.file}
+                    onChange={(value) =>
+                      formik.setFieldValue("file", value.currentTarget.files[0])
+                    }
                   />
                 </div>
                 <button type="submit" className="btn btn-success">

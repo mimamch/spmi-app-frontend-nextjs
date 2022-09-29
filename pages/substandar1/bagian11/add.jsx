@@ -175,7 +175,7 @@ export default function Bagian1() {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="file">Tahun Berakhirnya Kerjasama</label>
+                  <label htmlFor="file">File</label>
                   <input
                     type="file"
                     className="form-control"
