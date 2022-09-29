@@ -72,6 +72,7 @@ export default function Home(props) {
     const dsn = await axios.get(
       `${process.env.NEXT_PUBLIC_API_ENDPOINT}/sub3/bagA1`
     );
+    // console.log(first)
     setdosen(dsn.data.data.length);
   };
 
